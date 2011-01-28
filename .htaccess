@@ -1,0 +1,12 @@
+
+# BEGIN WordPress
+RewriteEngine On
+RewriteBase /framework/
+RewriteCond %{REQUEST_FILENAME} !-l
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* test.php [L,QSA]
+
+
+# END WordPress
+
