@@ -3,7 +3,9 @@
 /**
 	Base class, all the others inherit from it
 		@author Roland Szabo
-		@todo Error handling class
+		@todo Error handling function
+		@todo Autoloading function
+		@todo ORM
 **/
 class base {
 	//@{
@@ -62,7 +64,11 @@ class rolisz extends base {
 		// Check if valid route pattern
 		$pattern = trim($pattern,' /');
 		$pattern = explode('/',$pattern);
-		
+		foreach ($pattern as &$part) {
+			if ($part[0]==':') {
+				$part=':';
+			}
+		}
 		// Check if http is correct 
 		$http = explode('|',$http);
 		foreach ($http as $method) {
@@ -110,7 +116,8 @@ class rolisz extends base {
 	}
 	
 	/**
-		Process routes based on incoming URI
+		Process routes based on incoming URI. \n
+		URL that is not matched will be passed as arguments to the functions that are called
 			@public
 	**/
 	
@@ -128,17 +135,31 @@ class rolisz extends base {
 		// Get the current URL part after base
 		$route = explode ('/',trim(substr($_SERVER['REQUEST_URI'],strlen(self::$global['BASE'])),' /'));
 
+		$args=array();
 		// Search recursively the depth to which an identical route is defined 
 		$i=0;
 		while (is_array($routes)) {
-			if (isset ($route[$i]) && isset($routes[$route[$i]])) {
-				$routes=$routes[$route[$i]];
-				$i++;
+			if (isset ($route[$i])) {
+				//If the same part is next in both the route and the url
+				if (isset($routes[$route[$i]])) {
+					$routes=$routes[$route[$i]];
+					$i++;
+				}
+				//If the route contains a variable and the following part matches too
+				elseif (isset($routes[':']) && ((is_array($routes[':']) && isset($route[$i+1]) && isset($routes[':'][$route[$i+1]])) || !is_array($routes[':'])) ) {
+					$routes=$routes[':'];
+					$args[]=$route[$i];
+					$i++;
+				}
+				//If there is a catchall 
+				else {
+					$routes=$routes['*'];
+					$args=implode('/',array_splice($route,$i));
+				}
 			}
 			else 
 				break;
 		}
-
 		if (!is_array($routes)) {
 				$found=TRUE;
 		}
@@ -150,18 +171,19 @@ class rolisz extends base {
 		if (!$found) {
 			self::http404();
 		}
+		else {
 		
 		//Remaining part of URL is passed to functions as arguments
-		$args=array_splice($route,$i);
 		rolisz::call($routes,$args);
 		
 		// Delay output
 		$elapsed=time()-$time;
 		if (self::$global['THROTTLE']/1e3>$elapsed)
 			usleep(1e6*(self::$global['THROTTLE']/1e3-$elapsed));
-			
+		}
 		return;
 	}
+	
 
 	/** 
 		Return value of framework variable, false if not found
@@ -199,7 +221,7 @@ class rolisz extends base {
 	**/
 	public static function call($funcs,$args) {
 		if (!is_array($args)) {
-			$args=$array($args);
+			$args=array($args);
 		}
 		if (is_string($funcs)) {
 			// Call each code segment
