@@ -1,0 +1,219 @@
+\hypertarget{classrolisz}{
+\section{rolisz Class Reference}
+\label{classrolisz}\index{rolisz@{rolisz}}
+}
+Inheritance diagram for rolisz:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classrolisz}
+\end{center}
+\end{figure}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classrolisz_ae9dbb7550b587e4e19bca121029e088b}{route} (\$pattern, \$funcs, \$http= 'GET')
+\item 
+static \hyperlink{classrolisz_ad3a572002fd350672b531756f7306e8f}{run} ()
+\item 
+static \hyperlink{classrolisz_a0e8f3e2708d9f0c6ee7b54599f57ea34}{get} (\$var)
+\item 
+static \hyperlink{classrolisz_a1d7c8d5e3d237bc3217650f79ab35bd3}{set} (\$var, \$value)
+\item 
+static \hyperlink{classrolisz_af732c33c326c863efe6dd2cccb21a9a5}{call} (\$funcs, \$args)
+\item 
+static \hyperlink{classrolisz_ad1b6efe27562cb6620a179f5688417bb}{recursify} (\$array, \$end= '')
+\item 
+static \hyperlink{classrolisz_a6fdc4c9fc517c619d860c7e91d17b02d}{http404} ()
+\item 
+static \hyperlink{classrolisz_a13d0c0500b75a5bdd849a4a55ba8e2b1}{fixSlashes} (\$str)
+\item 
+static \hyperlink{classrolisz_a031dd360aea86d999059dbfd18687973}{fixQuotes} (\$val)
+\item 
+static \hyperlink{classrolisz_ab8e0e9e5ffd59108f38efefe79511c5b}{fixBraces} (\$str)
+\item 
+static \hyperlink{classrolisz_a146085d0f3a9d17bdcd7f3d4081d8c0d}{start} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Main class, contains the URL routing thingies, a few cleanups thingies \begin{DoxyAuthor}{Author}
+Roland Szabo 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classrolisz_af732c33c326c863efe6dd2cccb21a9a5}{
+\index{rolisz@{rolisz}!call@{call}}
+\index{call@{call}!rolisz@{rolisz}}
+\subsubsection[{call}]{\setlength{\rightskip}{0pt plus 5cm}static call (
+\begin{DoxyParamCaption}
+\item[{\$}]{funcs, }
+\item[{\$}]{args}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classrolisz_af732c33c326c863efe6dd2cccb21a9a5}
+Provide sandbox for functions and import files to prevent direct access to framework internals and other scripts 
+\begin{DoxyParams}{Parameters}
+{\em \$funcs} & mixed \\
+\hline
+{\em \$args} & array \\
+\hline
+\end{DoxyParams}
+\hypertarget{classrolisz_ab8e0e9e5ffd59108f38efefe79511c5b}{
+\index{rolisz@{rolisz}!fixBraces@{fixBraces}}
+\index{fixBraces@{fixBraces}!rolisz@{rolisz}}
+\subsubsection[{fixBraces}]{\setlength{\rightskip}{0pt plus 5cm}static fixBraces (
+\begin{DoxyParamCaption}
+\item[{\$}]{str}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classrolisz_ab8e0e9e5ffd59108f38efefe79511c5b}
+Fix mangled braces \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em \$str} & string \\
+\hline
+\end{DoxyParams}
+\hypertarget{classrolisz_a031dd360aea86d999059dbfd18687973}{
+\index{rolisz@{rolisz}!fixQuotes@{fixQuotes}}
+\index{fixQuotes@{fixQuotes}!rolisz@{rolisz}}
+\subsubsection[{fixQuotes}]{\setlength{\rightskip}{0pt plus 5cm}static fixQuotes (
+\begin{DoxyParamCaption}
+\item[{\$}]{val}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classrolisz_a031dd360aea86d999059dbfd18687973}
+Convert double quotes to equivalent XML entities (\&\#34;) \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em \$val} & string \\
+\hline
+\end{DoxyParams}
+\hypertarget{classrolisz_a13d0c0500b75a5bdd849a4a55ba8e2b1}{
+\index{rolisz@{rolisz}!fixSlashes@{fixSlashes}}
+\index{fixSlashes@{fixSlashes}!rolisz@{rolisz}}
+\subsubsection[{fixSlashes}]{\setlength{\rightskip}{0pt plus 5cm}static fixSlashes (
+\begin{DoxyParamCaption}
+\item[{\$}]{str}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classrolisz_a13d0c0500b75a5bdd849a4a55ba8e2b1}
+Convert Windows double-\/backslashes to slashes \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em \$str} & string \\
+\hline
+\end{DoxyParams}
+\hypertarget{classrolisz_a0e8f3e2708d9f0c6ee7b54599f57ea34}{
+\index{rolisz@{rolisz}!get@{get}}
+\index{get@{get}!rolisz@{rolisz}}
+\subsubsection[{get}]{\setlength{\rightskip}{0pt plus 5cm}static get (
+\begin{DoxyParamCaption}
+\item[{\$}]{var}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classrolisz_a0e8f3e2708d9f0c6ee7b54599f57ea34}
+Return value of framework variable, false if not found \begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em \$var} & string \\
+\hline
+\end{DoxyParams}
+\hypertarget{classrolisz_a6fdc4c9fc517c619d860c7e91d17b02d}{
+\index{rolisz@{rolisz}!http404@{http404}}
+\index{http404@{http404}!rolisz@{rolisz}}
+\subsubsection[{http404}]{\setlength{\rightskip}{0pt plus 5cm}static http404 (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classrolisz_a6fdc4c9fc517c619d860c7e91d17b02d}
+Trigger an HTTP 404 error \hypertarget{classrolisz_ad1b6efe27562cb6620a179f5688417bb}{
+\index{rolisz@{rolisz}!recursify@{recursify}}
+\index{recursify@{recursify}!rolisz@{rolisz}}
+\subsubsection[{recursify}]{\setlength{\rightskip}{0pt plus 5cm}static recursify (
+\begin{DoxyParamCaption}
+\item[{\$}]{array, }
+\item[{\$}]{end = {\ttfamily ''}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classrolisz_ad1b6efe27562cb6620a179f5688417bb}
+Turn linear array into a recursively nested array, with optional argument to be the the value at the end \par
+ ex: array('1','2','3') turns into array('1'=$>$array('2'=$>$array('3'=$>$''))) \begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+
+\begin{DoxyParams}{Parameters}
+{\em \$array} & array \\
+\hline
+{\em \$end} & mixed \\
+\hline
+\end{DoxyParams}
+\hypertarget{classrolisz_ae9dbb7550b587e4e19bca121029e088b}{
+\index{rolisz@{rolisz}!route@{route}}
+\index{route@{route}!rolisz@{rolisz}}
+\subsubsection[{route}]{\setlength{\rightskip}{0pt plus 5cm}static route (
+\begin{DoxyParamCaption}
+\item[{\$}]{pattern, }
+\item[{\$}]{funcs, }
+\item[{\$}]{http = {\ttfamily 'GET'}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classrolisz_ae9dbb7550b587e4e19bca121029e088b}
+Assign handler to route pattern 
+\begin{DoxyParams}{Parameters}
+{\em \$pattern} & string \\
+\hline
+{\em \$funcs} & mixed \\
+\hline
+{\em \$http} & string \\
+\hline
+\end{DoxyParams}
+\hypertarget{classrolisz_ad3a572002fd350672b531756f7306e8f}{
+\index{rolisz@{rolisz}!run@{run}}
+\index{run@{run}!rolisz@{rolisz}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}static run (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classrolisz_ad3a572002fd350672b531756f7306e8f}
+Process routes based on incoming URI \hypertarget{classrolisz_a1d7c8d5e3d237bc3217650f79ab35bd3}{
+\index{rolisz@{rolisz}!set@{set}}
+\index{set@{set}!rolisz@{rolisz}}
+\subsubsection[{set}]{\setlength{\rightskip}{0pt plus 5cm}static set (
+\begin{DoxyParamCaption}
+\item[{\$}]{var, }
+\item[{\$}]{value}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classrolisz_a1d7c8d5e3d237bc3217650f79ab35bd3}
+Set value of framework variable 
+\begin{DoxyParams}{Parameters}
+{\em \$var} & string \\
+\hline
+{\em \$value} & mixed \\
+\hline
+\end{DoxyParams}
+\hypertarget{classrolisz_a146085d0f3a9d17bdcd7f3d4081d8c0d}{
+\index{rolisz@{rolisz}!start@{start}}
+\index{start@{start}!rolisz@{rolisz}}
+\subsubsection[{start}]{\setlength{\rightskip}{0pt plus 5cm}static start (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classrolisz_a146085d0f3a9d17bdcd7f3d4081d8c0d}
+Initializes some framework constants 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+rolisz.php\end{DoxyCompactItemize}

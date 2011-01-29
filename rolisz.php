@@ -1,4 +1,10 @@
 <?php 
+
+/**
+	Base class, all the others inherit from it
+		@author Roland Szabo
+		@todo Error handling class
+**/
 class base {
 	//@{
 	//! Framework details
@@ -7,17 +13,9 @@ class base {
 		Version='0.0.0.1';
 	//@}
 
-	//@{
-	//! Locale-specific error/exception messages
-	const
-		TEXT_Object='{@CONTEXT} cannot be used in object context',
-		TEXT_Class='Undefined class {@CONTEXT}',
-		TEXT_Method='Undefined method {@CONTEXT}',
-		TEXT_PHPExt='PHP extension {@CONTEXT} is not enabled';
-	//@}
-
+	
 	protected static
-		//! Fat-Free global variables
+		//! rolisz global variables
 		$global,
 		//! Profiler statistics
 		$stats;
@@ -45,58 +43,36 @@ class base {
 
 }
 
+/** 
+	Main class, contains the URL routing thingies, a few cleanups thingies
+		@author Roland Szabo
+
+**/
 class rolisz extends base {
 
-	/**
-		Validate route pattern and break it down to an array consisting
-		of the request method and request URI
-			@return mixed
-			@param $pattern string
-			@public
-	**/
-	
-	public static function check_route($pattern) {
-		preg_match('/(\S+\s+)?(\S+)/',$pattern,$parts);
-		$parts=array_slice($parts,1);
-		$valid=TRUE;
-		if ($parts[0]=="") {
-				$parts[0]='GET';
-		}
-		foreach (explode('|',$parts[0]) as $method) {
-			if (!preg_match('/(GET|POST)/',$method)) {
-				$valid=FALSE;
-				break;
-			}
-		}
-		$parts[0]=trim($parts[0]);
-		$parts[1]=trim($parts[1],'/');
-		$parts[1]=explode('/',$parts[1]);
-		foreach ($parts[1] as $key=>$part) {
-			$parts[1][$part]='';
-		}
-		var_dump($parts);
-		if ($valid)
-			return $parts;
-		// Invalid route
-		trigger_error("Route $pattern is invalid");
-		return FALSE;
-	}
-	
 	/**
 		Assign handler to route pattern
 			@param $pattern string
 			@param $funcs mixed
+			@param $http string
 			@public
 	**/
 
-	public static function route($pattern, $funcs) {
+	public static function route($pattern, $funcs, $http = 'GET') {
 		// Check if valid route pattern
-		$route=self::check_route($pattern);
-		if (!$route) {
-			trigger_error("Route $pattern is invalid");
-			return;
+		$pattern = trim($pattern,' /');
+		$pattern = explode('/',$pattern);
+		
+		// Check if http is correct 
+		$http = explode('|',$http);
+		foreach ($http as $method) {
+			if (!preg_match('/(GET|POST)/',$method)) {
+				trigger_error("HTTP request type $http is invalid");
+				return;
+			}
 		}
-		// Valid URI pattern
+		
+		// Valid functions
 		if (is_string($funcs)) {
 			// String passed
 			foreach (explode('|',$funcs) as $func) {
@@ -117,22 +93,20 @@ class rolisz extends base {
 			}
 		}
 		elseif (!is_callable($funcs)) {
-			// Invalid route handler
+			// Invalid function
 			trigger_error($func.' is not a valid function');
 			return;
 		}
-		// Assign name to URI variable 
-		//have no ideea what it is (I think some sort of sanitizing)
-		$regex=preg_replace(
-			'/{?@(\w+\b)}?/i',
-			// Valid URL characters (RFC 1738)
-			'(?P<$1>[\w\-\.!~\*\'"(),]+\b)',
-			// Wildcard character in URI
-			str_replace('\*','(.*)',preg_quote($route[1],'/'))
-		);
+		
 		// Use pattern and HTTP method as array indices
 		// Save handlers
-		self::$global['ROUTES']['/^'.$regex.'\/?(?:\?.*)?$/i'][$route[0]]=$funcs;
+		foreach ($http as $method) {
+			$route = self::recursify($pattern, $funcs);
+			if (isset(self::$global['ROUTES'][$method]))
+				self::$global['ROUTES'][$method]=array_merge_recursive(self::$global['ROUTES'][$method],$route);
+			else 
+				self::$global['ROUTES'][$method]=$route;
+		}
 	}
 	
 	/**
@@ -141,63 +115,92 @@ class rolisz extends base {
 	**/
 	
 	public static function run() {
-		$routes=&self::$global['ROUTES'];
+		$routes=&self::$global['ROUTES'][$_SERVER['REQUEST_METHOD']];
 		// Process routes
 		if (!isset($routes)) {
 			trigger_error('No routes set!');
 			return;
 		}
+		
 		$found=FALSE;
-		// Detailed routes get matched first
-		krsort($routes);
-		// Save the current time
 		$time=time();
-		foreach ($routes as $regex=>$route) {
-			if (!preg_match($regex,
-				substr($_SERVER['REQUEST_URI'],strlen(self::$global['BASE'])),
-				$args))
-				continue;
-			$found=TRUE;
-			// Inspect each defined route
-			foreach ($route as $method=>$proc) {
-				if (!preg_match('/'.$method.'/',$_SERVER['REQUEST_METHOD'])) {
-					continue;
-				}
-				// Save named regex captures
-				foreach ($args as $key=>$arg)
-					// Remove non-zero indexed elements
-					if (is_numeric($key) && $key)
-						unset($args[$key]);
-				self::$global['PARAMS']=$args;
-				rolisz::call($proc);
+		
+		// Get the current URL part after base
+		$route = explode ('/',trim(substr($_SERVER['REQUEST_URI'],strlen(self::$global['BASE'])),' /'));
+
+		// Search recursively the depth to which an identical route is defined 
+		$i=0;
+		while (is_array($routes)) {
+			if (isset ($route[$i]) && isset($routes[$route[$i]])) {
+				$routes=$routes[$route[$i]];
+				$i++;
 			}
-			$elapsed=time()-$time;
-			if (self::$global['THROTTLE']/1e3>$elapsed)
-				// Delay output
-				usleep(1e6*(self::$global['THROTTLE']/1e3-$elapsed));
-			// Hail the conquering hero
-			return;
+			else 
+				break;
+		}
+
+		if (!is_array($routes)) {
+				$found=TRUE;
+		}
+		if (isset($routes[0]) && is_array($routes)) {
+			$routes=$routes[0];
+			$found=TRUE;
 		}
 		
-		// No such Web page
-		self::http404();
+		if (!$found) {
+			self::http404();
+		}
+		
+		//Remaining part of URL is passed to functions as arguments
+		$args=array_splice($route,$i);
+		rolisz::call($routes,$args);
+		
+		// Delay output
+		$elapsed=time()-$time;
+		if (self::$global['THROTTLE']/1e3>$elapsed)
+			usleep(1e6*(self::$global['THROTTLE']/1e3-$elapsed));
+			
+		return;
 	}
 
+	/** 
+		Return value of framework variable, false if not found
+			@return mixed
+			@param $var string
+			@public
 	
+	**/
 	public static function get($var) {
-		return self::$global[$var];
+		if (isset(self::$global[$var])) 
+			return self::$global[$var];
+		else 
+			return false;
 	}
+	
+	/**
+		Set value of framework variable
+			@param $var string
+			@param $value mixed
+			@public
+	
+	**/
 	
 	public static function set($var,$value) {
 		self::$global[$var]=$value;
 	}
+	
+	
 	/**
 		Provide sandbox for functions and import files to prevent direct
 		access to framework internals and other scripts
 			@param $funcs mixed
+			@param $args array
 			@public
 	**/
-	public static function call($funcs) {
+	public static function call($funcs,$args) {
+		if (!is_array($args)) {
+			$args=$array($args);
+		}
 		if (is_string($funcs)) {
 			// Call each code segment
 			foreach (explode('|',$funcs) as $func) {
@@ -207,29 +210,30 @@ class rolisz extends base {
 				} 
 				else {
 					// Call lambda function
-					call_user_func($func);
+					call_user_func_array($func,$args);
 				}
 			}
 		}
 		else
 			// Call lambda function
-			call_user_func($funcs);
+			call_user_func_array($funcs,$args);
 
 	}
 	
 	/**
-		Turn linear array into a recursively nested array
-		array('1','2','3') turns into array('1'=>array('2'=>array('3'=>'')))
+		Turn linear array into a recursively nested array, with optional argument to be the the value at the end \n
+		ex: array('1','2','3') turns into array('1'=>array('2'=>array('3'=>'')))
 			@return array
 			@param $array array
+			@param $end mixed
 			@public
 			
 	**/
 	
-	public static function recursify ($array) {
+	public static function recursify ($array,$end = '') {
 		if (count($array)==0) 
-			return '';
-		$returnarray[$array[0]]=recursify(array_slice($array,1));
+			return $end;
+		$returnarray[$array[0]]=self::recursify(array_slice($array,1),$end);
 		return $returnarray;
 		
 	}
@@ -283,6 +287,11 @@ class rolisz extends base {
 		);
 	}
 	
+	/**
+		Initializes some framework constants
+			@public
+	
+	**/
 	public static function start() {
 		$root=rolisz::fixSlashes(realpath('.')).'/';
 		self::$global=array(
@@ -300,4 +309,5 @@ class rolisz extends base {
 	}
 }
 
+// Initialize the framework
 rolisz::start();
