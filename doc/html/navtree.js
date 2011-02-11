@@ -6,15 +6,25 @@ var NAVTREE =
     ] ],
     [ "Data Structures", "annotated.html", [
       [ "base", "classbase.html", null ],
-      [ "rolisz", "classrolisz.html", null ]
+      [ "databaseAdapter", "interfacedatabase_adapter.html", null ],
+      [ "MySQLiDatabase", "class_my_s_q_li_database.html", null ],
+      [ "rolisz", "classrolisz.html", null ],
+      [ "table", "classtable.html", null ]
     ] ],
     [ "Data Structure Index", "classes.html", null ],
     [ "Class Hierarchy", "hierarchy.html", [
       [ "base", "classbase.html", [
         [ "rolisz", "classrolisz.html", null ]
-      ] ]
+      ] ],
+      [ "databaseAdapter", "interfacedatabase_adapter.html", [
+        [ "MySQLiDatabase", "class_my_s_q_li_database.html", null ]
+      ] ],
+      [ "table", "classtable.html", null ]
     ] ],
-    [ "Data Fields", "functions.html", null ]
+    [ "Data Fields", "functions.html", null ],
+    [ "Namespace List", "namespaces.html", [
+      [ "rolisz", "namespacerolisz.html", null ]
+    ] ]
   ] ]
 ];
 

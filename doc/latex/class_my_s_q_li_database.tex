@@ -1,0 +1,343 @@
+\hypertarget{class_my_s_q_li_database}{
+\section{MySQLiDatabase Class Reference}
+\label{class_my_s_q_li_database}\index{MySQLiDatabase@{MySQLiDatabase}}
+}
+Inheritance diagram for MySQLiDatabase:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_my_s_q_li_database}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_my_s_q_li_database_a81fcddb424f13e0862ee3f7e1ea57ce9}{\_\-\_\-construct} (\$host, \$username, \$password, \$db)
+\item 
+\hyperlink{class_my_s_q_li_database_a4c4f3316747e665b9e02f6ddcba4117c}{connect} (\$host, \$username, \$password)
+\item 
+\hyperlink{class_my_s_q_li_database_ab624b0b234f9db9dbc6dc4180f566b1f}{selectDatabase} (\$db)
+\item 
+\hyperlink{class_my_s_q_li_database_a039ae2e8f2bf579fd75d9df8df87eee3}{escapeValue} (\$value)
+\item 
+\hyperlink{class_my_s_q_li_database_aebc962126fd37fd3478c4689156d5f83}{Query} (\$query)
+\item 
+\hyperlink{class_my_s_q_li_database_acdee1c4e55c3792b3dbfeedfac35912f}{fetchRow} (\$query=false, \$type=1)
+\item 
+\hyperlink{class_my_s_q_li_database_a1750ab2493620de034b80a77577f3e8b}{fetchAll} (\$query=false, \$type=1)
+\item 
+\hyperlink{class_my_s_q_li_database_a24ada5decce3d1b79cd82f5a90ccf404}{getError} ()
+\item 
+\hyperlink{class_my_s_q_li_database_ac73f1d8cddbdfc35ca442189378a073c}{getInsertID} ()
+\item 
+\hyperlink{class_my_s_q_li_database_af37433a300db1f607ee789d22828a0a0}{numRows} ()
+\item 
+\hyperlink{class_my_s_q_li_database_acac8dfe61e7840f9a1e672ebede0be21}{numAffected} ()
+\item 
+\hyperlink{class_my_s_q_li_database_ae7cdaa744d52a1eb0103e377023ca528}{tableExists} (\$\hyperlink{classtable}{table})
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_my_s_q_li_database_a0d9c79b9b86b3f5891c6d3892f12c6a0}{\$connection}
+\item 
+\hyperlink{class_my_s_q_li_database_a112ef069ddc0454086e3d1e6d8d55d07}{\$result}
+\item 
+\hyperlink{class_my_s_q_li_database_a7691c0162d89de0b6ba47edcd8ba8878}{\$database}
+\item 
+\hyperlink{class_my_s_q_li_database_a576b05de2f452e4cce4e3de12667ba0f}{\$queries}
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_my_s_q_li_database_a81fcddb424f13e0862ee3f7e1ea57ce9}{
+\index{MySQLiDatabase@{MySQLiDatabase}!\_\-\_\-construct@{\_\-\_\-construct}}
+\index{\_\-\_\-construct@{\_\-\_\-construct}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{\$}]{host, }
+\item[{\$}]{username, }
+\item[{\$}]{password, }
+\item[{\$}]{db}
+\end{DoxyParamCaption}
+)}}
+\label{class_my_s_q_li_database_a81fcddb424f13e0862ee3f7e1ea57ce9}
+Class constructor, initializes connection to MySQL database 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$host} & \\
+\hline
+string & {\em \$username} & \\
+\hline
+string & {\em \$password} & \\
+\hline
+string & {\em \$db} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interfacedatabase_adapter}{databaseAdapter}.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_my_s_q_li_database_a4c4f3316747e665b9e02f6ddcba4117c}{
+\index{MySQLiDatabase@{MySQLiDatabase}!connect@{connect}}
+\index{connect@{connect}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{connect}]{\setlength{\rightskip}{0pt plus 5cm}connect (
+\begin{DoxyParamCaption}
+\item[{\$}]{host, }
+\item[{\$}]{username, }
+\item[{\$}]{password}
+\end{DoxyParamCaption}
+)}}
+\label{class_my_s_q_li_database_a4c4f3316747e665b9e02f6ddcba4117c}
+Makes a new connection to MySQL database 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$host} & \\
+\hline
+string & {\em \$username} & \\
+\hline
+string & {\em \$password} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em TRUE$|$FALSE} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Implements \hyperlink{interfacedatabase_adapter}{databaseAdapter}.
+
+\hypertarget{class_my_s_q_li_database_a039ae2e8f2bf579fd75d9df8df87eee3}{
+\index{MySQLiDatabase@{MySQLiDatabase}!escapeValue@{escapeValue}}
+\index{escapeValue@{escapeValue}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{escapeValue}]{\setlength{\rightskip}{0pt plus 5cm}escapeValue (
+\begin{DoxyParamCaption}
+\item[{\$}]{value}
+\end{DoxyParamCaption}
+)}}
+\label{class_my_s_q_li_database_a039ae2e8f2bf579fd75d9df8df87eee3}
+Escapes a string 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$value} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interfacedatabase_adapter}{databaseAdapter}.
+
+\hypertarget{class_my_s_q_li_database_a1750ab2493620de034b80a77577f3e8b}{
+\index{MySQLiDatabase@{MySQLiDatabase}!fetchAll@{fetchAll}}
+\index{fetchAll@{fetchAll}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{fetchAll}]{\setlength{\rightskip}{0pt plus 5cm}fetchAll (
+\begin{DoxyParamCaption}
+\item[{\$}]{query = {\ttfamily false}, }
+\item[{\$}]{type = {\ttfamily 1}}
+\end{DoxyParamCaption}
+)}}
+\label{class_my_s_q_li_database_a1750ab2493620de034b80a77577f3e8b}
+Fetches all the rows from the results of a query. Returns numeric array, associative array or both depending on second parameter:1,2,3 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$query} & \\
+\hline
+int & {\em \$type} & 1 -\/ Associative array, 2 -\/ Numeric array, 3 -\/ Both \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interfacedatabase_adapter}{databaseAdapter}.
+
+\hypertarget{class_my_s_q_li_database_acdee1c4e55c3792b3dbfeedfac35912f}{
+\index{MySQLiDatabase@{MySQLiDatabase}!fetchRow@{fetchRow}}
+\index{fetchRow@{fetchRow}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{fetchRow}]{\setlength{\rightskip}{0pt plus 5cm}fetchRow (
+\begin{DoxyParamCaption}
+\item[{\$}]{query = {\ttfamily false}, }
+\item[{\$}]{type = {\ttfamily 1}}
+\end{DoxyParamCaption}
+)}}
+\label{class_my_s_q_li_database_acdee1c4e55c3792b3dbfeedfac35912f}
+Fetches first row from the results of a query. Returns numeric array, associative array or both depending on second parameter:1,2,3 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$query} & \\
+\hline
+int & {\em \$type} & 1 -\/ Associative array, 2 -\/ Numeric array, 3 -\/ Both \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interfacedatabase_adapter}{databaseAdapter}.
+
+\hypertarget{class_my_s_q_li_database_a24ada5decce3d1b79cd82f5a90ccf404}{
+\index{MySQLiDatabase@{MySQLiDatabase}!getError@{getError}}
+\index{getError@{getError}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{getError}]{\setlength{\rightskip}{0pt plus 5cm}getError (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_my_s_q_li_database_a24ada5decce3d1b79cd82f5a90ccf404}
+Return the last MySQLi error 
+\begin{DoxyRetVals}{Return values}
+{\em string} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Implements \hyperlink{interfacedatabase_adapter}{databaseAdapter}.
+
+\hypertarget{class_my_s_q_li_database_ac73f1d8cddbdfc35ca442189378a073c}{
+\index{MySQLiDatabase@{MySQLiDatabase}!getInsertID@{getInsertID}}
+\index{getInsertID@{getInsertID}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{getInsertID}]{\setlength{\rightskip}{0pt plus 5cm}getInsertID (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_my_s_q_li_database_ac73f1d8cddbdfc35ca442189378a073c}
+Returns the id of the last insertion 
+\begin{DoxyRetVals}{Return values}
+{\em int} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Implements \hyperlink{interfacedatabase_adapter}{databaseAdapter}.
+
+\hypertarget{class_my_s_q_li_database_acac8dfe61e7840f9a1e672ebede0be21}{
+\index{MySQLiDatabase@{MySQLiDatabase}!numAffected@{numAffected}}
+\index{numAffected@{numAffected}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{numAffected}]{\setlength{\rightskip}{0pt plus 5cm}numAffected (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_my_s_q_li_database_acac8dfe61e7840f9a1e672ebede0be21}
+Returns the number of rows affected by an UPDATE query 
+\begin{DoxyRetVals}{Return values}
+{\em int} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Implements \hyperlink{interfacedatabase_adapter}{databaseAdapter}.
+
+\hypertarget{class_my_s_q_li_database_af37433a300db1f607ee789d22828a0a0}{
+\index{MySQLiDatabase@{MySQLiDatabase}!numRows@{numRows}}
+\index{numRows@{numRows}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{numRows}]{\setlength{\rightskip}{0pt plus 5cm}numRows (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_my_s_q_li_database_af37433a300db1f607ee789d22828a0a0}
+Returns the number of rows from a query 
+\begin{DoxyRetVals}{Return values}
+{\em int} & \\
+\hline
+\end{DoxyRetVals}
+
+
+Implements \hyperlink{interfacedatabase_adapter}{databaseAdapter}.
+
+\hypertarget{class_my_s_q_li_database_aebc962126fd37fd3478c4689156d5f83}{
+\index{MySQLiDatabase@{MySQLiDatabase}!Query@{Query}}
+\index{Query@{Query}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{Query}]{\setlength{\rightskip}{0pt plus 5cm}Query (
+\begin{DoxyParamCaption}
+\item[{\$}]{query}
+\end{DoxyParamCaption}
+)}}
+\label{class_my_s_q_li_database_aebc962126fd37fd3478c4689156d5f83}
+Executes query 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$query} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
+\hypertarget{class_my_s_q_li_database_ab624b0b234f9db9dbc6dc4180f566b1f}{
+\index{MySQLiDatabase@{MySQLiDatabase}!selectDatabase@{selectDatabase}}
+\index{selectDatabase@{selectDatabase}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{selectDatabase}]{\setlength{\rightskip}{0pt plus 5cm}selectDatabase (
+\begin{DoxyParamCaption}
+\item[{\$}]{db}
+\end{DoxyParamCaption}
+)}}
+\label{class_my_s_q_li_database_ab624b0b234f9db9dbc6dc4180f566b1f}
+Changes to current database 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$db} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em TRUE} & $|$FALSE \\
+\hline
+\end{DoxyRetVals}
+
+
+Implements \hyperlink{interfacedatabase_adapter}{databaseAdapter}.
+
+\hypertarget{class_my_s_q_li_database_ae7cdaa744d52a1eb0103e377023ca528}{
+\index{MySQLiDatabase@{MySQLiDatabase}!tableExists@{tableExists}}
+\index{tableExists@{tableExists}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{tableExists}]{\setlength{\rightskip}{0pt plus 5cm}tableExists (
+\begin{DoxyParamCaption}
+\item[{\$}]{table}
+\end{DoxyParamCaption}
+)}}
+\label{class_my_s_q_li_database_ae7cdaa744d52a1eb0103e377023ca528}
+Checks if a table exists 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$table} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+TRUE$|$FALSE 
+\end{DoxyReturn}
+
+
+Implements \hyperlink{interfacedatabase_adapter}{databaseAdapter}.
+
+
+
+\subsection{Field Documentation}
+\hypertarget{class_my_s_q_li_database_a0d9c79b9b86b3f5891c6d3892f12c6a0}{
+\index{MySQLiDatabase@{MySQLiDatabase}!\$connection@{\$connection}}
+\index{\$connection@{\$connection}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{\$connection}]{\setlength{\rightskip}{0pt plus 5cm}\$connection}}
+\label{class_my_s_q_li_database_a0d9c79b9b86b3f5891c6d3892f12c6a0}
+Stores the MySQLi connection \hypertarget{class_my_s_q_li_database_a7691c0162d89de0b6ba47edcd8ba8878}{
+\index{MySQLiDatabase@{MySQLiDatabase}!\$database@{\$database}}
+\index{\$database@{\$database}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{\$database}]{\setlength{\rightskip}{0pt plus 5cm}\$database}}
+\label{class_my_s_q_li_database_a7691c0162d89de0b6ba47edcd8ba8878}
+Stores the working database \hypertarget{class_my_s_q_li_database_a576b05de2f452e4cce4e3de12667ba0f}{
+\index{MySQLiDatabase@{MySQLiDatabase}!\$queries@{\$queries}}
+\index{\$queries@{\$queries}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{\$queries}]{\setlength{\rightskip}{0pt plus 5cm}\$queries}}
+\label{class_my_s_q_li_database_a576b05de2f452e4cce4e3de12667ba0f}
+Stores all the queries that have been executed \hypertarget{class_my_s_q_li_database_a112ef069ddc0454086e3d1e6d8d55d07}{
+\index{MySQLiDatabase@{MySQLiDatabase}!\$result@{\$result}}
+\index{\$result@{\$result}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{\$result}]{\setlength{\rightskip}{0pt plus 5cm}\$result}}
+\label{class_my_s_q_li_database_a112ef069ddc0454086e3d1e6d8d55d07}
+Stores the latest result from a query 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+C:/wamp/www/framework/db.php\end{DoxyCompactItemize}

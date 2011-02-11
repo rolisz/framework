@@ -2,6 +2,7 @@
 
 /**
 	Base class, all the others inherit from it
+		@package rolisz
 		@author Roland Szabo
 		@todo Error handling function
 		@todo Autoloading function
@@ -12,7 +13,7 @@ class base {
 	//! Framework details
 	const
 		AppName='rolisz PHP framework',
-		Version='0.0.0.1';
+		Version='0.0.0.2';
 	//@}
 
 	
@@ -47,6 +48,7 @@ class base {
 
 /** 
 	Main class, contains the URL routing thingies, a few cleanups thingies
+		@package rolisz
 		@author Roland Szabo
 
 **/
@@ -54,9 +56,9 @@ class rolisz extends base {
 
 	/**
 		Assign handler to route pattern
-			@param $pattern string
-			@param $funcs mixed
-			@param $http string
+			@param string $pattern 
+			@param mixed $funcs 
+			@param string $http 
 			@public
 	**/
 
@@ -187,8 +189,8 @@ class rolisz extends base {
 
 	/** 
 		Return value of framework variable, false if not found
+			@param string $var 
 			@return mixed
-			@param $var string
 			@public
 	
 	**/
@@ -201,8 +203,8 @@ class rolisz extends base {
 	
 	/**
 		Set value of framework variable
-			@param $var string
-			@param $value mixed
+			@param string $var 
+			@param mixed $value 
 			@public
 	
 	**/
@@ -215,8 +217,8 @@ class rolisz extends base {
 	/**
 		Provide sandbox for functions and import files to prevent direct
 		access to framework internals and other scripts
-			@param $funcs mixed
-			@param $args array
+			@param mixed $funcs 
+			@param array $args 
 			@public
 	**/
 	public static function call($funcs,$args) {
@@ -245,9 +247,9 @@ class rolisz extends base {
 	/**
 		Turn linear array into a recursively nested array, with optional argument to be the the value at the end \n
 		ex: array('1','2','3') turns into array('1'=>array('2'=>array('3'=>'')))
+			@param array $array 
+			@param mixed $end 
 			@return array
-			@param $array array
-			@param $end mixed
 			@public
 			
 	**/
@@ -275,8 +277,8 @@ class rolisz extends base {
 	
 	/**
 		Convert Windows double-backslashes to slashes
+			@param string $str 
 			@return string
-			@param $str string
 			@public
 	**/
 	public static function fixSlashes($str) {
@@ -285,8 +287,8 @@ class rolisz extends base {
 	
 	/**
 		Convert double quotes to equivalent XML entities (&#34;)
+			@param string $val 	
 			@return string
-			@param $val string
 			@public
 	**/
 	public static function fixQuotes($val) {
@@ -298,8 +300,8 @@ class rolisz extends base {
 	
 	/**
 		Fix mangled braces
+			@param string $str 
 			@return string
-			@param $str string
 			@public
 	**/
 	public static function fixBraces($str) {

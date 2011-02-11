@@ -35,12 +35,6 @@ static \hyperlink{classrolisz_a146085d0f3a9d17bdcd7f3d4081d8c0d}{start} ()
 \end{DoxyCompactItemize}
 
 
-\subsection{Detailed Description}
-Main class, contains the URL routing thingies, a few cleanups thingies \begin{DoxyAuthor}{Author}
-Roland Szabo 
-\end{DoxyAuthor}
-
-
 \subsection{Member Function Documentation}
 \hypertarget{classrolisz_af732c33c326c863efe6dd2cccb21a9a5}{
 \index{rolisz@{rolisz}!call@{call}}
@@ -53,10 +47,10 @@ Roland Szabo
 )\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
 \label{classrolisz_af732c33c326c863efe6dd2cccb21a9a5}
 Provide sandbox for functions and import files to prevent direct access to framework internals and other scripts 
-\begin{DoxyParams}{Parameters}
-{\em \$funcs} & mixed \\
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$funcs} & \\
 \hline
-{\em \$args} & array \\
+array & {\em \$args} & \\
 \hline
 \end{DoxyParams}
 \hypertarget{classrolisz_ab8e0e9e5ffd59108f38efefe79511c5b}{
@@ -68,14 +62,14 @@ Provide sandbox for functions and import files to prevent direct access to frame
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
 \label{classrolisz_ab8e0e9e5ffd59108f38efefe79511c5b}
-Fix mangled braces \begin{DoxyReturn}{Returns}
-string 
-\end{DoxyReturn}
-
-\begin{DoxyParams}{Parameters}
-{\em \$str} & string \\
+Fix mangled braces 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$str} & \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
 \hypertarget{classrolisz_a031dd360aea86d999059dbfd18687973}{
 \index{rolisz@{rolisz}!fixQuotes@{fixQuotes}}
 \index{fixQuotes@{fixQuotes}!rolisz@{rolisz}}
@@ -85,14 +79,14 @@ string
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
 \label{classrolisz_a031dd360aea86d999059dbfd18687973}
-Convert double quotes to equivalent XML entities (\&\#34;) \begin{DoxyReturn}{Returns}
-string 
-\end{DoxyReturn}
-
-\begin{DoxyParams}{Parameters}
-{\em \$val} & string \\
+Convert double quotes to equivalent XML entities (\&\#34;) 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$val} & \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
 \hypertarget{classrolisz_a13d0c0500b75a5bdd849a4a55ba8e2b1}{
 \index{rolisz@{rolisz}!fixSlashes@{fixSlashes}}
 \index{fixSlashes@{fixSlashes}!rolisz@{rolisz}}
@@ -102,14 +96,14 @@ string
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
 \label{classrolisz_a13d0c0500b75a5bdd849a4a55ba8e2b1}
-Convert Windows double-\/backslashes to slashes \begin{DoxyReturn}{Returns}
-string 
-\end{DoxyReturn}
-
-\begin{DoxyParams}{Parameters}
-{\em \$str} & string \\
+Convert Windows double-\/backslashes to slashes 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$str} & \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
 \hypertarget{classrolisz_a0e8f3e2708d9f0c6ee7b54599f57ea34}{
 \index{rolisz@{rolisz}!get@{get}}
 \index{get@{get}!rolisz@{rolisz}}
@@ -119,14 +113,14 @@ string
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
 \label{classrolisz_a0e8f3e2708d9f0c6ee7b54599f57ea34}
-Return value of framework variable, false if not found \begin{DoxyReturn}{Returns}
-mixed 
-\end{DoxyReturn}
-
-\begin{DoxyParams}{Parameters}
-{\em \$var} & string \\
+Return value of framework variable, false if not found 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$var} & \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
 \hypertarget{classrolisz_a6fdc4c9fc517c619d860c7e91d17b02d}{
 \index{rolisz@{rolisz}!http404@{http404}}
 \index{http404@{http404}!rolisz@{rolisz}}
@@ -147,16 +141,16 @@ Trigger an HTTP 404 error \hypertarget{classrolisz_ad1b6efe27562cb6620a179f56884
 )\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
 \label{classrolisz_ad1b6efe27562cb6620a179f5688417bb}
 Turn linear array into a recursively nested array, with optional argument to be the the value at the end \par
- ex: array('1','2','3') turns into array('1'=$>$array('2'=$>$array('3'=$>$''))) \begin{DoxyReturn}{Returns}
-array 
-\end{DoxyReturn}
-
-\begin{DoxyParams}{Parameters}
-{\em \$array} & array \\
+ ex: array('1','2','3') turns into array('1'=$>$array('2'=$>$array('3'=$>$''))) 
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$array} & \\
 \hline
-{\em \$end} & mixed \\
+mixed & {\em \$end} & \\
 \hline
 \end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
 \hypertarget{classrolisz_ae9dbb7550b587e4e19bca121029e088b}{
 \index{rolisz@{rolisz}!route@{route}}
 \index{route@{route}!rolisz@{rolisz}}
@@ -169,12 +163,12 @@ array
 )\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
 \label{classrolisz_ae9dbb7550b587e4e19bca121029e088b}
 Assign handler to route pattern 
-\begin{DoxyParams}{Parameters}
-{\em \$pattern} & string \\
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$pattern} & \\
 \hline
-{\em \$funcs} & mixed \\
+mixed & {\em \$funcs} & \\
 \hline
-{\em \$http} & string \\
+string & {\em \$http} & \\
 \hline
 \end{DoxyParams}
 \hypertarget{classrolisz_ad3a572002fd350672b531756f7306e8f}{
@@ -198,10 +192,10 @@ Process routes based on incoming URI. \par
 )\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
 \label{classrolisz_a1d7c8d5e3d237bc3217650f79ab35bd3}
 Set value of framework variable 
-\begin{DoxyParams}{Parameters}
-{\em \$var} & string \\
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$var} & \\
 \hline
-{\em \$value} & mixed \\
+mixed & {\em \$value} & \\
 \hline
 \end{DoxyParams}
 \hypertarget{classrolisz_a146085d0f3a9d17bdcd7f3d4081d8c0d}{
@@ -217,4 +211,4 @@ Initializes some framework constants
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-rolisz.php\end{DoxyCompactItemize}
+C:/wamp/www/framework/rolisz.php\end{DoxyCompactItemize}
