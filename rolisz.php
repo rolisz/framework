@@ -1,6 +1,7 @@
 <?php 
 
 /**
+	\class base
 	Base class, all the others inherit from it
 		@package rolisz
 		@author Roland Szabo
@@ -47,6 +48,7 @@ class base {
 }
 
 /** 
+	\class rolisz
 	Main class, contains the URL routing thingies, a few cleanups thingies
 		@package rolisz
 		@author Roland Szabo
@@ -59,18 +61,19 @@ class rolisz extends base {
 			@param string $pattern 
 			@param mixed $funcs 
 			@param string $http 
+			@param string $name
 			@public
 	**/
 
-	public static function route($pattern, $funcs, $http = 'GET') {
+	public static function route($pattern, $funcs, $http = 'GET', $name = FALSE) {
+		if ($name) {
+			self::$global['namedRoutes'][$name] = $pattern;
+		}
+		
 		// Check if valid route pattern
 		$pattern = trim($pattern,' /');
 		$pattern = explode('/',$pattern);
-		foreach ($pattern as &$part) {
-			if ($part[0]==':') {
-				$part=':';
-			}
-		}
+
 		// Check if http is correct 
 		$http = explode('|',$http);
 		foreach ($http as $method) {
@@ -124,7 +127,7 @@ class rolisz extends base {
 	**/
 	
 	public static function run() {
-		$routes=&self::$global['ROUTES'][$_SERVER['REQUEST_METHOD']];
+		$routes = &self::$global['ROUTES'][$_SERVER['REQUEST_METHOD']];
 		// Process routes
 		if (!isset($routes)) {
 			trigger_error('No routes set!');
@@ -147,19 +150,39 @@ class rolisz extends base {
 					$routes=$routes[$route[$i]];
 					$i++;
 				}
-				//If the route contains a variable and the following part matches too
-				elseif (isset($routes[':']) && ((is_array($routes[':']) && isset($route[$i+1]) && isset($routes[':'][$route[$i+1]])) || !is_array($routes[':'])) ) {
-					$routes=$routes[':'];
-					$args[]=$route[$i];
-					$i++;
-				}
-				//If there is a catchall 
 				else {
+					$temp = self::array_filter_key($routes,function($val) {
+						if ($val[0]==':') return true;
+						return false;
+					});
+					$check = FALSE;
+					//If the route contains a variable and the following part matches too. Checks if is last argument or there are other after
+					foreach ($temp as $key=>$value) {
+						if ((is_array($value) && isset($route[$i+1]) && isset($value[$route[$i+1]])) || (!is_array($value) && !isset($route[$i+1]))) {
+							$routes=$value;
+							$args[] = $route[$i];
+							$i++;
+							$check = TRUE;
+						}
+					}
+					//Checks if there is catch-all
+					if (!$check) {
+						if (isset($routes['*'])) {
+							$routes=$routes['*'];
+							$args=implode('/',array_splice($route,$i));
+						}
+						else {
+							break;
+						}
+					}
+				}
+			}
+			//Checks if there is catch-all for the base element
+			elseif (isset($routes['*'])) {
 					$routes=$routes['*'];
 					$args=implode('/',array_splice($route,$i));
 				}
-			}
-			else 
+			else
 				break;
 		}
 		if (!is_array($routes)) {
@@ -186,7 +209,22 @@ class rolisz extends base {
 		return;
 	}
 	
-
+	/**
+		Returns a URL with values for a given routing pattern
+			@param string $name
+			@param array $params
+			@return string
+	**/
+	public static function urlFor($name, $params = array()) {
+		if (!isset(self::$global['namedRoutes'][$name])) {
+			trigger_error("The $name route could not be found");
+		}
+		$route = self::$global['namedRoutes'][$name];
+		foreach ($params as $key=>$value) {
+			$route = str_replace(':' . $key, $value, $route);
+		}
+		return self::$global['BASE'].$route;
+	}
 	/** 
 		Return value of framework variable, false if not found
 			@param string $var 
@@ -262,6 +300,32 @@ class rolisz extends base {
 		
 	}
 	
+	/**
+		Filter an array by keys. Arguments similar to array_filter.
+			@param array $input
+			@param function $callback
+			@return array
+	
+	**/
+	public static function array_filter_key( $input, $callback ) {
+		if ( !is_array( $input ) ) {
+			trigger_error( 'array_filter_key() expects parameter 1 to be array, ' . gettype( $input ) . ' given', E_USER_WARNING );
+			return null;
+		}
+		
+		if ( empty( $input ) ) {
+			return $input;
+		}
+		
+		$filteredKeys = array_filter( array_keys( $input ), $callback );
+		if ( empty( $filteredKeys ) ) {
+			return array();
+		}
+		
+		$input = array_intersect_key( $input, array_flip( $filteredKeys ) );
+		
+		return $input;
+	}
 	/**
 		Trigger an HTTP 404 error
 			@public

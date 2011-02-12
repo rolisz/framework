@@ -1,6 +1,7 @@
 <?php
 	/**
-	   Defines all the functions a database adapter should have to be working with rolisz
+		\class databaseAdapter
+		Defines all the functions a database adapter should have to be working with rolisz
 			@package rolisz
 			@author Szabo Roland
 			@copyright Szabo Roland 2011
@@ -24,6 +25,7 @@ interface databaseAdapter {
 }
 
 	/**
+		\class MySQLiDatabase
 		MySQLi specific implementation of databaseAdapter
 			@package rolisz
 			@author Roland Szabo
@@ -198,6 +200,7 @@ class MySQLiDatabase implements databaseAdapter {
 }
 
 	/**
+		\class table
 		Provides CRUD functionality. Detects automatically all the columns of a table.
 			@package rolisz
 			@author Roland Szabo
