@@ -1,12 +1,15 @@
 <?php 
 
 /**
+	Use the rolisz autoload function
+**/
+spl_autoload_register(array('rolisz', 'autoload'));
+/**
 	\class base
 	Base class, all the others inherit from it
 		@package rolisz
 		@author Roland Szabo
 		@todo Error handling function
-		@todo Autoloading function
 		@todo ORM
 **/
 class base {
@@ -14,7 +17,7 @@ class base {
 	//! Framework details
 	const
 		AppName='rolisz PHP framework',
-		Version='0.0.0.2';
+		Version='0.0.0.3';
 	//@}
 
 	
@@ -56,6 +59,7 @@ class base {
 **/
 class rolisz extends base {
 
+	
 	/**
 		Assign handler to route pattern
 			@param string $pattern 
@@ -64,16 +68,11 @@ class rolisz extends base {
 			@param string $name
 			@public
 	**/
-
 	public static function route($pattern, $funcs, $http = 'GET', $name = FALSE) {
 		if ($name) {
 			self::$global['namedRoutes'][$name] = $pattern;
 		}
 		
-		// Check if valid route pattern
-		$pattern = trim($pattern,' /');
-		$pattern = explode('/',$pattern);
-
 		// Check if http is correct 
 		$http = explode('|',$http);
 		foreach ($http as $method) {
@@ -88,14 +87,15 @@ class rolisz extends base {
 			// String passed
 			foreach (explode('|',$funcs) as $func) {
 				// Not a lambda function
-				if (substr($func,-4)=='.php') {
-					// PHP include file specified
-					if (!is_file($func)) {
+				if (substr_count($func,'.php')!=0) {
+					// Run external PHP script
+					$file = strstr($func,'.php',TRUE).'.php';
+					if (!is_file($file)) {
 						// Invalid route handler
-						trigger_error($func." is not a valid file");
+						trigger_error($file." is not a valid file");
 						return;
 					}
-				}
+				} 
 				elseif (!is_callable($func)) {
 					// Invalid route handler
 					trigger_error($func.' is not a valid function');
@@ -112,14 +112,50 @@ class rolisz extends base {
 		// Use pattern and HTTP method as array indices
 		// Save handlers
 		foreach ($http as $method) {
-			$route = self::recursify($pattern, $funcs);
-			if (isset(self::$global['ROUTES'][$method]))
-				self::$global['ROUTES'][$method]=array_merge_recursive(self::$global['ROUTES'][$method],$route);
-			else 
-				self::$global['ROUTES'][$method]=$route;
+			$route = $pattern;
+			self::$global['ROUTES'][$method][$route] = $funcs;
 		}
 	}
 	
+	/**
+		Checks if $route matches the current URL
+			@param string $route
+			$return TRUE|FALSE
+	
+	**/
+	public static function matches($route) {
+		$pattern = $route;
+		$route = array_slice(explode('/',$route),1);
+		$i = 0;
+		$url = self::$global['ROUTE'];
+		while (isset($route[$i]) && isset($url[$i])) {
+			if ($route[$i]=='*') {
+				return true;
+			}
+			elseif ($route[$i][0]==':') {
+				self::$global['ARGS'][$pattern][] = $url[$i];
+				$i++;
+			}
+			elseif ($route[$i] == $url[$i]) {
+				$i++;
+			}
+			else {
+				unset(self::$global['ARGS'][$pattern]);
+				return false;
+			}
+		}	
+		if (isset($route[$i])==isset($url[$i])) {
+		return true;
+		}
+		elseif (!isset($url[$i]) && $route[$i]=='*') {
+			return true;
+		}
+		else {
+			unset(self::$global['ARGS'][$pattern]);
+			return false;
+		}
+	}
+
 	/**
 		Process routes based on incoming URI. \n
 		URL that is not matched will be passed as arguments to the functions that are called
@@ -127,7 +163,7 @@ class rolisz extends base {
 	**/
 	
 	public static function run() {
-		$routes = &self::$global['ROUTES'][$_SERVER['REQUEST_METHOD']];
+		$routes = array_keys(self::$global['ROUTES'][$_SERVER['REQUEST_METHOD']]);
 		// Process routes
 		if (!isset($routes)) {
 			trigger_error('No routes set!');
@@ -137,60 +173,22 @@ class rolisz extends base {
 		$found=FALSE;
 		$time=time();
 		
-		// Get the current URL part after base
-		$route = explode ('/',trim(substr($_SERVER['REQUEST_URI'],strlen(self::$global['BASE'])),' /'));
-
-		$args=array();
+		self::$global['ROUTE'] = explode ('/',trim(substr($_SERVER['REQUEST_URI'],strlen(self::$global['BASE'])),' /'));
+		
+		self::$global['ARGS'] = array();
+		
+		$valid_routes = array();
 		// Search recursively the depth to which an identical route is defined 
-		$i=0;
-		while (is_array($routes)) {
-			if (isset ($route[$i])) {
-				//If the same part is next in both the route and the url
-				if (isset($routes[$route[$i]])) {
-					$routes=$routes[$route[$i]];
-					$i++;
-				}
-				else {
-					$temp = self::array_filter_key($routes,function($val) {
-						if ($val[0]==':') return true;
-						return false;
-					});
-					$check = FALSE;
-					//If the route contains a variable and the following part matches too. Checks if is last argument or there are other after
-					foreach ($temp as $key=>$value) {
-						if ((is_array($value) && isset($route[$i+1]) && isset($value[$route[$i+1]])) || (!is_array($value) && !isset($route[$i+1]))) {
-							$routes=$value;
-							$args[] = $route[$i];
-							$i++;
-							$check = TRUE;
-						}
-					}
-					//Checks if there is catch-all
-					if (!$check) {
-						if (isset($routes['*'])) {
-							$routes=$routes['*'];
-							$args=implode('/',array_splice($route,$i));
-						}
-						else {
-							break;
-						}
-					}
-				}
+		foreach ($routes as $route) {
+			if (self::matches($route)) {
+				$valid_routes [] = $route;
 			}
-			//Checks if there is catch-all for the base element
-			elseif (isset($routes['*'])) {
-					$routes=$routes['*'];
-					$args=implode('/',array_splice($route,$i));
-				}
-			else
-				break;
 		}
-		if (!is_array($routes)) {
+		rsort($valid_routes);
+		self::$global['ARGS'] = array_unique(self::$global['ARGS']);
+
+		if (!empty($valid_routes)) {
 				$found=TRUE;
-		}
-		if (isset($routes[0]) && is_array($routes)) {
-			$routes=$routes[0];
-			$found=TRUE;
 		}
 		
 		if (!$found) {
@@ -198,8 +196,11 @@ class rolisz extends base {
 		}
 		else {
 		
+		if (!isset(self::$global['ARGS'][$valid_routes[0]])) {
+			self::$global['ARGS'][$valid_routes[0]] = array();
+		}
 		//Remaining part of URL is passed to functions as arguments
-		rolisz::call($routes,$args);
+		rolisz::call(self::$global['ROUTES'][$_SERVER['REQUEST_METHOD']][$valid_routes[0]],self::$global['ARGS'][$valid_routes[0]]);
 		
 		// Delay output
 		$elapsed=time()-$time;
@@ -266,9 +267,21 @@ class rolisz extends base {
 		if (is_string($funcs)) {
 			// Call each code segment
 			foreach (explode('|',$funcs) as $func) {
-				if (substr($func,-4)=='.php') {
+				if (substr_count($func,'.php')!=0) {
 					// Run external PHP script
-					include $func;
+					$file = strstr($func,'.php',TRUE).'.php';
+					$functions = substr(strstr($func,'.php'),5);
+					
+					include $file;
+					$functions = explode(':',$functions);
+					foreach ($functions as $function) {
+						if (!is_callable($function)) {
+							// Invalid route handler
+							trigger_error($function.' is not a valid function');
+							return;
+						}
+						call_user_func_array($function,$args);
+					}
 				} 
 				else {
 					// Call lambda function
@@ -283,6 +296,27 @@ class rolisz extends base {
 	}
 	
 	/**
+		Connects to a database adapter, as defined in db.php
+		
+	**/
+	public static function connect($dbtype,$host, $username, $password, $db) {
+		include ('databaseAdapter.php');
+		$adapterClass = "{$dbtype}Database";
+		return new $adapterClass($host, $username, $password, $db);
+	}
+	
+	/**
+		Autoloader function. Lazy-loads classes from files in the same directory as current one. Files must be named the same the classes
+	
+	**/
+	 public static function autoload( $class ) {
+        $file = dirname(__FILE__) . '/../' . str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+        if ( file_exists($file) ) {
+            require $file;
+        }
+    }
+
+	/**
 		Turn linear array into a recursively nested array, with optional argument to be the the value at the end \n
 		ex: array('1','2','3') turns into array('1'=>array('2'=>array('3'=>'')))
 			@param array $array 
@@ -291,7 +325,6 @@ class rolisz extends base {
 			@public
 			
 	**/
-	
 	public static function recursify ($array,$end = '') {
 		if (count($array)==0) 
 			return $end;

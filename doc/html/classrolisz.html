@@ -98,12 +98,12 @@ Inheritance diagram for rolisz:</div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#aafd29366ef6399da1dd079fc131d8858">route</a> ($pattern, $funcs, $http= 'GET', $name=FALSE)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#ad3a572002fd350672b531756f7306e8f">run</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#a2c24b81993e81c6401edd6c4caff0336">urlFor</a> ($name, $params=array())</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#a0e8f3e2708d9f0c6ee7b54599f57ea34">get</a> ($var)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#a1d7c8d5e3d237bc3217650f79ab35bd3">set</a> ($var, $value)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#af732c33c326c863efe6dd2cccb21a9a5">call</a> ($funcs, $args)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#ab4c022bf9d3474583030f31894865182">autoload</a> ($class)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#ad1b6efe27562cb6620a179f5688417bb">recursify</a> ($array, $end= '')</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#a4e3140efc0d16bf5a55ee6c2f3c129e2">array_filter_key</a> ($input, $callback)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#a6fdc4c9fc517c619d860c7e91d17b02d">http404</a> ()</td></tr>
@@ -148,6 +148,24 @@ Static Public Member Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>array </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="ab4c022bf9d3474583030f31894865182"></a><!-- doxytag: member="rolisz::autoload" ref="ab4c022bf9d3474583030f31894865182" args="($class)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static autoload </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>class</em></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Autoloader function. Lazy-loads classes from files in the same directory as current one. Files must be named the same the classes </p>
 
 </div>
 </div>
@@ -340,55 +358,6 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="aafd29366ef6399da1dd079fc131d8858"></a><!-- doxytag: member="rolisz::route" ref="aafd29366ef6399da1dd079fc131d8858" args="($pattern, $funcs, $http= 'GET', $name=FALSE)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">static route </td>
-          <td>(</td>
-          <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>pattern</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>funcs</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>http</em> = <code>'GET'</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>name</em> = <code>FALSE</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td><code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Assign handler to route pattern </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$pattern</td><td></td></tr>
-    <tr><td class="paramtype">mixed</td><td class="paramname">$funcs</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$http</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
 <a class="anchor" id="ad3a572002fd350672b531756f7306e8f"></a><!-- doxytag: member="rolisz::run" ref="ad3a572002fd350672b531756f7306e8f" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -503,7 +472,7 @@ Static Public Member Functions</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="classrolisz.html">rolisz</a>      </li>
-      <li class="footer">Generated on Sat Feb 12 2011 20:24:32 for rolisz framework by&#160;
+      <li class="footer">Generated on Sun Feb 13 2011 14:03:46 for rolisz framework by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>
