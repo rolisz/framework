@@ -26,7 +26,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tbody>
  <tr style="height: 56px;">
   <td style="padding-left: 0.5em;">
-   <div id="projectname">rolisz framework&#160;<span id="projectnumber">0.0.0.2</span></div>
+   <div id="projectname">rolisz framework&#160;<span id="projectnumber">0.0.0.4</span></div>
    <div id="projectbrief">A framework developed to help me make better sites</div>
   </td>
  </tr>
@@ -81,26 +81,46 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div id="doc-content">
 <div class="header">
   <div class="summary">
-<a href="#pub-methods">Public Member Functions</a>  </div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-attribs">Data Fields</a> &#124;
+<a href="#pub-static-attribs">Static Public Attributes</a>  </div>
   <div class="headertitle">
 <h1>table Class Reference</h1>  </div>
 </div>
 <div class="contents">
-<!-- doxytag: class="table" --><table class="memberdecls">
+<!-- doxytag: class="table" --><!-- doxytag: inherits="base" --><div class="dynheader">
+Inheritance diagram for table:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classtable.png" usemap="#table_map" alt=""/>
+  <map id="table_map" name="table_map">
+<area href="classbase.html" alt="base" shape="rect" coords="0,0,39,24"/>
+</map>
+ </div></div>
+<table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a68a3e1f2e0983938fba508b288564ee6">__construct</a> ($connection, $<a class="el" href="classtable.html">table</a>, $hydrater=FALSE)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#adb8d24f1376e0b2c5f31deb281c76385">__construct</a> ($<a class="el" href="classtable.html">table</a>, $id=FALSE, $columns=FALSE, $connection=FALSE)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a83c2703c91959192f759992ad5640b67">__set</a> ($name, $value)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#abc8e9e31bb15c8a44c3210ec551407c8">__get</a> ($name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a8f132f051b7cd7d570ccb9f6e2bb4201">__isset</a> ($name)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a8a93654c7bfe3f0a9bb7af531e513d44">__unset</a> ($name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#afc8a3c62679cf00ade9f15fb2a6d6132">save</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a13bdffdd926f26b825ea57066334ff01">delete</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a144f2a49e9970315392c13525d5de652">find</a> ($<a class="el" href="classtable.html">table</a>, $filters=array(), $ordergroup=array(), $columns=array())</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#aa86daa58bc1ff877f2137c27b222dff6">addRelation</a> ($tablename, $arg1, $arg2=FALSE)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a29c2012e7cc6b182cc3ca63acfc324b9">addRelationM2M</a> ($connectortable, $thisid, $mappedid, $connectedtable, $thatid, $cmappedid)</td></tr>
+<tr><td colspan="2"><h2><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#ae8876a14058f368335baccf35af4a22b">$table</a></td></tr>
+<tr><td colspan="2"><h2><a name="pub-static-attribs"></a>
+Static Public Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a3d332a3c374a53802495dcb045f6133f">$tables</a> = array()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a5787b67dccb801e89f4ff779d42edece">$relations</a> = array()</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>Provides CRUD functionality. Detects automatically all the columns of a table. </p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
-<a class="anchor" id="a68a3e1f2e0983938fba508b288564ee6"></a><!-- doxytag: member="table::__construct" ref="a68a3e1f2e0983938fba508b288564ee6" args="($connection, $table, $hydrater=FALSE)" -->
+<a class="anchor" id="adb8d24f1376e0b2c5f31deb281c76385"></a><!-- doxytag: member="table::__construct" ref="adb8d24f1376e0b2c5f31deb281c76385" args="($table, $id=FALSE, $columns=FALSE, $connection=FALSE)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -108,19 +128,25 @@ Public Member Functions</h2></td></tr>
           <td class="memname">__construct </td>
           <td>(</td>
           <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>connection</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">$&#160;</td>
           <td class="paramname"><em>table</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>hydrater</em> = <code>FALSE</code>&#160;</td>
+          <td class="paramname"><em>id</em> = <code>FALSE</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>columns</em> = <code>FALSE</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>connection</em> = <code>FALSE</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -130,12 +156,13 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Constructor of the class. Initializes the table. </p>
+<p>Initializes the table. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramtype"><a class="el" href="interfacedatabase_adapter.html">databaseAdapter</a></td><td class="paramname">$connection</td><td>- A database Adapter object </td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$table</td><td></td></tr>
-    <tr><td class="paramtype">array</td><td class="paramname">$hydrater</td><td>- An array containing the values with which to initialize the object. Optional </td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$columns</td><td></td></tr>
+    <tr><td class="paramtype"><a class="el" href="interfacedatabase_adapter.html">databaseAdapter</a></td><td class="paramname">$connection</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -182,7 +209,7 @@ Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Automagic function for finding out if dynamic properties are set </p>
+<p>Automagic function that checks if a column exists </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
@@ -228,28 +255,109 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8a93654c7bfe3f0a9bb7af531e513d44"></a><!-- doxytag: member="table::__unset" ref="a8a93654c7bfe3f0a9bb7af531e513d44" args="($name)" -->
+<a class="anchor" id="aa86daa58bc1ff877f2137c27b222dff6"></a><!-- doxytag: member="table::addRelation" ref="aa86daa58bc1ff877f2137c27b222dff6" args="($tablename, $arg1, $arg2=FALSE)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">__unset </td>
+          <td class="memname">addRelation </td>
           <td>(</td>
           <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>name</em></td><td>)</td>
+          <td class="paramname"><em>tablename</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>arg1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>arg2</em> = <code>FALSE</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Automagic function for unsetting dynamic properties </p>
+<p>Adds a relation to another table. This is not for many to many tables. Use addRelationM2M for that. If third argument isn't passed, it defaults to the table primary key </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$tablename</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$arg1</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$arg2</td><td></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>TRUE|FALSE </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a29c2012e7cc6b182cc3ca63acfc324b9"></a><!-- doxytag: member="table::addRelationM2M" ref="a29c2012e7cc6b182cc3ca63acfc324b9" args="($connectortable, $thisid, $mappedid, $connectedtable, $thatid, $cmappedid)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">addRelationM2M </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>connectortable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>thisid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>mappedid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>connectedtable</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>thatid</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>cmappedid</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Adds a many-to-many relation between tables. Takes a crapload of arguments. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$connectortable</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$thisid</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$mappedid</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$connectedtable</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$thatid</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$cmappedid</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>find a way to reduce arguments</dd></dl>
 
 </div>
 </div>
@@ -270,6 +378,56 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a144f2a49e9970315392c13525d5de652"></a><!-- doxytag: member="table::find" ref="a144f2a49e9970315392c13525d5de652" args="($table, $filters=array(), $ordergroup=array(), $columns=array())" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">find </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>table</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>filters</em> = <code>array()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>ordergroup</em> = <code>array()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>columns</em> = <code>array()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Makes and executes a SQL query, based on various filters, orders, groups, and columns to return. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$table</td><td>Table in which to search </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$filters</td><td>Filters to apply. Can be name=&gt;value pair, SQL statement, or recursive array relating to conditions on other tables </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$ordergroup</td><td>How to order, group and limit the search </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$columns</td><td>What columns to return in search </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>array </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="afc8a3c62679cf00ade9f15fb2a6d6132"></a><!-- doxytag: member="table::save" ref="afc8a3c62679cf00ade9f15fb2a6d6132" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -287,6 +445,50 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<hr/><h2>Field Documentation</h2>
+<a class="anchor" id="a5787b67dccb801e89f4ff779d42edece"></a><!-- doxytag: member="table::$relations" ref="a5787b67dccb801e89f4ff779d42edece" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$relations = array()<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Static variable containing the relations between tables </p>
+
+</div>
+</div>
+<a class="anchor" id="ae8876a14058f368335baccf35af4a22b"></a><!-- doxytag: member="table::$table" ref="ae8876a14058f368335baccf35af4a22b" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$<a class="el" href="classtable.html">table</a></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Contains the table name of this object </p>
+
+</div>
+</div>
+<a class="anchor" id="a3d332a3c374a53802495dcb045f6133f"></a><!-- doxytag: member="table::$tables" ref="a3d332a3c374a53802495dcb045f6133f" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$tables = array()<code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Static variable containing the columns of all tables that have been instantiated </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>allow objects representing same table, but different columns </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>C:/wamp/www/framework/db.php</li>
 </ul>
@@ -295,7 +497,7 @@ Public Member Functions</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="classtable.html">table</a>      </li>
-      <li class="footer">Generated on Sun Feb 13 2011 14:03:46 for rolisz framework by&#160;
+      <li class="footer">Generated on Sat Feb 19 2011 22:01:07 for rolisz framework by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

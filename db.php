@@ -2,7 +2,7 @@
 
 
 define('SINGLE', 'RELATION_SINGLE');
-define('FOREIGN', 'RELATION_FOREIGN');
+define('ONE_TO_MANY', 'RELATION_ONE_TO_MANY');
 define('MANY', 'RELATION_MANY');
 define('NOT_RECOGNIZED', 'RELATION_NOT_RECOGNIZED');
 define('NOT_ANALYZED', 'RELATION_NOT_ANALYZED');
@@ -14,26 +14,46 @@ define('CUSTOM', 'RELATION_CUSTOM');
 			@author Roland Szabo
 	
 	**/
-	class table {
+	class table extends base{
+		
 		
 		private $connection;
-		//Stativ variable containing the columns of all tables that have been instantiated
-		//@TODO allow objects representing same table, but different columns
-		static private $tables = array();
-		//Contains only the table name of this object
-		private $table;
+		/**
+			Static variable containing the columns of all tables that have been instantiated
+				@todo allow objects representing same table, but different columns
+		**/
+		static public $tables = array();
+		/** 
+			Contains the table name of this object  
+		**/
+		public $table;
 		private $originalData = array();
 		private $modifiedData = array();
 		static private $primaryKey = array();
-		static private $relations = array();
+		/**
+			Static variable containing the relations between tables
+		**/
+		static public $relations = array();
 
-		public function __construct($connection, $table, $id=FALSE, $columns = FALSE) {
-			$this->connection = $connection;
+		/**
+			Initializes the table.
+				@param string $table
+				@param int $id
+				@param array $columns 
+				@param databaseAdapter $connection
+		**/
+		public function __construct($table, $id=FALSE, $columns = FALSE, $connection = FALSE) {
+			if ($connection) {
+				$this->connection = $connection;
+			}
+			else {
+				$this->connection = self::$global['dbCon'];
+			}
 			$this->table = $table;
-			if ($columns && isarray($columns)) {
+			if ($columns && is_array($columns)) {
 				self::$tables[$this->table] = $columns;
 			}
-			elseif (!isset(self::$tables[$this->table])) {
+			elseif (!isset(self::$tables[$table])) {
 				if (!$this->getColumns()) {
 					trigger_error("No table called $table found");
 				}
@@ -49,7 +69,7 @@ define('CUSTOM', 'RELATION_CUSTOM');
 				@param string $value
 		**/
 		public function __set($name, $value) {
-			if (!isset(self::$tables[$this->table[$name]])) {
+			if (!array_search($name,self::$tables[$this->table])) {
 					trigger_error("$name column doesn't exist in $this->table table ");
 			}
 			$this->modifiedData[$name] = $value;
@@ -61,7 +81,7 @@ define('CUSTOM', 'RELATION_CUSTOM');
 				@return mixed
 		**/
 		public function __get($name) {
-			if (!isset(self::$tables[$this->table[$name]])) {
+			if (!in_array($name,self::$tables[$this->table])) {
 				trigger_error("$name column doesn't exist in $this->table table ");
 				return false;
 			}
@@ -73,6 +93,19 @@ define('CUSTOM', 'RELATION_CUSTOM');
 			}
 			trigger_error("$name has not been set yet");
 			return null;
+		}
+		
+		/**
+			Automagic function that checks if a column exists
+				@param string $name
+				@return TRUE|FALSE
+		**/
+		public function __isset($name) {
+			if (!in_array($name,self::$tables[$this->table])) {
+			echo 'bong';
+				return false;
+			}
+			return true;
 		}
 		
 		/**
@@ -115,7 +148,7 @@ define('CUSTOM', 'RELATION_CUSTOM');
 				$query.= $key ."='".$value.'\',';
 			}
 			$query = substr($query,0,-1);
-			if ($this->hydrater) {
+			if (!empty($this->originalData)) {
 				$query.=' WHERE '.self::$primaryKey[$this->table].'=\''.$this->originalData[self::$primaryKey[$this->table]]."'";
 			}
 			$this->connection->query($query);
@@ -129,9 +162,10 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		
 		**/
 		public function delete() {
-			if ($this->hydrater) {
+			if (!empty($this->originalData)) {
 				$query = $this->connection->query("DELETE FROM {$this->table} WHERE ".self::$primaryKey[$this->table]."='{$this->originalData[self::$primaryKey[$this->table]]}'");
 				$query = $this->connection->query("ALTER TABLE $this->table AUTO_INCREMENT = 1");
+				$this->originalData = array();
 			}	
 			else 
 				trigger_error('You are trying to delete an inexistent row');
@@ -157,63 +191,281 @@ define('CUSTOM', 'RELATION_CUSTOM');
 			return TRUE;
 		}
 		
-		public function find($class) {
+		/**
+			Makes and executes a SQL query, based on various filters, orders, groups, and columns to return.
+				@param string $table Table in which to search
+				@param array $filters Filters to apply. Can be name=>value pair, SQL statement, or recursive array relating to conditions on other tables
+				@param array $ordergroup How to order, group and limit the search
+				@param array $columns What columns to return in search
+				@return array
 		
-		}
-		/** 
-			Adds a relation to another table and then does some magic to figure out what kind of a relationship is it
-				@param string $tabelname
-				@param string $connectortabelname
 		**/
-		public function addRelation($tabelname, $connectortabelname = FALSE) {
-			var_dump($tabelname);
-			var_dump($connectortabelname);
-			if (is_array($tabelname)) {
-				self::$relations[$this->tabel][key($tabelname)] = new stdClass();
-				self::$relations[$this->tabel][key($tabelname)]->origKey = self::$primaryKey[$this->table];
-				self::$relations[$this->tabel][key($tabelname)]->targetKey = current($tabelname);
+		public function find($table, $filters = array(), $ordergroup = array(), $columns = array()) {
+			
+			$pK = self::$primaryKey[$this->table];
+			if($this->$pK != false) {
+				$filters["ID"] = $this->$pK;
+				$filters = array($this->table=> $filters);
 			}
-			if (is_array($connectortabelname)) {
-				echo $this->tabel.$tabelname;
-				self::$relations[$this->tabel][$tabelname] = new stdClass();
-				//self::$relations[$this->tabel][$tabelname]->origKey = self::$primaryKey[$this->table];
-				//self::$relations[$this->tabel][$tabelname]->targetKey = current($connectortabelname);
-				//self::$relations[$this->tabel][$tabelname]->connector = key($connectortabelname);
+			$query = new Query($table, $filters, $ordergroup, $columns);
+			$results = $this->connection->fetchAll($query->buildQuery());
+			return $results;		
+		}
+		
+
+		/** 
+			Adds a relation to another table. This is not for many to many tables. Use addRelationM2M for that. If third argument isn't passed, it defaults to the table primary key
+				@param string $tablename
+				@param string $arg1 
+				@param string $arg2
+		**/
+		public function addRelation($tablename, $arg1, $arg2=FALSE) {
+			if ($arg2) {
+				$origKey = $arg1;
+				$targetKey = $arg2;
 			}
-			/*if(is_subclass_of($classname, 'dbObject')) {// the class to connect is a dbObject
-				$obj = new $classname(false);
-				$info->className = $classname;
-				if($info->relationType == RELATION_NOT_ANALYZED)
-				{
-					if(array_key_exists('connectorClass', get_object_vars($info)) && $info->connectorClass != '' && is_subclass_of($info->connectorClass, 'dbObject')) { // this class has a connector class. It should be a many:many relation
-						$connector = $info->connectorClass;
-						$connectorobj = new $connector(false);
-						if(array_key_exists($this->databaseInfo->primary, $connectorobj->databaseInfo->fields) && array_key_exists($obj->databaseInfo->primary, $connectorobj->databaseInfo->fields)) {
-							$info->relationType = RELATION_MANY; // yes! The primary key of the relation now appears in this object, the connector class and one of the connected class. it's a many:many relation
-							continue;
-						} 
-						else { 
-							unset($info->connectorClass); // it's not connected to our relations
+			else {
+				$origKey = self::$primaryKey[$this->table];
+				$targetKey = $arg1;
+			}
+			$table = new table ($tablename);
+			if (isset($table->$targetKey)) {
+				self::$relations[$this->table][$tablename] = new stdClass();
+				self::$relations[$this->table][$tablename]->origKey = $origKey;
+				self::$relations[$this->table][$tablename]->targetKey = $targetKey;
+				self::$relations[$tablename][$this->table] = new stdClass();
+				self::$relations[$tablename][$this->table]->origKey = $targetKey;
+				self::$relations[$tablename][$this->table]->targetKey = $origKey;
+				self::$relations[$tablename][$this->table]->type = self::$relations[$this->table][$tablename]->type = NOT_ANALYZED;
+			}
+			else {
+				trigger_error("$targetKey column doesn't exist in $tablename");
+			}
+			$this->analyzeRelations();
+		}
+		
+		/**
+			Adds a many-to-many relation between tables. Takes a crapload of arguments.	
+				@param string $connectortable
+				@param string $thisid
+				@param string $mappedid
+				@param string $connectedtable
+				@param string $thatid
+				@param string $cmappedid
+				@todo find a way to reduce arguments
+		
+		**/
+		
+		public function addRelationM2M($connectortable,$thisid,$mappedid,$connectedtable,$thatid,$cmappedid) {
+			$table = new table($connectedtable);
+			$conntable = new table($connectortable);
+			if (isset($conntable->$mappedid) && isset($conntable->$cmappedid)) {
+					self::$relations[$this->table][$connectedtable] = new stdClass();
+					self::$relations[$this->table][$connectedtable]->origKey = $thisid;
+					self::$relations[$this->table][$connectedtable]->targetKey = $mappedid;
+					self::$relations[$this->table][$connectedtable]->connector = $connectortable;
+					self::$relations[$connectedtable][$this->table] = new stdClass();
+					self::$relations[$connectedtable][$this->table]->origKey = $thatid;
+					self::$relations[$connectedtable][$this->table]->targetKey = $cmappedid;
+					self::$relations[$connectedtable][$this->table]->connector = $connectortable;
+					self::$relations[$connectedtable][$this->table]->type = self::$relations[$this->table][$connectedtable]->type = MANY;
+			}
+			else {
+					trigger_error("$mappedid column doesn't exist in $connectortable or $cmappedid column doesn't exist in $connectedtable");
+			}
+		}
+		/**
+			Analyzes the relation between tables and marks them accordingly. So far only ONE TO MANY and MANY TO MANY ones. Haven't seen a case of single
+		
+		**/
+		private function analyzeRelations() {
+			foreach(self::$relations as $key1 => $table) {
+				foreach ($table as $key => &$relation) {
+					$table1 = new table($key1);
+					$table2 = new table($key);
+					if ($relation->type==NOT_ANALYZED) {
+						if (isset($relation->connector)) {	
+							$relation->type = MANY;
+						}
+						$tK = $relation->targetKey;
+						$oK = $relation->origKey;
+						if (isset($table2->$tK) && isset($table1->$oK)) {
+							$relation->type = ONE_TO_MANY;
+						}
+						//@TODO single relations
+						elseif ($relation->type == NOT_ANALYZED) {
+							$info->relationType = NOT_RECOGNIZED;
+							trigger_error("Error! Relation between tables not recognized: $key1 and $key");
 						}
 					}
-					if(	array_key_exists($obj->databaseInfo->primary, $this->databaseInfo->fields) && array_key_exists($this->databaseInfo->primary, $obj->databaseInfo->fields)) {
-						$info->relationType = RELATION_SINGLE; // if the primary key of the connected object exists in this object and the primary key of this object exists in the connected object it's a 1:1 relation
-					}
-					elseif((array_key_exists($this->databaseInfo->primary, $obj->databaseInfo->fields) && !array_key_exists($obj->databaseInfo->primary, $this->databaseInfo->fields) || !array_key_exists($this->databaseInfo->primary, $obj->databaseInfo->fields) && array_key_exists($obj->databaseInfo->primary, $this->databaseInfo->fields)) ) {
-							$info->relationType = RELATION_FOREIGN;	// if the primary key of the connected object exists in this object (or the other way around), but the primary key of this object does not exist in the connected object (or the other way around) it's a many:1 or 1:many relation		
-					}
-					elseif($info->relationType == RELATION_NOT_ANALYZED) {
-						$info->relationType = RELATION_NOT_RECOGNIZED;  // we don't recognize this type of relation.
-						Logger::Trace("Warning! Relation not recognized! {$classname} connecting to ".get_class($this)); 
-					}
-					$this->relations[$classname] = $info;
+				}	
+			}
+		}
+	}
+	
+	/**
+		/class Query
+		Helper class for making the more complicated queries.
+		
+	**/
+	
+	class Query extends base{
+		
+		/**
+			Constructor. 
+				@param string $class
+				@param array $filters
+				@param array $ordergroup
+				@param array $columns
+		
+		**/
+		public function __construct($class, $filters, $ordergroup, $columns) {
+			$this->filters = $filters;
+			$this->ordergroup = $ordergroup;
+			$this->wheres = array();
+			$this->joins = array();
+			$this->fields = array();
+			$this->orders = array();
+			$this->groups = array();
+			$this->limit = '';
+			$tableName = $class;
+			$this->class = new table($class);
+			if(sizeof($columns) == 0) { // if $columns is not passed, use all fields from $class->databaseInfo->fields
+				$fields = table::$tables[$this->class->table];
+				foreach($fields as $property) {
+					$this->fields[] = $tableName.'.'.$property;
 				}
 			}
-			else
+			else { // otherwise, use only the fields from $justthese
+				foreach($columns as $property) {
+					$this->fields[] = $tableName.'.'.$property;
+				}
+			}
+			if(sizeof($filters) > 0 )
 			{
-				Logger::Trace ("{$classname} is not a dbObject!");
-				unset($this->relations[$classname]); // tried to connect a non-dbobject object.
-			}*/
+				foreach($filters as $property=>$value) {
+					$filter = $this->buildFilters($property, $value, $this->class);
+					if (is_array($filter)) {
+						$this->wheres = array_merge($this->wheres, $filter);
+					}
+					else {
+						$this->wheres[] = $filter;
+					}
+				}
+			}
+			$this->buildOrderBy();
 		}
+		
+		
+		/**
+			Processes the filters passed in the constructor and returns appropiate SQL queries
+				@param mixed $property
+				@param mixed $value
+				@param table $class
+				@return string
+		
+		**/
+		private function buildFilters($property, $value, $class) {
+			//The element was an array => it was a filtering by a related table
+			if (array_key_exists($property,table::$relations[$class->table]) && is_array($value)) {
+				$allFilters = array();
+				$property = new table($property);
+				foreach($value as $key=>$val) {
+					$this->buildJoins($property,$class);
+					$filter = $this->buildFilters($key, $val, $property);
+					if (is_array($filter)) {
+						$allFilters = array_merge($filter, $allFilters);
+					}
+					else {
+						$allFilters[] = $filter;
+					}
+				}	
+				return $allFilters;
+			}
+			//The element was not an array or didn't have a string index
+			elseif (is_numeric($property)) {
+				return $value;
+			}			
+			else {
+				return "{$class->table}.{$property} = '{$value}'";
+			}
+		}
+		
+		/**
+			Build the order, group, limit SQL strings for the query
+				
+		
+		**/
+		private function buildOrderBy() {
+			$hasorderby = false;
+			foreach($this->ordergroup as $key=>$extra) {
+				if(strpos(strtoupper($extra), 'ORDER BY') !== false) {
+					$this->orders[] = str_replace('ORDER BY', "", strtoupper($extra));
+					unset($this->ordergroup[$key]);
+				}
+				if(strpos(strtoupper($extra), 'LIMIT') !== false) {
+					$this->limit = $extra;
+					unset($this->ordergroup[$key]);
+				}
+				if(strpos(strtoupper($extra), 'GROUP BY') !== false) { 
+					$this->groups[] = str_replace('GROUP BY', "", strtoupper($extra));
+					unset($this->ordergroup[$key]);
+				}
+			}
+		}
+		
+		/**
+			Makes the SQL strings for the JOINS necesary in the filtering
+				@param table $child
+				@param table $parent
+		
+		**/
+		private function buildJoins($child, $parent) {
+			switch ($parent::$relations[$parent->table][$child->table]->type) {
+				case NOT_ANALYZED:
+					$parent->analyzeRelations();
+					return ($this->buildJoins($child,$parent));
+					break;
+				case MANY:
+					$this->joins[] = "LEFT JOIN {$parent::$relations[$parent->table][$child->table]->connector} ON {$parent::$relations[$parent->table][$child->table]->connector}.{$parent::$relations[$parent->table][$child->table]->targetKey} = {$parent->table}.{$parent::$relations[$parent->table][$child->table]->origKey} ";
+					$this->joins[] = "LEFT JOIN {$child->table} ON {$parent::$relations[$parent->table][$child->table]->connector}.{$parent::$relations[$child->table][$parent->table]->targetKey} = {$child->table}.{$parent::$relations[$child->table][$parent->table]->origKey} ";
+					break;
+				case ONE_TO_MANY:
+					$this->joins[] = "LEFT JOIN {$child->table} ON {$child->table}.{$parent::$relations[$parent->table][$child->table]->targetKey} = {$parent->table}.{$parent::$relations[$parent->table][$child->table]->origKey} ";
+					break;
+				default:
+					trigger_error("Incorrect relation between {$parent->table} and {$child->table}");	
+			
+			}
+			$this->joins = array_unique($this->joins);
+		}
+		
+		/**
+			Simply joins and returns all the stuff done in the previous functions	
+				@return string with SQL statement
+		
+		**/
+		public function buildQuery() {
+			$where = (sizeof($this->wheres) > 0) ? ' WHERE '.implode(" \n AND \n\t", $this->wheres) : '';
+			$order = (sizeof($this->orders) > 0) ? ' ORDER BY '.implode(", ", $this->orders) : '' ;
+			$group = (sizeof($this->groups) > 0) ? ' GROUP BY '.implode(", ", $this->groups) : '' ;
+			$query = 'SELECT '.implode(", \n\t", $this->fields)."\n FROM \n\t".$this->class->table."\n ".implode("\n ", $this->joins).$where.' '.$group.' '.$order.' '.$this->limit;
+			return($query);
+		}
+		
+		/**
+			Get's a count for how many rows would a query return ?
+				@return array;
+		***/
+		function getCount() {
+			$where = (sizeof($this->wheres) > 0) ? ' WHERE '.implode(" \n AND \n\t", $this->wheres) : '';
+			$order = (sizeof($this->orders) > 0) ? ' ORDER BY '.implode(", ", $this->orders) : '' ;
+			$group = (sizeof($this->groups) > 0) ? ' GROUP BY '.implode(", ", $this->groups) : '' ;
+			$query = "SELECT count(*) FROM \n\t".$this->class->table."\n ".implode("\n ", $this->joins).$where.' '.$group.' '.$order.' ';
+
+			return self::$global['dbCon']->fetchRow($query);
+
+		}
+	
 	}
 ?>

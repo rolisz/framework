@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/xhtml;charset=UTF-8"/>
-<title>rolisz framework: databaseAdapter Class Reference</title>
+<title>rolisz framework: Query Class Reference</title>
 <link href="tabs.css" rel="stylesheet" type="text/css"/>
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/search.js"></script>
@@ -76,63 +76,129 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
   </div>
 </div>
 <script type="text/javascript">
-  initNavTree('interfacedatabase_adapter.html','');
+  initNavTree('class_query.html','');
 </script>
 <div id="doc-content">
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a>  </div>
   <div class="headertitle">
-<h1>databaseAdapter Class Reference</h1>  </div>
+<h1>Query Class Reference</h1>  </div>
 </div>
 <div class="contents">
-<!-- doxytag: class="databaseAdapter" --><div class="dynheader">
-Inheritance diagram for databaseAdapter:</div>
+<!-- doxytag: class="Query" --><!-- doxytag: inherits="base" --><div class="dynheader">
+Inheritance diagram for Query:</div>
 <div class="dyncontent">
  <div class="center">
-  <img src="interfacedatabase_adapter.png" usemap="#databaseAdapter_map" alt=""/>
-  <map id="databaseAdapter_map" name="databaseAdapter_map">
-<area href="class_my_s_q_li_database.html" alt="MySQLiDatabase" shape="rect" coords="0,56,111,80"/>
+  <img src="class_query.png" usemap="#Query_map" alt=""/>
+  <map id="Query_map" name="Query_map">
+<area href="classbase.html" alt="base" shape="rect" coords="0,0,48,24"/>
 </map>
  </div></div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a81fcddb424f13e0862ee3f7e1ea57ce9"></a><!-- doxytag: member="databaseAdapter::__construct" ref="a81fcddb424f13e0862ee3f7e1ea57ce9" args="($host, $username, $password, $db)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>__construct</b> ($host, $username, $password, $db)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4c4f3316747e665b9e02f6ddcba4117c"></a><!-- doxytag: member="databaseAdapter::connect" ref="a4c4f3316747e665b9e02f6ddcba4117c" args="($host, $username, $password)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>connect</b> ($host, $username, $password)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a039ae2e8f2bf579fd75d9df8df87eee3"></a><!-- doxytag: member="databaseAdapter::escapeValue" ref="a039ae2e8f2bf579fd75d9df8df87eee3" args="($value)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>escapeValue</b> ($value)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a529385852efa66f19288496930ee5394"></a><!-- doxytag: member="databaseAdapter::fetchRow" ref="a529385852efa66f19288496930ee5394" args="($query=false, $type='assoc')" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>fetchRow</b> ($query=false, $type='assoc')</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a861f65695740a1d866ce1001f0ae706d"></a><!-- doxytag: member="databaseAdapter::fetchAll" ref="a861f65695740a1d866ce1001f0ae706d" args="($query=false, $type='assoc')" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>fetchAll</b> ($query=false, $type='assoc')</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a24ada5decce3d1b79cd82f5a90ccf404"></a><!-- doxytag: member="databaseAdapter::getError" ref="a24ada5decce3d1b79cd82f5a90ccf404" args="()" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>getError</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac73f1d8cddbdfc35ca442189378a073c"></a><!-- doxytag: member="databaseAdapter::getInsertID" ref="ac73f1d8cddbdfc35ca442189378a073c" args="()" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>getInsertID</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af37433a300db1f607ee789d22828a0a0"></a><!-- doxytag: member="databaseAdapter::numRows" ref="af37433a300db1f607ee789d22828a0a0" args="()" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>numRows</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="acac8dfe61e7840f9a1e672ebede0be21"></a><!-- doxytag: member="databaseAdapter::numAffected" ref="acac8dfe61e7840f9a1e672ebede0be21" args="()" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>numAffected</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac9fddec3f6bd1db128887a1b211d90f0"></a><!-- doxytag: member="databaseAdapter::query" ref="ac9fddec3f6bd1db128887a1b211d90f0" args="($query)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>query</b> ($query)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab624b0b234f9db9dbc6dc4180f566b1f"></a><!-- doxytag: member="databaseAdapter::selectDatabase" ref="ab624b0b234f9db9dbc6dc4180f566b1f" args="($db)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>selectDatabase</b> ($db)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae7cdaa744d52a1eb0103e377023ca528"></a><!-- doxytag: member="databaseAdapter::tableExists" ref="ae7cdaa744d52a1eb0103e377023ca528" args="($table)" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>tableExists</b> ($<a class="el" href="classtable.html">table</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_query.html#a28e580fac4fbdedecd32b8ccb932b157">__construct</a> ($class, $filters, $ordergroup, $columns)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_query.html#a394445491b1b221e4e562dfb45f2a266">buildQuery</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_query.html#a24d4dbc71552d9387256a3cc426e3898">getCount</a> ()</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Defines all the functions a database adapter should have to be working with rolisz </p>
-</div><hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/wamp/www/framework/databaseAdapter.php</li>
+<div class="textblock"><p>/class <a class="el" href="class_query.html">Query</a> Helper class for making the more complicated queries. </p>
+</div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
+<a class="anchor" id="a28e580fac4fbdedecd32b8ccb932b157"></a><!-- doxytag: member="Query::__construct" ref="a28e580fac4fbdedecd32b8ccb932b157" args="($class, $filters, $ordergroup, $columns)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__construct </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>class</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>filters</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>ordergroup</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>columns</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Constructor. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$class</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$filters</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$ordergroup</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$columns</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a394445491b1b221e4e562dfb45f2a266"></a><!-- doxytag: member="Query::buildQuery" ref="a394445491b1b221e4e562dfb45f2a266" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">buildQuery </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Simply joins and returns all the stuff done in the previous functions </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>string with SQL statement </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a24d4dbc71552d9387256a3cc426e3898"></a><!-- doxytag: member="Query::getCount" ref="a24d4dbc71552d9387256a3cc426e3898" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">getCount </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Get's a count for how many rows would a query return ? </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>array; </dd></dl>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>C:/wamp/www/framework/db.php</li>
 </ul>
 </div>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
-      <li class="navelem"><a class="el" href="interfacedatabase_adapter.html">databaseAdapter</a>      </li>
+      <li class="navelem"><a class="el" href="class_query.html">Query</a>      </li>
       <li class="footer">Generated on Sat Feb 19 2011 22:01:06 for rolisz framework by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>

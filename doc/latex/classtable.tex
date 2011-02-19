@@ -2,10 +2,16 @@
 \section{table Class Reference}
 \label{classtable}\index{table@{table}}
 }
+Inheritance diagram for table:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classtable}
+\end{center}
+\end{figure}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classtable_a68a3e1f2e0983938fba508b288564ee6}{\_\-\_\-construct} (\$connection, \$\hyperlink{classtable}{table}, \$hydrater=FALSE)
+\hyperlink{classtable_adb8d24f1376e0b2c5f31deb281c76385}{\_\-\_\-construct} (\$\hyperlink{classtable}{table}, \$id=FALSE, \$columns=FALSE, \$connection=FALSE)
 \item 
 \hyperlink{classtable_a83c2703c91959192f759992ad5640b67}{\_\-\_\-set} (\$name, \$value)
 \item 
@@ -13,11 +19,27 @@
 \item 
 \hyperlink{classtable_a8f132f051b7cd7d570ccb9f6e2bb4201}{\_\-\_\-isset} (\$name)
 \item 
-\hyperlink{classtable_a8a93654c7bfe3f0a9bb7af531e513d44}{\_\-\_\-unset} (\$name)
-\item 
 \hyperlink{classtable_afc8a3c62679cf00ade9f15fb2a6d6132}{save} ()
 \item 
 \hyperlink{classtable_a13bdffdd926f26b825ea57066334ff01}{delete} ()
+\item 
+\hyperlink{classtable_a144f2a49e9970315392c13525d5de652}{find} (\$\hyperlink{classtable}{table}, \$filters=array(), \$ordergroup=array(), \$columns=array())
+\item 
+\hyperlink{classtable_aa86daa58bc1ff877f2137c27b222dff6}{addRelation} (\$tablename, \$arg1, \$arg2=FALSE)
+\item 
+\hyperlink{classtable_a29c2012e7cc6b182cc3ca63acfc324b9}{addRelationM2M} (\$connectortable, \$thisid, \$mappedid, \$connectedtable, \$thatid, \$cmappedid)
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtable_ae8876a14058f368335baccf35af4a22b}{\$table}
+\end{DoxyCompactItemize}
+\subsection*{Static Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classtable_a3d332a3c374a53802495dcb045f6133f}{\$tables} = array()
+\item 
+static \hyperlink{classtable_a5787b67dccb801e89f4ff779d42edece}{\$relations} = array()
 \end{DoxyCompactItemize}
 
 
@@ -25,24 +47,27 @@
 Provides CRUD functionality. Detects automatically all the columns of a table. 
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{classtable_a68a3e1f2e0983938fba508b288564ee6}{
+\hypertarget{classtable_adb8d24f1376e0b2c5f31deb281c76385}{
 \index{table@{table}!\_\-\_\-construct@{\_\-\_\-construct}}
 \index{\_\-\_\-construct@{\_\-\_\-construct}!table@{table}}
 \subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-construct (
 \begin{DoxyParamCaption}
-\item[{\$}]{connection, }
 \item[{\$}]{table, }
-\item[{\$}]{hydrater = {\ttfamily FALSE}}
+\item[{\$}]{id = {\ttfamily FALSE}, }
+\item[{\$}]{columns = {\ttfamily FALSE}, }
+\item[{\$}]{connection = {\ttfamily FALSE}}
 \end{DoxyParamCaption}
 )}}
-\label{classtable_a68a3e1f2e0983938fba508b288564ee6}
-Constructor of the class. Initializes the table. 
+\label{classtable_adb8d24f1376e0b2c5f31deb281c76385}
+Initializes the table. 
 \begin{DoxyParams}[1]{Parameters}
-\hyperlink{interfacedatabase_adapter}{databaseAdapter} & {\em \$connection} & -\/ A database Adapter object \\
-\hline
 string & {\em \$table} & \\
 \hline
-array & {\em \$hydrater} & -\/ An array containing the values with which to initialize the object. Optional \\
+int & {\em \$id} & \\
+\hline
+array & {\em \$columns} & \\
+\hline
+\hyperlink{interfacedatabase_adapter}{databaseAdapter} & {\em \$connection} & \\
 \hline
 \end{DoxyParams}
 
@@ -74,7 +99,7 @@ mixed
 \end{DoxyParamCaption}
 )}}
 \label{classtable_a8f132f051b7cd7d570ccb9f6e2bb4201}
-Automagic function for finding out if dynamic properties are set 
+Automagic function that checks if a column exists 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$name} & \\
 \hline
@@ -99,23 +124,57 @@ string & {\em \$name} & \\
 string & {\em \$value} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{classtable_a8a93654c7bfe3f0a9bb7af531e513d44}{
-\index{table@{table}!\_\-\_\-unset@{\_\-\_\-unset}}
-\index{\_\-\_\-unset@{\_\-\_\-unset}!table@{table}}
-\subsubsection[{\_\-\_\-unset}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-unset (
+\hypertarget{classtable_aa86daa58bc1ff877f2137c27b222dff6}{
+\index{table@{table}!addRelation@{addRelation}}
+\index{addRelation@{addRelation}!table@{table}}
+\subsubsection[{addRelation}]{\setlength{\rightskip}{0pt plus 5cm}addRelation (
 \begin{DoxyParamCaption}
-\item[{\$}]{name}
+\item[{\$}]{tablename, }
+\item[{\$}]{arg1, }
+\item[{\$}]{arg2 = {\ttfamily FALSE}}
 \end{DoxyParamCaption}
 )}}
-\label{classtable_a8a93654c7bfe3f0a9bb7af531e513d44}
-Automagic function for unsetting dynamic properties 
+\label{classtable_aa86daa58bc1ff877f2137c27b222dff6}
+Adds a relation to another table. This is not for many to many tables. Use addRelationM2M for that. If third argument isn't passed, it defaults to the table primary key 
 \begin{DoxyParams}[1]{Parameters}
-string & {\em \$name} & \\
+string & {\em \$tablename} & \\
+\hline
+string & {\em \$arg1} & \\
+\hline
+string & {\em \$arg2} & \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-TRUE$|$FALSE 
-\end{DoxyReturn}
+\hypertarget{classtable_a29c2012e7cc6b182cc3ca63acfc324b9}{
+\index{table@{table}!addRelationM2M@{addRelationM2M}}
+\index{addRelationM2M@{addRelationM2M}!table@{table}}
+\subsubsection[{addRelationM2M}]{\setlength{\rightskip}{0pt plus 5cm}addRelationM2M (
+\begin{DoxyParamCaption}
+\item[{\$}]{connectortable, }
+\item[{\$}]{thisid, }
+\item[{\$}]{mappedid, }
+\item[{\$}]{connectedtable, }
+\item[{\$}]{thatid, }
+\item[{\$}]{cmappedid}
+\end{DoxyParamCaption}
+)}}
+\label{classtable_a29c2012e7cc6b182cc3ca63acfc324b9}
+Adds a many-\/to-\/many relation between tables. Takes a crapload of arguments. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$connectortable} & \\
+\hline
+string & {\em \$thisid} & \\
+\hline
+string & {\em \$mappedid} & \\
+\hline
+string & {\em \$connectedtable} & \\
+\hline
+string & {\em \$thatid} & \\
+\hline
+string & {\em \$cmappedid} & \\
+\hline
+\end{DoxyParams}
+\begin{Desc}
+\item[\hyperlink{todo__todo000004}{Todo}]find a way to reduce arguments\end{Desc}
 \hypertarget{classtable_a13bdffdd926f26b825ea57066334ff01}{
 \index{table@{table}!delete@{delete}}
 \index{delete@{delete}!table@{table}}
@@ -125,7 +184,33 @@ TRUE$|$FALSE
 \end{DoxyParamCaption}
 )}}
 \label{classtable_a13bdffdd926f26b825ea57066334ff01}
-Delete the corresponding record from the database \hypertarget{classtable_afc8a3c62679cf00ade9f15fb2a6d6132}{
+Delete the corresponding record from the database \hypertarget{classtable_a144f2a49e9970315392c13525d5de652}{
+\index{table@{table}!find@{find}}
+\index{find@{find}!table@{table}}
+\subsubsection[{find}]{\setlength{\rightskip}{0pt plus 5cm}find (
+\begin{DoxyParamCaption}
+\item[{\$}]{table, }
+\item[{\$}]{filters = {\ttfamily array()}, }
+\item[{\$}]{ordergroup = {\ttfamily array()}, }
+\item[{\$}]{columns = {\ttfamily array()}}
+\end{DoxyParamCaption}
+)}}
+\label{classtable_a144f2a49e9970315392c13525d5de652}
+Makes and executes a SQL query, based on various filters, orders, groups, and columns to return. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$table} & Table in which to search \\
+\hline
+array & {\em \$filters} & Filters to apply. Can be name=$>$value pair, SQL statement, or recursive array relating to conditions on other tables \\
+\hline
+array & {\em \$ordergroup} & How to order, group and limit the search \\
+\hline
+array & {\em \$columns} & What columns to return in search \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+\hypertarget{classtable_afc8a3c62679cf00ade9f15fb2a6d6132}{
 \index{table@{table}!save@{save}}
 \index{save@{save}!table@{table}}
 \subsubsection[{save}]{\setlength{\rightskip}{0pt plus 5cm}save (
@@ -135,6 +220,26 @@ Delete the corresponding record from the database \hypertarget{classtable_afc8a3
 )}}
 \label{classtable_afc8a3c62679cf00ade9f15fb2a6d6132}
 Save changes made to object. If the object was hydrated, it will be updated. If it was created from scratch, it will be inserted into the database 
+
+\subsection{Field Documentation}
+\hypertarget{classtable_a5787b67dccb801e89f4ff779d42edece}{
+\index{table@{table}!\$relations@{\$relations}}
+\index{\$relations@{\$relations}!table@{table}}
+\subsubsection[{\$relations}]{\setlength{\rightskip}{0pt plus 5cm}\$relations = array()\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classtable_a5787b67dccb801e89f4ff779d42edece}
+Static variable containing the relations between tables \hypertarget{classtable_ae8876a14058f368335baccf35af4a22b}{
+\index{table@{table}!\$table@{\$table}}
+\index{\$table@{\$table}!table@{table}}
+\subsubsection[{\$table}]{\setlength{\rightskip}{0pt plus 5cm}\${\bf table}}}
+\label{classtable_ae8876a14058f368335baccf35af4a22b}
+Contains the table name of this object \hypertarget{classtable_a3d332a3c374a53802495dcb045f6133f}{
+\index{table@{table}!\$tables@{\$tables}}
+\index{\$tables@{\$tables}!table@{table}}
+\subsubsection[{\$tables}]{\setlength{\rightskip}{0pt plus 5cm}\$tables = array()\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classtable_a3d332a3c374a53802495dcb045f6133f}
+Static variable containing the columns of all tables that have been instantiated \begin{Desc}
+\item[\hyperlink{todo__todo000003}{Todo}]allow objects representing same table, but different columns \end{Desc}
+
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 

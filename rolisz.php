@@ -11,13 +11,15 @@ spl_autoload_register(array('rolisz', 'autoload'));
 		@author Roland Szabo
 		@todo Error handling function
 		@todo ORM
+		@todo Language Detection
+		@todo Internationalization
 **/
 class base {
 	//@{
 	//! Framework details
 	const
 		AppName='rolisz PHP framework',
-		Version='0.0.0.3';
+		Version='0.0.0.4';
 	//@}
 
 	
@@ -296,18 +298,24 @@ class rolisz extends base {
 	}
 	
 	/**
-		Connects to a database adapter, as defined in db.php
-		
+		Connects to a database adapter, as defined in databaseAdapter.php
+			@param string $dbtype
+			@param string $host
+			@param string $username
+			@param string $password
+			@param string $db
+			@return databaseAdapter
 	**/
 	public static function connect($dbtype,$host, $username, $password, $db) {
 		include ('databaseAdapter.php');
 		$adapterClass = "{$dbtype}Database";
-		return new $adapterClass($host, $username, $password, $db);
+		self::$global['dbCon'] = new $adapterClass($host, $username, $password, $db);
+		return self::$global['dbCon'];
 	}
 	
 	/**
 		Autoloader function. Lazy-loads classes from files in the same directory as current one. Files must be named the same the classes
-	
+			@param string $class
 	**/
 	 public static function autoload( $class ) {
         $file = dirname(__FILE__) . '/../' . str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';

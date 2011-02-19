@@ -4,9 +4,8 @@
 		Defines all the functions a database adapter should have to be working with rolisz
 			@package rolisz
 			@author Szabo Roland
-			@copyright Szabo Roland 2011
-			@version 0.0.0.3
-			@access public
+			@version 0.0.0.4
+			@todo implements countable, iterator
 	**/
 	interface databaseAdapter {
 
@@ -109,7 +108,7 @@
 			Executes query
 				@param string $query 
 				@return mixed
-				@TODO change return values for insert, update, delete, select
+				@todo change return values for insert, update, delete, select
 		**/
 		public function Query($query) {
 			$this->queries[] = $query;
@@ -170,7 +169,7 @@
 				@retval int
 		**/
 		public function getInsertID() {
-			return $this->connection->insert_id();
+			return $this->connection->insert_id;
 		}
 		
 		/**
