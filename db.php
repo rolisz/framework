@@ -1,5 +1,5 @@
 <?php
-
+include_once('rolisz.php');
 
 define('SINGLE', 'RELATION_SINGLE');
 define('ONE_TO_MANY', 'RELATION_ONE_TO_MANY');
@@ -43,6 +43,7 @@ define('CUSTOM', 'RELATION_CUSTOM');
 				@param databaseAdapter $connection
 		**/
 		public function __construct($table, $id=FALSE, $columns = FALSE, $connection = FALSE) {
+			var_dump($connection);
 			if ($connection) {
 				$this->connection = $connection;
 			}
@@ -109,6 +110,14 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		}
 		
 		/**
+			Magic function for serialization
+		**/
+		public function __sleep() {
+			$result = array_merge($this->originalData,$this->modifiedData);
+			return $result;
+		}
+		
+		/**
 			Populate the object with data from the table, selected according to primary key value
 				@param number $id
 				@return array 
@@ -153,6 +162,7 @@ define('CUSTOM', 'RELATION_CUSTOM');
 			}
 			$this->connection->query($query);
 			if (empty($this->originalData)) {
+				$this->originalData[self::$primaryKey[$this->table]] = $this->connection->getInsertID();
 				return $this->connection->getInsertID();
 			}
 		}
@@ -203,13 +213,14 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		public function find($table, $filters = array(), $ordergroup = array(), $columns = array()) {
 			
 			$pK = self::$primaryKey[$this->table];
-			if($this->$pK != false) {
-				$filters["ID"] = $this->$pK;
-				$filters = array($this->table=> $filters);
+			if($pK != false && isset($this->originalData[$pK])) {
+				$filters[$pK] = $this->originalData[$pK];
+				$filters = array($this->table => $filters);
 			}
 			$query = new Query($table, $filters, $ordergroup, $columns);
 			$results = $this->connection->fetchAll($query->buildQuery());
-			return $results;		
+			//return $results;
+			return self::importRows($table,$results);		
 		}
 		
 
@@ -228,7 +239,12 @@ define('CUSTOM', 'RELATION_CUSTOM');
 				$origKey = self::$primaryKey[$this->table];
 				$targetKey = $arg1;
 			}
-			$table = new table ($tablename);
+			if (isset(self::$global['dbCon']) && self::$global['dbCon']==$this->connection) 
+				$table = new table ($tablename);
+			else {
+			echo 'ceva'.$tablename;
+				$table = new table ($tablename,FALSE,FALSE,$this->connection);
+			}
 			if (isset($table->$targetKey)) {
 				self::$relations[$this->table][$tablename] = new stdClass();
 				self::$relations[$this->table][$tablename]->origKey = $origKey;
@@ -301,6 +317,97 @@ define('CUSTOM', 'RELATION_CUSTOM');
 				}	
 			}
 		}
+		
+		/**
+			Set all the values of row at once
+				@param array $values
+		**/
+			public function setAll($values) {
+				if (isset($values[self::$primaryKey[$this->table]])) {
+					$this->originalData = $values;
+				}
+				else {
+					$this->modifiedData = $values;
+				}
+			}
+			
+		/**
+			Imports an array of rows and returns an array of table objects filled with values
+				@param string $table
+				@param array $values
+				@return array
+		**/
+			public static function importRows($table,$values) {
+				$output = array();
+				if (is_array($values)) {
+					foreach ($values as $value) {
+						$tableObject = new table($table);
+						$tableObject->setAll($value);
+						$output[] = $tableObject;
+					}
+				}
+				if (!count($output)) {
+					return false;
+				}
+				return count($output)>1?$output:$output[0];
+			}
+			
+		/**
+			Static wrapper functions
+			
+		**/
+		
+		/**
+			Initializes a certain table	
+				@param string $table
+				@param int $id
+				@param array $columns
+				@param databaseAdapter $connection
+		**/
+			public static function set($table, $id=FALSE, $columns = FALSE, $connection = FALSE) {
+				return new table($table, $id, $columns, $connection);
+			}
+		
+		/**
+			Adds a Many-To-Many relationship statically. For more detailed description, read normal method.
+				@param string $connectortable
+				@param string $thisid
+				@param string $mappedid
+				@param string $connectedtable
+				@param string $thatid
+				@param string $cmappedid
+				@todo find a way to reduce arguments
+				@todo find a way to add relations between tables with other params
+		**/
+			public static function addRelationM2MS($table,$connectortable,$thisid,$mappedid,$connectedtable,$thatid,$cmappedid) {
+				$table = new table ($table);
+				$table->addRelationM2M($connectortable,$thisid,$mappedid,$connectedtable,$thatid,$cmappedid);
+			}
+			
+		/** 
+			Adds a relation to another table statically. For more detailed description, read normal method.
+				@param string $tablename
+				@param string $arg1 
+				@param string $arg2
+				@todo find a way to add relationships between tables with other params
+		**/
+		public static function addRelationS($table, $tablename, $arg1, $arg2=FALSE) {
+			$table = new table($table);
+			$table->addRelation($tablename, $arg1, $arg2);
+		}
+		
+		/**
+			Static wrapper for find. Arguments the same.
+				@param string $table Table in which to search
+				@param array $filters Filters to apply. Can be name=>value pair, SQL statement, or recursive array relating to conditions on other tables
+				@param array $ordergroup How to order, group and limit the search
+				@param array $columns What columns to return in search
+				@return array
+		**/
+		public static function findS($table, $filters = array(), $ordergroup = array(), $columns = array()) {
+			$Table = new table($table);
+			return $Table->find($table, $filters, $ordergroup, $columns);
+		}
 	}
 	
 	/**
@@ -342,7 +449,7 @@ define('CUSTOM', 'RELATION_CUSTOM');
 				}
 			}
 			if(sizeof($filters) > 0 )
-			{
+			{	
 				foreach($filters as $property=>$value) {
 					$filter = $this->buildFilters($property, $value, $this->class);
 					if (is_array($filter)) {
@@ -367,11 +474,12 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		**/
 		private function buildFilters($property, $value, $class) {
 			//The element was an array => it was a filtering by a related table
-			if (array_key_exists($property,table::$relations[$class->table]) && is_array($value)) {
+			if ((array_key_exists($property,table::$relations[$class->table]) || $property==$class->table) && is_array($value)) {
 				$allFilters = array();
 				$property = new table($property);
 				foreach($value as $key=>$val) {
-					$this->buildJoins($property,$class);
+					if ($property->table!=$class->table)
+						$this->buildJoins($property,$class);
 					$filter = $this->buildFilters($key, $val, $property);
 					if (is_array($filter)) {
 						$allFilters = array_merge($filter, $allFilters);

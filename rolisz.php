@@ -13,6 +13,7 @@ spl_autoload_register(array('rolisz', 'autoload'));
 		@todo ORM
 		@todo Language Detection
 		@todo Internationalization
+		@todo set conditions for dynamic part of url
 **/
 class base {
 	//@{
@@ -47,7 +48,7 @@ class base {
 	public function __construct() {
 		// Prohibit use of class as an object
 		self::$global['CONTEXT']=get_called_class();
-		trigger_error(self::TEXT_Object);
+		trigger_error('You shoulnd\'t construct this');
 	}
 
 }
@@ -134,7 +135,7 @@ class rolisz extends base {
 			if ($route[$i]=='*') {
 				return true;
 			}
-			elseif ($route[$i][0]==':') {
+			elseif (strlen($route[$i])>0 && $route[$i][0]==':') {
 				self::$global['ARGS'][$pattern][] = $url[$i];
 				$i++;
 			}

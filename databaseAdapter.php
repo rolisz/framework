@@ -11,6 +11,7 @@
 
 		public function __construct($host, $username, $password, $db);
 		public function connect($host, $username, $password);
+		public function disconnect();
 		public function escapeValue($value);
 		public function fetchRow($query=false, $type='assoc');
 		public function fetchAll($query=false, $type='assoc');	
@@ -21,6 +22,9 @@
 		public function query($query);
 		public function selectDatabase($db);	
 		public function tableExists($table);
+		public function createTable($name,$params);
+		public function dropTable($name);
+		public function alterTable($name,$params);
 	}
 
 	/**
@@ -73,13 +77,20 @@
 				@retval TRUE|FALSE
 		**/
 		public function connect($host, $username, $password) {
-			$this->connection = new mysqli($host, $username, $password, $this->database);
+			$this->connection = @new mysqli($host, $username, $password, $this->database);
 			if ($this->connection->connect_error) {
-				trigger_error('Connect Error (' . $connection->connect_errno . ') '
-				. $connection->connect_error);
+				trigger_error('Connect Error (' . $this->connection->connect_errno . ') '
+				. $this->connection->connect_error);
 				return false;
 			}
 			return true;
+		}
+		
+		/**
+			Disconnects from the database
+		**/
+		public function disconnect() {
+			$this->connection->close();
 		}
 		
 		/**
@@ -199,6 +210,83 @@
 				return true;
 			return false;
 		}
-	}
+		
+		/**
+			Creates a table.
+				@param string $name Has to match this regex [A-Za-z][A-Za-z0-9_]*
+				@param array $params Example: array('id'=>array('INT','NOT NULL','AUTO_INCREMENT','PRIMARY KEY'),'text'=>array('TEXT','NOT NULL'))
+				@return TRUE|FALSE
+		**/
+		public function createTable($name,$params) {
+			if (!is_array($params))
+				return false;
+			if (!preg_match('/^[A-Za-z][A-Za-z0-9_.-]*$/',$name)) {
+				return false;
+			}
+			$query = "CREATE TABLE `{$this->database}`.`{$name}` (";
+			foreach ($params as $key => $value) {
+				$query.= "`".$key."`".' '.implode(' ',$value).',';
+			}
+			$query = substr($query,0,-1);
+			$query.= ') ENGINE = MYISAM;';
+			$query = $this->Query($query);
+			if ($query == TRUE) {
+				return $query;
+			}
+			else {
+				return $this->getError();
+			}
+		}
+		
+		/**
+			It drops $name table if it exists. If it doesn't exist it returns true (you wanted it gone, right?).
+				@param string $name
+				@return TRUE|FALSE
+		**/
+		public function dropTable($name) {
+			if ($this->tableExists($name)) 
+				return $this->Query("DROP TABLE {$name} ");
+			else
+				return true;
+		}
 
+		/**
+			Alters $name table. To change it's name by $params must containt an element with key 'name' and value the new name of the table in params.
+			To add a column, $paramas must contain an element with key 'add' and value an array of columns you wish to add (specified as at createTable.
+			To modify a column, $params must contain an element with key 'edit' and value an array of columns you wish to edit (specified as at createTable.
+			To drop a column, $params must contain an $element with key 'delete' and value the name of the column you want to delete.
+			@param string $name
+			@param array $params
+			@return TRUE|FALSE
+			@todo some checks for valid column names and parameters
+		
+		**/
+		public function alterTable($name,$params) {
+			if (!$this->tableExists($name)) 
+				return false;
+			$query = "ALTER TABLE `{$this->database}`.`{$name}` ";
+			if (isset($params['name']) && preg_match('/^[A-Za-z][A-Za-z0-9_.-]*$/',$params['name'])) {
+				$query.= "RENAME TO `{$this->database}`.`{$params['name']}`, ";
+			}
+			if (isset($params['add']) && is_array($params['add'])) {
+				foreach($params['add'] as $key=>$add) {
+					$query.= 'ADD `'.$key.'` '.implode(' ',$add).', ';
+				}	
+			}
+			if (isset($params['edit']) && is_array($params['edit'])) {
+				foreach($params['edit'] as $key=>$edit) {
+					$query.= 'CHANGE  `'.$key.'` `'.key($edit).'` '.implode(' ',current($edit)).', ';
+				}	
+			}
+			if (isset($params['delete']) && is_array($params['delete'])) {
+				foreach($params['delete'] as $del) {
+					$query.= 'DROP `'.$del.'`,';
+				}	
+				
+			}
+			$query = substr($query,0,-1);
+			return $this->Query($query);
+			
+		}
+	}
 ?>

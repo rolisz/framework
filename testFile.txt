@@ -1,0 +1,1 @@
+ALTER TABLE `test`.`test5` RENAME TO `test`.`test2`, ADD `id2` INT NOT NULL, ADD `text2` TEXT NOT NULL, CHANGE  `id` `id3` INT NOT NULL, DROP `date`

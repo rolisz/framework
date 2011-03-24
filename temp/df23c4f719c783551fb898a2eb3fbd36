@@ -1,0 +1,60 @@
+<article>
+	<header id="articleHead">
+		<a href="/<?php echo $this->escape($category); ?>" id="category" class="<?php echo $this->escape($category); ?>"><?php echo $this->escape($category); ?></a>
+		<h2><a href="<?php echo $this->escape($slug); ?>"><?php echo $this->escape($title); ?></a></h2>
+		<div class="postInfo">
+			<time datetime="<?php echo $this->escape($date); ?>" pubdate="pubdate"><a href='#'><?php echo $this->escape($date); ?></a></time>
+			<span>Written by <a href="#"><?php echo $this->escape($author); ?></a></span>
+		</div>
+		<img src="<?php echo $this->escape($imageSrc); ?>" />
+	</header>
+	<div id="actualText">
+		<?php echo $this->escape($body); ?>
+	</div>
+	<footer>
+	<div id="tags">
+		<span>Tags:</span>
+		<ul>
+			<?php foreach ($tags as $tag) { ?>
+				<li><a href="#"><?php echo $this->escape($tag); ?></a></li>
+			<?php } ?>
+		</ul>
+	</div>
+	</footer>
+	<div id="comments">
+		<h3>Comments(<?php count($comments); ?>)</h3>
+		<?php if(is_array($comments)) { ?>
+		<ul id="commentList">
+			<?php foreach ($comments as $comment) { ?>
+			<li>
+				<article>
+					<header>
+						<div class="commentLeft">
+							<img src='<?php echo $this->escape($comment['image']); ?>' />
+							<ul> 
+								<li><?php echo $this->escape($comment['author']); ?></li>
+								<li><time datetime="<?php echo $this->escape($comment['date']); ?>" pubdate="pubdate">{{echo comment['date'] }}</time></li>
+							</ul>
+						</div>
+						<div class="commentAction"> 
+							<ul>
+								<li><a href="reply">Reply</a></li>
+								<li><a href="edit">Edit</a></li>
+							</ul>
+						</div>
+					</header>
+					<div class="commentContent">
+						<?php echo $this->escape($comment['body']); ?>
+					</div>
+				</article>
+			</li>
+			<?php } ?>
+		</ul>
+		<?php } ?>
+		<div id="commentRespond">
+			<h3>Reply</h3>
+			<textarea>Comment</textarea>
+			<button type="submit">Send reply</button>
+		</div>
+	</div>
+</article>
