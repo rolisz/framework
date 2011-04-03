@@ -8,45 +8,62 @@
 	**/
 include_once ('rolisz.php');
 
-class filter {
-
-	
-}
 class template extends base {
 
+	public function __construct() {
+	
+	}
+	
 	/**
-		Vars
+	 *	Set the value of a framework variable magically. If $var param is string, then a variable called $var will have the value of $value.
+	 * If $var is array, it should be a key-pair value like this array('var_name'=>'132','2ndvar'=>123).
+	 *		@param $var - string
+	 * 					- array 
+	 *		@param mixed $value 
+	 *		@public
 	**/
-	private $values = array();
-	private $filters = array();
-
-	public function __construct($filters = array()) {
-	
-	}
-	
-	public function __set($name,$val = FALSE) {
-		if (is_array($name)) {
-			$this->values = array_merge($this->values,$name);
+	public function __set($var,$value = FALSE) {
+		if (is_array($var) && $value == FALSE) {
+			foreach ($var as $key => $value) {
+				self::$global[$key] = $value;
+			}
 		}
 		else {
-			$this->values[$name]=$this->escape($val);
+			self::$global[$var] = $value;
 		}
 	}
 	
-	public function assign($name,$val = FALSE) {
-		if (is_array($name)) {
-			$this->values = array_merge($this->values,$name);
+	/**
+	 *	Set the value of a framework variable. If $var param is string, then a variable called $var will have the value of $value.
+	 * If $var is array, it should be a key-pair value like this array('var_name'=>'132','2ndvar'=>123).
+	 *		@param $var - string
+	 * 					- array 
+	 *		@param mixed $value 
+	 *		@public
+	**/
+	public function assign($var,$value = FALSE) {
+		if (is_array($var) && $value == FALSE) {
+			foreach ($var as $key => $value) {
+				self::$global[$key] = $value;
+			}
 		}
 		else {
-			$this->values[$name]=$this->escape($val);
+			self::$global[$var] = $value;
 		}
 	}
 
+	/**
+	 * 	Return value of framework variable, false if not found
+	 *		@param string $var 
+	 * 		@retval true
+	 * 		@retval false
+	 * 		@public	
+	**/
 	public function __get($name) {
-		if (isset($this->values[$name])) {
-			return $this->values[$name];
-		}
-		return false;
+		if (isset(self::$global[$var])) 
+			return self::$global[$var];
+		else 
+			return false;
 	}
 	
 	public function __toString()
@@ -68,38 +85,22 @@ class template extends base {
 	
 	}
 	
+	/**
+	 * Prints the  $tpl template after compiling
+	 * 		@params string $tpl  
+	 */
 		
 	public function view($tpl) {
 		echo $this->getOutput($tpl);
 	}
 	
 	/**
-	 * Returns output, including error_text if an error occurs.
-	 * 
-	 * @param string $tpl 
-	 * 
-	 * @return string The template output.
-	 */
-	public function getOutput($tpl) {
-		$output = $this->fetch($tpl);
-		return $output;
- 
-	}
-	
-	
-	/**
-	* 
 	* Compiles, executes, and filters a template source.
-	* 
-	* @access public
-	* 
-	* @param string $tpl The template to process; if null, uses the
-	* default template set with setTemplate().
-	* 
-	* @return mixed The template output string, or a Savant3_Error.
-	* @todo Change documentation
+	* 		@access public
+	*  		@param string $template The template to process; 
+	* 		@return mixed The template output string
 	*/
-	public function fetch($template) 	{
+	public function getOutput($template) 	{
 		if (!is_file($template)) {
 			trigger_error("$template template can't be found");
 		}		
@@ -116,13 +117,26 @@ class template extends base {
 		return $templateContents;
 	}
 	
+	/**
+	 * Checks if the file has been compiled to the temp folder and if it is more recent than the last change to the template
+	 * 		@param string $template 
+	 * 		@retval true
+	 * 		@retval false
+	 */
 	private function checkCompile($template) {
 		if (file_exists('temp/'.md5($template)) && (filemtime($template)-filemtime('temp/'.md5($template)))<0 )
 			return true;
 		return false;
 	}
 	
+	/**
+	 * 	Performs the replacing of the shorthand tags to full PHP tags in the $template file. Places the results in 
+	 * a temp folder, in a file with the name md5($template) 
+	 * 		@param string $template
+	 * 
+	 */
 	private function compile($template) {
+		
 		$template_code = file_get_contents( $template );
 		
 		$template_code = preg_replace('/{ignore}.+?{\/ignore}/','',$template_code);
@@ -136,6 +150,7 @@ class template extends base {
 		$template_code = preg_replace('/{foreach (\$.+?) as (\$.+?) ?}/','<?php foreach ($1 as $2) { ?>',$template_code);
 		$template_code = preg_replace('/{\/foreach}/','<?php } ?>',$template_code);
 		
+		$template_code = preg_replace('/{include=(.+?)}/','<?php include(\'$1\'); ?>',$template_code);
 		$template_code = preg_replace('/{{ (.+?) }}/','<?php echo $this->escape($$1); ?>',$template_code);
 		
 		if (!is_dir('temp'))

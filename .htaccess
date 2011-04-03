@@ -5,7 +5,7 @@ RewriteBase /framework/
 RewriteCond %{REQUEST_FILENAME} !-l
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule .* test.php [L,QSA]
+RewriteRule .* Tests/test.php [L,QSA]
 
 
 # END WordPress

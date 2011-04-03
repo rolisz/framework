@@ -1,6 +1,6 @@
 <?php
 include_once('rolisz.php');
-
+include_once('base.php');
 define('SINGLE', 'RELATION_SINGLE');
 define('ONE_TO_MANY', 'RELATION_ONE_TO_MANY');
 define('MANY', 'RELATION_MANY');
@@ -43,7 +43,6 @@ define('CUSTOM', 'RELATION_CUSTOM');
 				@param databaseAdapter $connection
 		**/
 		public function __construct($table, $id=FALSE, $columns = FALSE, $connection = FALSE) {
-			var_dump($connection);
 			if ($connection) {
 				$this->connection = $connection;
 			}
@@ -65,7 +64,7 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		}
 		
 		/**
-			Automagic function for setting dynamic properties
+			Magic method for setting dynamic properties
 				@param string $name
 				@param string $value
 		**/
@@ -77,7 +76,7 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		}
 			
 		/**
-			Automagic function for accesing dynamic properties
+			Magic method for accesing dynamic properties
 				@param string $name
 				@return mixed
 		**/
@@ -92,31 +91,101 @@ define('CUSTOM', 'RELATION_CUSTOM');
 			if (array_key_exists($name, $this->originalData)) {
 				return $this->originalData[$name];
 			}
-			trigger_error("$name has not been set yet");
+			trigger_error("$name has not been set yet in $this->table");
 			return null;
 		}
 		
 		/**
-			Automagic function that checks if a column exists
+			Magic method that checks if a column exists
 				@param string $name
 				@return TRUE|FALSE
 		**/
 		public function __isset($name) {
 			if (!in_array($name,self::$tables[$this->table])) {
-			echo 'bong';
 				return false;
 			}
 			return true;
 		}
 		
 		/**
-			Magic function for serialization
+			Magic method for serialization
 		**/
 		public function __sleep() {
 			$result = array_merge($this->originalData,$this->modifiedData);
 			return $result;
 		}
 		
+		/**
+		 * 	Magic method for setting or getting related tables. If function is called without argument, it will find the related
+		 *  tables. If function is called with a related table as an argument, it will be connected to it.
+		 * 		@params string $name
+		 * 		@params array $args
+		 */
+		 public function __call($name,$args) {
+		 	if (!isset(self::$relations[$this->table][$name]))
+				return false;
+		 	if (empty($args)) {
+		 		return $this->find($name);
+		 	}
+			$args = $args[0];
+			if (is_numeric($args)) {
+				$args = array(self::$primaryKey[$name]=>$args);
+			}
+			if (is_array($args)) {
+				//Contains the link between our table and the other table, or if M2M relation, to connector table
+				$relation = self::$relations[$this->table][$name];
+				if ($relation->type == ONE_TO_MANY) {
+					$aux = new table($name);
+					$aux = $aux->find($name,$args);
+					if ($aux == NULL && key($args)!=self::$primaryKey[$name]) {
+						foreach ($args as $key => $value) {
+							$aux->$key = $value;
+						}
+						$aux->save();
+					}
+					$tK=$relation->targetKey;
+					$oK=$relation->origKey;
+					// @todo if $aux is array
+					// @todo if $aux is NULL
+					if($relation->origKey==self::$primaryKey[$this->table]) {
+						$aux->$tK = $this->$oK;
+						$aux->save();
+					}
+					elseif ($relation->targetKey==self::$primaryKey[$name]) {
+						$this->$oK = $aux->$tK;
+					}
+				}
+				elseif ($relation->type == MANY) {
+					$aux = new table($name);
+					$aux = $aux->find($name,$args);
+					if ($aux == NULL && key($args)!=self::$primaryKey[$name]) {
+						$aux = new table($name);
+						foreach ($args as $key => $value) {
+							$aux->$key = $value;
+						}
+						$aux->save();
+					}
+					//Contains the link between the connector table and the table we want to connect to
+					$relation2 = self::$relations[$name][$this->table];
+					$connector = new table($relation->connector);
+					$tK1 = $relation->targetKey;
+					$tK2 = $relation2->targetKey;
+					$oK1 = $relation->origKey;
+					$oK2 = $relation2->origKey;
+					$connector = $connector->find($relation->connector,array($tK1=>$this->$oK1,$tK2=>$aux->$oK2));
+					if (!$connector) {
+						$connector = new table($relation->connector);
+						$connector->$tK1 = $this->$oK1;
+						$connector->$tK2 = $aux->$oK2;
+						$connector->save();
+					}
+				}
+			}
+			else {
+				trigger_error('Invalid argument called');
+			}
+			
+		 }
 		/**
 			Populate the object with data from the table, selected according to primary key value
 				@param number $id
@@ -131,11 +200,32 @@ define('CUSTOM', 'RELATION_CUSTOM');
 				}
 			}
 			else {
-				trigger_error("Can't find ".self::$primaryKey[$this->table]." equal to $id in {$this->table}");
 				return false;
 			}
 		}
 		
+		/**
+		 * Returns the primary key of this table. If $value is TRUE, then it returns the value of the primary key for this row
+		 * 	@param bool $value
+		 * 	@retval int Value of the primary key
+		 * 	@retval string The name of the primary key
+		 */
+		public function getPrimaryKey($value = FALSE) {
+			$pK = self::$primaryKey[$this->table];
+			if ($value)	
+				return $this->$pK;
+			return $pK;
+		}
+		
+		/**
+		 * Returns the values of the current row as a key=>value array. If it hasn't been hydrated, it returns false.
+		 * 	@return mixed
+		 */
+		public function getData() {
+			if (empty($this->originalData))
+				return false;
+			return array_merge($this->originalData,$this->modifiedData);
+		}
 		/**
 			Save changes made to object. If the object was hydrated, it will be updated. If it was created from scratch, it will be inserted into the database
 		
@@ -161,6 +251,10 @@ define('CUSTOM', 'RELATION_CUSTOM');
 				$query.=' WHERE '.self::$primaryKey[$this->table].'=\''.$this->originalData[self::$primaryKey[$this->table]]."'";
 			}
 			$this->connection->query($query);
+			if ($this->connection->getError()) {
+				return false;
+			}
+			$this->originalData = array_merge($this->originalData,$this->modifiedData);
 			if (empty($this->originalData)) {
 				$this->originalData[self::$primaryKey[$this->table]] = $this->connection->getInsertID();
 				return $this->connection->getInsertID();
@@ -211,7 +305,6 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		
 		**/
 		public function find($table, $filters = array(), $ordergroup = array(), $columns = array()) {
-			
 			$pK = self::$primaryKey[$this->table];
 			if($pK != false && isset($this->originalData[$pK])) {
 				$filters[$pK] = $this->originalData[$pK];
@@ -474,7 +567,7 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		**/
 		private function buildFilters($property, $value, $class) {
 			//The element was an array => it was a filtering by a related table
-			if ((array_key_exists($property,table::$relations[$class->table]) || $property==$class->table) && is_array($value)) {
+			if ((isset(table::$relations[$class->table]) && array_key_exists($property,table::$relations[$class->table]) || $property==$class->table) && is_array($value)) {
 				$allFilters = array();
 				$property = new table($property);
 				foreach($value as $key=>$val) {
@@ -494,8 +587,11 @@ define('CUSTOM', 'RELATION_CUSTOM');
 			elseif (is_numeric($property)) {
 				return $value;
 			}			
-			else {
+			elseif (!is_array($value)) {
 				return "{$class->table}.{$property} = '{$value}'";
+			}
+			else {
+				trigger_error('Invalid value passed for filtering. Probably a class that is not related');
 			}
 		}
 		

@@ -1,0 +1,99 @@
+\hypertarget{classrouter}{
+\section{router Class Reference}
+\label{classrouter}\index{router@{router}}
+}
+Inheritance diagram for router:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classrouter}
+\end{center}
+\end{figure}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classrouter_aafd29366ef6399da1dd079fc131d8858}{route} (\$pattern, \$funcs, \$http= 'GET', \$name=FALSE)
+\item 
+static \hyperlink{classrouter_ad3a572002fd350672b531756f7306e8f}{run} ()
+\item 
+static \hyperlink{classrouter_a2c24b81993e81c6401edd6c4caff0336}{urlFor} (\$name, \$params=array())
+\end{DoxyCompactItemize}
+\subsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classrouter_a78ab5fc58d307458ac8767f50178fc7a}{matches} (\$route)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{classrouter_a78ab5fc58d307458ac8767f50178fc7a}{
+\index{router@{router}!matches@{matches}}
+\index{matches@{matches}!router@{router}}
+\subsubsection[{matches}]{\setlength{\rightskip}{0pt plus 5cm}static matches (
+\begin{DoxyParamCaption}
+\item[{\$}]{route}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static, private\mbox{]}}}}
+\label{classrouter_a78ab5fc58d307458ac8767f50178fc7a}
+Checks if \$route matches the current URL 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$route} & \$return TRUE$|$FALSE \\
+\hline
+\end{DoxyParams}
+\hypertarget{classrouter_aafd29366ef6399da1dd079fc131d8858}{
+\index{router@{router}!route@{route}}
+\index{route@{route}!router@{router}}
+\subsubsection[{route}]{\setlength{\rightskip}{0pt plus 5cm}static route (
+\begin{DoxyParamCaption}
+\item[{\$}]{pattern, }
+\item[{\$}]{funcs, }
+\item[{\$}]{http = {\ttfamily 'GET'}, }
+\item[{\$}]{name = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classrouter_aafd29366ef6399da1dd079fc131d8858}
+Assign handler to route pattern 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$pattern} & \\
+\hline
+mixed & {\em \$funcs} & \\
+\hline
+string & {\em \$http} & \\
+\hline
+string & {\em \$name} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{classrouter_ad3a572002fd350672b531756f7306e8f}{
+\index{router@{router}!run@{run}}
+\index{run@{run}!router@{router}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}static run (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classrouter_ad3a572002fd350672b531756f7306e8f}
+Process routes based on incoming URI. \par
+ URL that is not matched will be passed as arguments to the functions that are called \hypertarget{classrouter_a2c24b81993e81c6401edd6c4caff0336}{
+\index{router@{router}!urlFor@{urlFor}}
+\index{urlFor@{urlFor}!router@{router}}
+\subsubsection[{urlFor}]{\setlength{\rightskip}{0pt plus 5cm}static urlFor (
+\begin{DoxyParamCaption}
+\item[{\$}]{name, }
+\item[{\$}]{params = {\ttfamily array()}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classrouter_a2c24b81993e81c6401edd6c4caff0336}
+Returns a URL with values for a given routing pattern 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & \\
+\hline
+array & {\em \$params} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{router_8php}{router.php}\end{DoxyCompactItemize}

@@ -1,0 +1,138 @@
+\hypertarget{class_query}{
+\section{Query Class Reference}
+\label{class_query}\index{Query@{Query}}
+}
+Inheritance diagram for Query:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_query}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_query_a28e580fac4fbdedecd32b8ccb932b157}{\_\-\_\-construct} (\$class, \$filters, \$ordergroup, \$columns)
+\item 
+\hyperlink{class_query_a394445491b1b221e4e562dfb45f2a266}{buildQuery} ()
+\item 
+\hyperlink{class_query_a24d4dbc71552d9387256a3cc426e3898}{getCount} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_query_ab06befc62bc4505f608c0c91b033ffd4}{buildFilters} (\$property, \$value, \$class)
+\item 
+\hyperlink{class_query_aa82a704f8e159f9e9cc7a693638d6bd3}{buildOrderBy} ()
+\item 
+\hyperlink{class_query_ac80ccbaf28b2e5a762b95947f4b96b12}{buildJoins} (\$child, \$parent)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+/class \hyperlink{class_query}{Query} Helper class for making the more complicated queries. 
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_query_a28e580fac4fbdedecd32b8ccb932b157}{
+\index{Query@{Query}!\_\-\_\-construct@{\_\-\_\-construct}}
+\index{\_\-\_\-construct@{\_\-\_\-construct}!Query@{Query}}
+\subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{\$}]{class, }
+\item[{\$}]{filters, }
+\item[{\$}]{ordergroup, }
+\item[{\$}]{columns}
+\end{DoxyParamCaption}
+)}}
+\label{class_query_a28e580fac4fbdedecd32b8ccb932b157}
+Constructor. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$class} & \\
+\hline
+array & {\em \$filters} & \\
+\hline
+array & {\em \$ordergroup} & \\
+\hline
+array & {\em \$columns} & \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_query_ab06befc62bc4505f608c0c91b033ffd4}{
+\index{Query@{Query}!buildFilters@{buildFilters}}
+\index{buildFilters@{buildFilters}!Query@{Query}}
+\subsubsection[{buildFilters}]{\setlength{\rightskip}{0pt plus 5cm}buildFilters (
+\begin{DoxyParamCaption}
+\item[{\$}]{property, }
+\item[{\$}]{value, }
+\item[{\$}]{class}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_query_ab06befc62bc4505f608c0c91b033ffd4}
+Processes the filters passed in the constructor and returns appropiate SQL queries 
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$property} & \\
+\hline
+mixed & {\em \$value} & \\
+\hline
+table & {\em \$class} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\hypertarget{class_query_ac80ccbaf28b2e5a762b95947f4b96b12}{
+\index{Query@{Query}!buildJoins@{buildJoins}}
+\index{buildJoins@{buildJoins}!Query@{Query}}
+\subsubsection[{buildJoins}]{\setlength{\rightskip}{0pt plus 5cm}buildJoins (
+\begin{DoxyParamCaption}
+\item[{\$}]{child, }
+\item[{\$}]{parent}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_query_ac80ccbaf28b2e5a762b95947f4b96b12}
+Makes the SQL strings for the JOINS necesary in the filtering 
+\begin{DoxyParams}[1]{Parameters}
+table & {\em \$child} & \\
+\hline
+table & {\em \$parent} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_query_aa82a704f8e159f9e9cc7a693638d6bd3}{
+\index{Query@{Query}!buildOrderBy@{buildOrderBy}}
+\index{buildOrderBy@{buildOrderBy}!Query@{Query}}
+\subsubsection[{buildOrderBy}]{\setlength{\rightskip}{0pt plus 5cm}buildOrderBy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{class_query_aa82a704f8e159f9e9cc7a693638d6bd3}
+Build the order, group, limit SQL strings for the query \hypertarget{class_query_a394445491b1b221e4e562dfb45f2a266}{
+\index{Query@{Query}!buildQuery@{buildQuery}}
+\index{buildQuery@{buildQuery}!Query@{Query}}
+\subsubsection[{buildQuery}]{\setlength{\rightskip}{0pt plus 5cm}buildQuery (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_query_a394445491b1b221e4e562dfb45f2a266}
+Simply joins and returns all the stuff done in the previous functions \begin{DoxyReturn}{Returns}
+string with SQL statement 
+\end{DoxyReturn}
+\hypertarget{class_query_a24d4dbc71552d9387256a3cc426e3898}{
+\index{Query@{Query}!getCount@{getCount}}
+\index{getCount@{getCount}!Query@{Query}}
+\subsubsection[{getCount}]{\setlength{\rightskip}{0pt plus 5cm}getCount (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_query_a24d4dbc71552d9387256a3cc426e3898}
+Get's a count for how many rows would a query return ? \begin{DoxyReturn}{Returns}
+array; 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+\hyperlink{db_8php}{db.php}\end{DoxyCompactItemize}
