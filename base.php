@@ -14,7 +14,7 @@
 class base {
 	// Framework details
 	const AppName = 'rolisz PHP framework',
-		  Version = '0.0.0.5',
+		  Version = '0.0.1',
 		  Module = 'Base class';
 	
 	protected static

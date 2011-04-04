@@ -120,6 +120,7 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		 *  tables. If function is called with a related table as an argument, it will be connected to it.
 		 * 		@params string $name
 		 * 		@params array $args
+		 * 		@todo $args could be a table of $name
 		 */
 		 public function __call($name,$args) {
 		 	if (!isset(self::$relations[$this->table][$name]))

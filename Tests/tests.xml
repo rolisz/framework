@@ -1,0 +1,10 @@
+<phpunit>
+  <testsuites>
+    <testsuite name="rolisz">
+    	<directory>C:/wamp/www/framework/Tests</directory>
+      <file>MySQLiDatabaseTest.php</file>
+      <file>tableTest.php</file>
+      <file>routerTest.php</file>
+    </testsuite>
+  </testsuites>
+</phpunit>
