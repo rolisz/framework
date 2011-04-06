@@ -4,7 +4,6 @@
 		Defines all the functions a database adapter should have to be working with rolisz
 			@package rolisz
 			@author Szabo Roland
-			@version 0.0.0.4
 			@todo implements countable, iterator
 	**/
 	interface databaseAdapter {
@@ -54,28 +53,27 @@
 		public $queries;
 		
 		/**
-			Class constructor, initializes connection to MySQL database
-				@param string $host 
-				@param string $username 
-				@param string $password 
-				@param string $db 
-				@return void			
-		
-		**/
-		
+		 * 	Class constructor, initializes connection to MySQL database. Not implemented as
+		 *  singleton pattern because you can have connections to different databases.
+		 * 		@param string $host
+		 * 		@param string $username
+		 * 		@param string $password
+		 * 		@param string $db 
+		 **/
 		public function __construct($host, $username, $password, $db) {
 			$this->database = $db;
 			$this->connect($host, $username, $password);
 			$this->queries = array();
 		}
 		
-		/** 
-			Makes a new connection to MySQL database 
-				@param string $host
-				@param string $username 
-				@param string $password 
-				@retval TRUE|FALSE
-		**/
+		/* 
+		 * 	Makes a new connection to MySQL database
+		 * 		@param string $host
+		 * 		@param string $username
+		 * 		@param string $password
+		 * 		@retval true
+		 * 		@retval false
+		 **/
 		public function connect($host, $username, $password) {
 			$this->connection = @new mysqli($host, $username, $password, $this->database);
 			if ($this->connection->connect_error) {
@@ -87,18 +85,24 @@
 		}
 		
 		/**
-			Disconnects from the database
-		**/
+		 *	Disconnects from the database
+		 **/
 		public function disconnect() {
 			$this->connection->close();
 		}
 		
 		/**
-			Changes to current database
-				@param string $db 
-				@retval TRUE |FALSE
-
-			
+		 *  Destructor of class. Disconnects from database.
+		 */
+		public function __destruct() {
+			$this->disconnect();
+		}
+		
+		/** 
+		 * Connects to a different database
+		 * 		@param string $db
+		 * 		@retval true			
+		 * 		@retval false			
 		**/
 		public function selectDatabase($db) {
 			$this->database = $db;
@@ -106,21 +110,20 @@
 		}
 		
 		/** 
-			Escapes a string
-				@param string $value 
-				@return string
-			
-		**/
+		 *	Escapes a string for safe MySQL insertion
+		 *		@param string $value 
+		 *		@return string			
+		 **/
 		public function escapeValue($value) {
 			return $this->connection->real_escape_string($value);
 		}
 		
 		/**
-			Executes query
-				@param string $query 
-				@return mixed
-				@todo change return values for insert, update, delete, select
-		**/
+		 *	Executes query
+		 *		@param string $query 
+		 *		@return mixed
+		 *		@todo change return values for insert, update, delete, select
+		 **/
 		public function Query($query) {
 			$this->queries[] = $query;
 			$this->result = $this->connection->query($query);
@@ -131,10 +134,10 @@
 		}
 		
 		/**
-			Fetches first row from the results of a query. Returns numeric array, associative array or both depending on second parameter:1,2,3
-				@param string $query 
-				@param int $type 1 - Associative array, 2 - Numeric array, 3 - Both
-				@return mixed
+		 *	Fetches first row from the results of a query. Returns numeric array, associative array or both depending on second parameter:1,2,3
+		 * 		@param string $query		
+		 * 		@param int $type 1 - Associative array, 2 - Numeric array, 3 - Both
+		 * 		@return mixed
 		**/
 		public function fetchRow($query=false, $type=1) {
 			if ($query != false ) {
@@ -148,10 +151,10 @@
 		}
 		
 		/**
-			Fetches all the rows from the results of a query. Returns numeric array, associative array or both depending on second parameter:1,2,3
-				@param string $query 
-				@param int $type 1 - Associative array, 2 - Numeric array, 3 - Both
-				@return mixed
+		 *	Fetches all the rows from the results of a query. Returns numeric array, associative array or both depending on second parameter:1,2,3
+		 * 		@param string $query
+		 * 		@param int $type 1 - Associative array, 2 - Numeric array, 3 - Both
+		 * 		@return mixed
 		**/
 		public function fetchAll($query=false, $type=1){
 			if ($query != false ) {
@@ -168,41 +171,42 @@
 		}
 		
 		/**
-			Return the last MySQLi error
-				@retval string
+		 *	Return the last MySQLi error
+		 *		@return string
 		**/ 
 		public function getError() {
 			return $this->connection->error;
 		}
 		
 		/** 
-			Returns the id of the last insertion
-				@retval int
+		 *	Returns the id of the last insertion
+		 *		@return int
 		**/
 		public function getInsertID() {
 			return $this->connection->insert_id;
 		}
 		
 		/**
-			Returns the number of rows from a query
-				@retval int
+		 *	Returns the number of rows from a query
+		 *		@return int
 		**/
 		public function numRows() {
 			return $this->result->num_rows();
 		}
 		
 		/**
-			Returns the number of rows affected by an UPDATE query
-				@retval int
+		 *	Returns the number of rows affected by an UPDATE query
+		 *		@return int
 		**/
 		public function numAffected() {
 			return $this->connection->affected_rows();
 		}
 		
 		/**
-			Checks if a table exists
-				@param string $table
-				@return TRUE|FALSE
+		 *	Checks if a table exists
+		 *		@param string $table
+		 *		@retval true
+		 * 		@retval false
 		**/
 		public function tableExists($table) {
 			$exists = $this->fetchRow('SHOW TABLES LIKE \''.$table."'");
@@ -211,11 +215,12 @@
 			return false;
 		}
 		
-		/**
-			Creates a table.
-				@param string $name Has to match this regex [A-Za-z][A-Za-z0-9_]*
-				@param array $params Example: array('id'=>array('INT','NOT NULL','AUTO_INCREMENT','PRIMARY KEY'),'text'=>array('TEXT','NOT NULL'))
-				@return TRUE|FALSE
+		/** 
+		 * 	Creates a table.
+		 * 		@param string $name Has to match this regex [A-Za-z][A-Za-z0-9_]*
+		 * 		@param array $params Example: array('id'=>array('INT','NOT NULL','AUTO_INCREMENT','PRIMARY KEY'),'text'=>array('TEXT','NOT NULL'))
+		 * 		@retval true
+		 * 		@retval false
 		**/
 		public function createTable($name,$params) {
 			if (!is_array($params))
@@ -238,10 +243,11 @@
 			}
 		}
 		
-		/**
-			It drops $name table if it exists. If it doesn't exist it returns true (you wanted it gone, right?).
-				@param string $name
-				@return TRUE|FALSE
+		/** 
+		 * 	It drops $name table if it exists. If it doesn't exist it returns true (you wanted it gone, right?).
+		 * 		@param string $name		
+		 * 		@retval true
+		 * 		@retval false
 		**/
 		public function dropTable($name) {
 			if ($this->tableExists($name)) 
@@ -250,16 +256,16 @@
 				return true;
 		}
 
-		/**
-			Alters $name table. To change it's name by $params must containt an element with key 'name' and value the new name of the table in params.
-			To add a column, $paramas must contain an element with key 'add' and value an array of columns you wish to add (specified as at createTable.
-			To modify a column, $params must contain an element with key 'edit' and value an array of columns you wish to edit (specified as at createTable.
-			To drop a column, $params must contain an $element with key 'delete' and value the name of the column you want to delete.
-			@param string $name
-			@param array $params
-			@return TRUE|FALSE
-			@todo some checks for valid column names and parameters
-		
+		/** 
+		 *  Alters $name table. To change it's name by $params must containt an element with key 'name' and value the new name of the table in params.
+		 * 	To add a column, $paramas must contain an element with key 'add' and value an array of columns you wish to add (specified as at createTable. 
+		 * 	To modify a column, $params must contain an element with key 'edit' and value an array of columns you wish to edit (specified as at createTable.
+		 * 	To drop a column, $params must contain an $element with key 'delete' and value the name of the column you want to delete.
+		 * 		@param string $name
+		 * 		@param array $params
+		 * 		@retval true
+		 * 		@retval false
+		 * 		@todo some checks for valid column names and parameters
 		**/
 		public function alterTable($name,$params) {
 			if (!$this->tableExists($name)) 

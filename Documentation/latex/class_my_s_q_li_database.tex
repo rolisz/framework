@@ -17,6 +17,8 @@ Inheritance diagram for MySQLiDatabase:\begin{figure}[H]
 \item 
 \hyperlink{class_my_s_q_li_database_abe175fcf658475bc56e9d6fa02bc88ec}{disconnect} ()
 \item 
+\hyperlink{class_my_s_q_li_database_a421831a265621325e1fdd19aace0c758}{\_\-\_\-destruct} ()
+\item 
 \hyperlink{class_my_s_q_li_database_ab624b0b234f9db9dbc6dc4180f566b1f}{selectDatabase} (\$db)
 \item 
 \hyperlink{class_my_s_q_li_database_a039ae2e8f2bf579fd75d9df8df87eee3}{escapeValue} (\$value)
@@ -72,7 +74,7 @@ MySQLi specific implementation of \hyperlink{interfacedatabase_adapter}{database
 \end{DoxyParamCaption}
 )}}
 \label{class_my_s_q_li_database_a81fcddb424f13e0862ee3f7e1ea57ce9}
-Class constructor, initializes connection to MySQL database 
+Class constructor, initializes connection to MySQL database. Not implemented as singleton pattern because you can have connections to different databases. 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$host} & \\
 \hline
@@ -83,14 +85,20 @@ string & {\em \$password} & \\
 string & {\em \$db} & \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-void 
-\end{DoxyReturn}
 
 
 Reimplemented from \hyperlink{interfacedatabase_adapter_a81fcddb424f13e0862ee3f7e1ea57ce9}{databaseAdapter}.
 
-
+\hypertarget{class_my_s_q_li_database_a421831a265621325e1fdd19aace0c758}{
+\index{MySQLiDatabase@{MySQLiDatabase}!\_\-\_\-destruct@{\_\-\_\-destruct}}
+\index{\_\-\_\-destruct@{\_\-\_\-destruct}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{\_\-\_\-destruct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-destruct (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_my_s_q_li_database_a421831a265621325e1fdd19aace0c758}
+Destructor of class. Disconnects from database. 
 
 \subsection{Member Function Documentation}
 \hypertarget{class_my_s_q_li_database_aa8cf3e2be109e548bed6980622fffb41}{
@@ -110,11 +118,15 @@ string & {\em \$name} & \\
 array & {\em \$params} & \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-TRUE$|$FALSE 
-\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em true} & \\
+\hline
+{\em false} & \\
+\hline
+\end{DoxyRetVals}
 \begin{Desc}
-\item[\hyperlink{todo__todo000003}{Todo}]some checks for valid column names and parameters\end{Desc}
+\item[\hyperlink{todo__todo000004}{Todo}]some checks for valid column names and parameters \end{Desc}
 
 
 Reimplemented from \hyperlink{interfacedatabase_adapter_aa8cf3e2be109e548bed6980622fffb41}{databaseAdapter}.
@@ -130,20 +142,6 @@ Reimplemented from \hyperlink{interfacedatabase_adapter_aa8cf3e2be109e548bed6980
 \end{DoxyParamCaption}
 )}}
 \label{class_my_s_q_li_database_a4c4f3316747e665b9e02f6ddcba4117c}
-Makes a new connection to MySQL database 
-\begin{DoxyParams}[1]{Parameters}
-string & {\em \$host} & \\
-\hline
-string & {\em \$username} & \\
-\hline
-string & {\em \$password} & \\
-\hline
-\end{DoxyParams}
-
-\begin{DoxyRetVals}{Return values}
-{\em TRUE$|$FALSE} & \\
-\hline
-\end{DoxyRetVals}
 
 
 Reimplemented from \hyperlink{interfacedatabase_adapter_a4c4f3316747e665b9e02f6ddcba4117c}{databaseAdapter}.
@@ -165,9 +163,13 @@ string & {\em \$name} & Has to match this regex \mbox{[}A-\/Za-\/z\mbox{]}\mbox{
 array & {\em \$params} & Example: array('id'=$>$array('INT','NOT NULL','AUTO\_\-INCREMENT','PRIMARY KEY'),'text'=$>$array('TEXT','NOT NULL')) \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-TRUE$|$FALSE 
-\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em true} & \\
+\hline
+{\em false} & \\
+\hline
+\end{DoxyRetVals}
 
 
 Reimplemented from \hyperlink{interfacedatabase_adapter_a4b06dfe3bf7dd552f828a80fece817d8}{databaseAdapter}.
@@ -199,9 +201,13 @@ It drops \$name table if it exists. If it doesn't exist it returns true (you wan
 string & {\em \$name} & \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-TRUE$|$FALSE 
-\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em true} & \\
+\hline
+{\em false} & \\
+\hline
+\end{DoxyRetVals}
 
 
 Reimplemented from \hyperlink{interfacedatabase_adapter_a3471d37afdd3d76f5379dfe7364db0b6}{databaseAdapter}.
@@ -215,7 +221,7 @@ Reimplemented from \hyperlink{interfacedatabase_adapter_a3471d37afdd3d76f5379dfe
 \end{DoxyParamCaption}
 )}}
 \label{class_my_s_q_li_database_a039ae2e8f2bf579fd75d9df8df87eee3}
-Escapes a string 
+Escapes a string for safe MySQL insertion 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$value} & \\
 \hline
@@ -284,11 +290,9 @@ Reimplemented from \hyperlink{interfacedatabase_adapter_a529385852efa66f19288496
 \end{DoxyParamCaption}
 )}}
 \label{class_my_s_q_li_database_a24ada5decce3d1b79cd82f5a90ccf404}
-Return the last MySQLi error 
-\begin{DoxyRetVals}{Return values}
-{\em string} & \\
-\hline
-\end{DoxyRetVals}
+Return the last MySQLi error \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
 
 
 Reimplemented from \hyperlink{interfacedatabase_adapter_a24ada5decce3d1b79cd82f5a90ccf404}{databaseAdapter}.
@@ -302,11 +306,9 @@ Reimplemented from \hyperlink{interfacedatabase_adapter_a24ada5decce3d1b79cd82f5
 \end{DoxyParamCaption}
 )}}
 \label{class_my_s_q_li_database_ac73f1d8cddbdfc35ca442189378a073c}
-Returns the id of the last insertion 
-\begin{DoxyRetVals}{Return values}
-{\em int} & \\
-\hline
-\end{DoxyRetVals}
+Returns the id of the last insertion \begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
 
 
 Reimplemented from \hyperlink{interfacedatabase_adapter_ac73f1d8cddbdfc35ca442189378a073c}{databaseAdapter}.
@@ -320,11 +322,9 @@ Reimplemented from \hyperlink{interfacedatabase_adapter_ac73f1d8cddbdfc35ca44218
 \end{DoxyParamCaption}
 )}}
 \label{class_my_s_q_li_database_acac8dfe61e7840f9a1e672ebede0be21}
-Returns the number of rows affected by an UPDATE query 
-\begin{DoxyRetVals}{Return values}
-{\em int} & \\
-\hline
-\end{DoxyRetVals}
+Returns the number of rows affected by an UPDATE query \begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
 
 
 Reimplemented from \hyperlink{interfacedatabase_adapter_acac8dfe61e7840f9a1e672ebede0be21}{databaseAdapter}.
@@ -338,11 +338,9 @@ Reimplemented from \hyperlink{interfacedatabase_adapter_acac8dfe61e7840f9a1e672e
 \end{DoxyParamCaption}
 )}}
 \label{class_my_s_q_li_database_af37433a300db1f607ee789d22828a0a0}
-Returns the number of rows from a query 
-\begin{DoxyRetVals}{Return values}
-{\em int} & \\
-\hline
-\end{DoxyRetVals}
+Returns the number of rows from a query \begin{DoxyReturn}{Returns}
+int 
+\end{DoxyReturn}
 
 
 Reimplemented from \hyperlink{interfacedatabase_adapter_af37433a300db1f607ee789d22828a0a0}{databaseAdapter}.
@@ -365,7 +363,7 @@ string & {\em \$query} & \\
 mixed 
 \end{DoxyReturn}
 \begin{Desc}
-\item[\hyperlink{todo__todo000002}{Todo}]change return values for insert, update, delete, select \end{Desc}
+\item[\hyperlink{todo__todo000003}{Todo}]change return values for insert, update, delete, select \end{Desc}
 \hypertarget{class_my_s_q_li_database_ab624b0b234f9db9dbc6dc4180f566b1f}{
 \index{MySQLiDatabase@{MySQLiDatabase}!selectDatabase@{selectDatabase}}
 \index{selectDatabase@{selectDatabase}!MySQLiDatabase@{MySQLiDatabase}}
@@ -375,14 +373,16 @@ mixed
 \end{DoxyParamCaption}
 )}}
 \label{class_my_s_q_li_database_ab624b0b234f9db9dbc6dc4180f566b1f}
-Changes to current database 
+Connects to a different database 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$db} & \\
 \hline
 \end{DoxyParams}
 
 \begin{DoxyRetVals}{Return values}
-{\em TRUE} & $|$FALSE \\
+{\em true} & \\
+\hline
+{\em false} & \\
 \hline
 \end{DoxyRetVals}
 
@@ -403,9 +403,13 @@ Checks if a table exists
 string & {\em \$table} & \\
 \hline
 \end{DoxyParams}
-\begin{DoxyReturn}{Returns}
-TRUE$|$FALSE 
-\end{DoxyReturn}
+
+\begin{DoxyRetVals}{Return values}
+{\em true} & \\
+\hline
+{\em false} & \\
+\hline
+\end{DoxyRetVals}
 
 
 Reimplemented from \hyperlink{interfacedatabase_adapter_ae7cdaa744d52a1eb0103e377023ca528}{databaseAdapter}.
@@ -437,4 +441,4 @@ Stores the latest result from a query
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-\hyperlink{database_adapter_8php}{databaseAdapter.php}\end{DoxyCompactItemize}
+C:/wamp/www/framework/\hyperlink{database_adapter_8php}{databaseAdapter.php}\end{DoxyCompactItemize}

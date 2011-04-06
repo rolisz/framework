@@ -9,7 +9,15 @@
 include_once ('rolisz.php');
 
 class template extends base {
-
+		
+	// Array to hold the values that will be substituted into the template. It's static
+	// so that the values can be shared among templates and subtemplates.
+	private static $values;
+	
+	/**
+	 *  Empty constructor. It's created separately to prevent inheriting the singleton 
+	 * 	pattern from base.
+	 */
 	public function __construct() {
 	
 	}
@@ -25,11 +33,11 @@ class template extends base {
 	public function __set($var,$value = FALSE) {
 		if (is_array($var) && $value == FALSE) {
 			foreach ($var as $key => $value) {
-				self::$global[$key] = $value;
+				self::$values[$key] = $value;
 			}
 		}
 		else {
-			self::$global[$var] = $value;
+			self::$values[$var] = $value;
 		}
 	}
 	
@@ -44,50 +52,39 @@ class template extends base {
 	public function assign($var,$value = FALSE) {
 		if (is_array($var) && $value == FALSE) {
 			foreach ($var as $key => $value) {
-				self::$global[$key] = $value;
+				self::$values[$key] = $value;
 			}
 		}
 		else {
-			self::$global[$var] = $value;
+			self::$values[$var] = $value;
 		}
 	}
 
 	/**
 	 * 	Return value of framework variable, false if not found
-	 *		@param string $var 
+	 *		@param string $name 
 	 * 		@retval true
 	 * 		@retval false
-	 * 		@public	
 	**/
 	public function __get($name) {
-		if (isset(self::$global[$var])) 
-			return self::$global[$var];
+		if (isset(self::$values[$name])) 
+			return self::$values[$name];
 		else 
 			return false;
 	}
 	
+	/**
+	 * 	Magic method for the serialization of the template object. 
+	 * 		@return string containing the template
+	 */
 	public function __toString()
 	{
 		return $this->getOutput();
 	}
 	
-	public function escape($value) {
-		if (func_num_args() == 1) {
-			$value = htmlspecialchars($value);
-		}
-		else {
-			$args = array_shift(func_get_args());
-			foreach ($args as $func) {
-				$value = call_user_func($func, $value);
-			}
-		}
-		return $value;
-	
-	}
-	
 	/**
 	 * Prints the  $tpl template after compiling
-	 * 		@params string $tpl  
+	 * 		@param string $tpl  
 	 */
 		
 	public function view($tpl) {
@@ -96,7 +93,6 @@ class template extends base {
 	
 	/**
 	* Compiles, executes, and filters a template source.
-	* 		@access public
 	*  		@param string $template The template to process; 
 	* 		@return mixed The template output string
 	*/
@@ -108,13 +104,22 @@ class template extends base {
 		if (!$this->checkCompile($template)) {
 			$this->compile($template);
 		}
-		// buffer output so we can return it instead of displaying.
+		// Buffer output so we can return it instead of displaying.
 		ob_start();
-		extract($this->values);
+		extract(self::$values);
 		include ('temp/'.md5($template));
 		$templateContents = ob_get_contents();
 		ob_end_clean();
 		return $templateContents;
+	}
+	
+	/**
+	 *  Static wrapper for view() used when including other templates inside templates.
+	 * 		@param string $template
+	 */
+	public static function viewS($template) {
+		$tpl = new template();
+		echo $tpl->getOutput($template);
 	}
 	
 	/**
@@ -131,7 +136,7 @@ class template extends base {
 	
 	/**
 	 * 	Performs the replacing of the shorthand tags to full PHP tags in the $template file. Places the results in 
-	 * a temp folder, in a file with the name md5($template) 
+	 * a temp folder, in a file called the md5 value of $template, to prevent collisions. 
 	 * 		@param string $template
 	 * 
 	 */
@@ -142,21 +147,55 @@ class template extends base {
 		$template_code = preg_replace('/{ignore}.+?{\/ignore}/','',$template_code);
 		$template_code = preg_replace('/{noparse}(.+?){\/noparse}/','$1',$template_code);//@todo: fix this
 		
+		//Rules for substituting  ifs and elses
 		$template_code = preg_replace('/{if="(.+?)"}/','<?php if($1) { ?>',$template_code);
 		$template_code = preg_replace('/{\/if}/','<?php } ?>',$template_code);
 		$template_code = preg_replace('/{else}/','<?php } else { ?>',$template_code);
 		$template_code = preg_replace('/{elseif="(.+?)"}/','<?php } elseif ($1) { ?>',$template_code);
 		
-		$template_code = preg_replace('/{foreach (\$.+?) as (\$.+?) ?}/','<?php foreach ($1 as $2) { ?>',$template_code);
-		$template_code = preg_replace('/{\/foreach}/','<?php } ?>',$template_code);
+		// Rules for substituting the two kinds of foreaches and the ed foreach
+		$template_code = preg_replace('/{foreach (.+?) as (.+?) => (.+?) ?}/','<?php if (is_array($$1))  foreach ($$1 as $$2=>$$3) { ?>',$template_code);
+		$template_code = preg_replace('/{foreach (.+?) as (.+?) ?}/','<?php if (is_array($$1))  foreach ($$1 as $$2) { ?>',$template_code);
+		$template_code = preg_replace('/{\/foreach}/','<?php  } ?>',$template_code);
 		
-		$template_code = preg_replace('/{include=(.+?)}/','<?php include(\'$1\'); ?>',$template_code);
-		$template_code = preg_replace('/{{ (.+?) }}/','<?php echo $this->escape($$1); ?>',$template_code);
+		// Each include directive found in the template is compiled and then replaced 
+		// with a static call to viewS 
+		preg_match_all('/{include="(.+?)"}/',$template_code,$matches);
+		foreach ($matches[1] as $match) {
+			$this->compile($match);
+		}
+		$template_code = preg_replace_callback('/{include="(.+?)"}/',function($match) {
+			return '<?php if (class_exists(\'template\')) {
+				 $file'.md5($match[1]).' = new template();
+				 $file'.md5($match[1]).'->view(\''.$match[1].'\');
+				 } ?>';
+		},$template_code);
+		
+		// Replace rule for variables. Allows for multiple functions to be called arround it , separated by |
+		$template_code = preg_replace_callback('/{{ (.+?)(\|(.+?))? }}/',function($match) {
+			$str = '<?php echo ';
+			if (isset ($match[3])) {
+				$functions = explode('|',$match[3]);
+				$nr = 0;
+				foreach ($functions as $function) {
+					$nr++;
+					$str.= $function.'(';
+				}
+				$str.= '$'.$match[1];
+				$str = str_pad($str,strlen($str) + $nr,')');
+				$str.= '; ?>';
+			}
+			else {
+				$str.= '$'.$match[1].'; ?>';
+			}
+			return $str;
+		},$template_code);
 		
 		if (!is_dir('temp'))
 			mkdir('temp');
 		file_put_contents('temp/'.md5($template),$template_code);
 	}
+	
 }
 
 

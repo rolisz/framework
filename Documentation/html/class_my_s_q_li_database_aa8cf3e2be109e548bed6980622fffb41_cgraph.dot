@@ -1,0 +1,14 @@
+digraph G
+{
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  rankdir=LR;
+  Node1 [label="alterTable",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled" fontcolor="black"];
+  Node1 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node2 [label="Query",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_my_s_q_li_database.html#aebc962126fd37fd3478c4689156d5f83"];
+  Node1 -> Node3 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node3 [label="tableExists",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_my_s_q_li_database.html#ae7cdaa744d52a1eb0103e377023ca528"];
+  Node3 -> Node4 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+  Node4 [label="fetchRow",height=0.2,width=0.4,color="black", fillcolor="white", style="filled",URL="$class_my_s_q_li_database.html#acdee1c4e55c3792b3dbfeedfac35912f"];
+  Node4 -> Node2 [color="midnightblue",fontsize="10",style="solid",fontname="Helvetica"];
+}

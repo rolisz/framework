@@ -2,12 +2,11 @@
 include_once ('rolisz.php');
 class router extends base {
 	/**
-		Assign handler to route pattern
-			@param string $pattern 
-			@param mixed $funcs 
-			@param string $http 
-			@param string $name
-			@public
+	 *  Assign handler to route pattern
+	 * 		@param string $pattern
+	 * 		@param mixed $funcs
+	 * 		@param string $http
+	 * 		@param string $name
 	**/
 	public static function route($pattern, $funcs, $http = 'GET', $name = FALSE) {
 		if ($name) {
@@ -58,11 +57,11 @@ class router extends base {
 		}
 	}
 	
-	/**
-		Checks if $route matches the current URL
-			@param string $route
-			$return TRUE|FALSE
-	
+	/** 
+	 * Checks if $route matches the current URL
+	 * 		@param string $route
+	 *  	@retval true
+	 * 		@retval false
 	**/
 	private static function matches($route) {
 		$pattern = $route;
@@ -70,13 +69,16 @@ class router extends base {
 		$i = 0;
 		$url = self::$global['ROUTE'];
 		while (isset($route[$i]) && isset($url[$i])) {
+			// If we have a catchall in the route
 			if ($route[$i]=='*') {
 				return true;
 			}
+			// If we have a variable in our pattern
 			elseif (strlen($route[$i])>0 && $route[$i][0]==':') {
 				self::$global['ARGS'][$pattern][] = $url[$i];
 				$i++;
 			}
+			// If it's a match
 			elseif ($route[$i] == $url[$i]) {
 				$i++;
 			}
@@ -86,7 +88,7 @@ class router extends base {
 			}
 		}	
 		if (isset($route[$i])==isset($url[$i])) {
-		return true;
+			return true;
 		}
 		elseif (!isset($url[$i]) && $route[$i]=='*') {
 			return true;
@@ -97,10 +99,9 @@ class router extends base {
 		}
 	}
 
-	/**
-		Process routes based on incoming URI. \n
-		URL that is not matched will be passed as arguments to the functions that are called
-			@public
+	/** 
+	 * 		Process routes based on incoming URI. URL that is not matched will be passed
+	 * 	as arguments to the functions that are called
 	**/
 	
 	public static function run() {
@@ -143,7 +144,7 @@ class router extends base {
 		//Remaining part of URL is passed to functions as arguments
 		rolisz::call(self::$global['ROUTES'][$_SERVER['REQUEST_METHOD']][$valid_routes[0]],self::$global['ARGS'][$valid_routes[0]]);
 		
-		// Delay output
+		// Delay output for throttling
 		$elapsed=time()-$time;
 		if (self::$global['THROTTLE']/1e3>$elapsed)
 			usleep(1e6*(self::$global['THROTTLE']/1e3-$elapsed));
@@ -151,11 +152,11 @@ class router extends base {
 		return;
 	}
 	
-	/**
-		Returns a URL with values for a given routing pattern
-			@param string $name
-			@param array $params
-			@return string
+	/** 
+	 * Returns a URL with values for a given routing pattern
+	 * 		@param string $name
+	 * 		@param array $params
+	 * 		@return string
 	**/
 	public static function urlFor($name, $params = array()) {
 		if (!isset(self::$global['namedRoutes'][$name])) {

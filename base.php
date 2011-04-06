@@ -6,7 +6,6 @@
  *		@package rolisz
  *		@author Roland Szabo
  *		@todo Error handling function
- *		@todo ORM
  *		@todo Language Detection
  *		@todo Internationalization
  *		@todo set conditions for dynamic part of url
@@ -19,9 +18,7 @@ class base {
 	
 	protected static
 		// rolisz global variables
-		$global,
-		// Profiler statistics
-		$stats;
+		$global;
 
 	/**
 	 * 	Intercept calls to undefined static methods
@@ -34,7 +31,8 @@ class base {
 	}
 
 	/**
-	 * 	Base constructor is private to disable creation of objects
+	 * 	Base constructor is private to disable creation of objects and to reinforce the usage
+	 *  of singleton pattern
 	 *		@private
 	**/
 	private function __construct() {
@@ -42,11 +40,10 @@ class base {
 	}
 
 	/**
-	 * 		Return value of framework variable, false if not found
+	 * 	Return value of a framework variable, false if not found
 	 *		@param string $var 
 	 * 		@retval true
 	 * 		@retval false
-	 * 		@public	
 	**/
 	public static function get($var) {
 		if (isset(self::$global[$var])) 
@@ -57,8 +54,8 @@ class base {
 	
 	/**
 	* Checks if $var has been set in the framework
-	* @retval true
-	* @retval false 
+	* 	@retval true
+	* 	@retval false 
 	*/
 	public static function check($var) {
 		if (isset(self::$global[$var])) {

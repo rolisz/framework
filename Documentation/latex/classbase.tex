@@ -12,44 +12,31 @@ Inheritance diagram for base:\begin{figure}[H]
 \begin{DoxyCompactItemize}
 \item 
 static \hyperlink{classbase_a9fa8e32de2139fd5e55c102dcdf9120f}{\_\-\_\-callStatic} (\$func, array \$args)
+\item 
+static \hyperlink{classbase_a0e8f3e2708d9f0c6ee7b54599f57ea34}{get} (\$var)
+\item 
+static \hyperlink{classbase_ae09ec448121b7c739ecd283675056e1f}{check} (\$var)
+\item 
+static \hyperlink{classbase_adc76e59111cb34cf88726e6f3bd0be8b}{set} (\$var, \$value=FALSE)
 \end{DoxyCompactItemize}
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
 const \hyperlink{classbase_aab75444b144ffc4e972a9170e0a76ec0}{AppName} = '\hyperlink{classrolisz}{rolisz} PHP framework'
 \item 
-const \hyperlink{classbase_a62e44de9100d83ee01f5b4875b49a02b}{Version} = '0.0.0.5'
+const \hyperlink{classbase_a62e44de9100d83ee01f5b4875b49a02b}{Version} = '0.0.1'
 \item 
 const \hyperlink{classbase_a2c348358c1db4bb5136855f7f31e1157}{Module} = 'Base class'
-\item 
-static \hyperlink{classbase_ac61adefb58583938c9b820405ddfa018}{\$stats}
 \end{DoxyCompactItemize}
 \subsection*{Static Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
 static \hyperlink{classbase_aad844777d9d6beb4ca7c92d97afe7d27}{\$global}
 \end{DoxyCompactItemize}
-\subsection*{Private Member Functions}
-\begin{DoxyCompactItemize}
-\item 
-\hyperlink{classbase_a095c5d389db211932136b53f25f39685}{\_\-\_\-construct} ()
-\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
 Base class. Defines some framework details, global variables and intercept functions 
-
-\subsection{Constructor \& Destructor Documentation}
-\hypertarget{classbase_a095c5d389db211932136b53f25f39685}{
-\index{base@{base}!\_\-\_\-construct@{\_\-\_\-construct}}
-\index{\_\-\_\-construct@{\_\-\_\-construct}!base@{base}}
-\subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-construct (
-\begin{DoxyParamCaption}
-{}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
-\label{classbase_a095c5d389db211932136b53f25f39685}
-Base constructor is private to disable creation of objects 
 
 \subsection{Member Function Documentation}
 \hypertarget{classbase_a9fa8e32de2139fd5e55c102dcdf9120f}{
@@ -69,6 +56,63 @@ Intercept calls to undefined static methods
 {\em \$args} & array \\
 \hline
 \end{DoxyParams}
+\hypertarget{classbase_ae09ec448121b7c739ecd283675056e1f}{
+\index{base@{base}!check@{check}}
+\index{check@{check}!base@{base}}
+\subsubsection[{check}]{\setlength{\rightskip}{0pt plus 5cm}static check (
+\begin{DoxyParamCaption}
+\item[{\$}]{var}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classbase_ae09ec448121b7c739ecd283675056e1f}
+Checks if \$var has been set in the framework 
+\begin{DoxyRetVals}{Return values}
+{\em true} & \\
+\hline
+{\em false} & \\
+\hline
+\end{DoxyRetVals}
+\hypertarget{classbase_a0e8f3e2708d9f0c6ee7b54599f57ea34}{
+\index{base@{base}!get@{get}}
+\index{get@{get}!base@{base}}
+\subsubsection[{get}]{\setlength{\rightskip}{0pt plus 5cm}static get (
+\begin{DoxyParamCaption}
+\item[{\$}]{var}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classbase_a0e8f3e2708d9f0c6ee7b54599f57ea34}
+Return value of a framework variable, false if not found 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$var} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em true} & \\
+\hline
+{\em false} & \\
+\hline
+\end{DoxyRetVals}
+\hypertarget{classbase_adc76e59111cb34cf88726e6f3bd0be8b}{
+\index{base@{base}!set@{set}}
+\index{set@{set}!base@{base}}
+\subsubsection[{set}]{\setlength{\rightskip}{0pt plus 5cm}static set (
+\begin{DoxyParamCaption}
+\item[{\$}]{var, }
+\item[{\$}]{value = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{classbase_adc76e59111cb34cf88726e6f3bd0be8b}
+Set the value of a framework variable. If \$var param is string, then a variable called \$var will have the value of \$value. If \$var is array, it should be a key-\/pair value like this array('var\_\-name'=$>$'132','2ndvar'=$>$123). 
+\begin{DoxyParams}[1]{Parameters}
+ & {\em \$var} & -\/ string
+\begin{DoxyItemize}
+\item array 
+\end{DoxyItemize}\\
+\hline
+mixed & {\em \$value} & \\
+\hline
+\end{DoxyParams}
 
 
 \subsection{Field Documentation}
@@ -77,11 +121,6 @@ Intercept calls to undefined static methods
 \index{\$global@{\$global}!base@{base}}
 \subsubsection[{\$global}]{\setlength{\rightskip}{0pt plus 5cm}\$global\hspace{0.3cm}{\ttfamily  \mbox{[}static, protected\mbox{]}}}}
 \label{classbase_aad844777d9d6beb4ca7c92d97afe7d27}
-\hypertarget{classbase_ac61adefb58583938c9b820405ddfa018}{
-\index{base@{base}!\$stats@{\$stats}}
-\index{\$stats@{\$stats}!base@{base}}
-\subsubsection[{\$stats}]{\setlength{\rightskip}{0pt plus 5cm}\$stats}}
-\label{classbase_ac61adefb58583938c9b820405ddfa018}
 \hypertarget{classbase_aab75444b144ffc4e972a9170e0a76ec0}{
 \index{base@{base}!AppName@{AppName}}
 \index{AppName@{AppName}!base@{base}}
@@ -95,10 +134,10 @@ Intercept calls to undefined static methods
 \hypertarget{classbase_a62e44de9100d83ee01f5b4875b49a02b}{
 \index{base@{base}!Version@{Version}}
 \index{Version@{Version}!base@{base}}
-\subsubsection[{Version}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Version} = '0.0.0.5'}}
+\subsubsection[{Version}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Version} = '0.0.1'}}
 \label{classbase_a62e44de9100d83ee01f5b4875b49a02b}
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-\hyperlink{rolisz_8php}{rolisz.php}\end{DoxyCompactItemize}
+C:/wamp/www/framework/\hyperlink{base_8php}{base.php}\end{DoxyCompactItemize}

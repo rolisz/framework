@@ -1,46 +1,48 @@
 <?php
 include_once('rolisz.php');
 include_once('base.php');
-define('SINGLE', 'RELATION_SINGLE');
-define('ONE_TO_MANY', 'RELATION_ONE_TO_MANY');
-define('MANY', 'RELATION_MANY');
-define('NOT_RECOGNIZED', 'RELATION_NOT_RECOGNIZED');
-define('NOT_ANALYZED', 'RELATION_NOT_ANALYZED');
-define('CUSTOM', 'RELATION_CUSTOM');
+
+		/**
+		 *  Constants defined for describing the different kinds of relations between tables
+		 */
+		define('SINGLE', 'RELATION_SINGLE');
+		define('ONE_TO_MANY', 'RELATION_ONE_TO_MANY');
+		define('MANY', 'RELATION_MANY');
+		define('NOT_RECOGNIZED', 'RELATION_NOT_RECOGNIZED');
+		define('NOT_ANALYZED', 'RELATION_NOT_ANALYZED');
 	/**
 		\class table
-		Provides CRUD functionality. Detects automatically all the columns of a table.
+		Provides CRUD and ORM functionality. Detects automatically all the columns of a table.
 			@package rolisz
 			@author Roland Szabo
 	
 	**/
 	class table extends base{
 		
-		
 		private $connection;
-		/**
-			Static variable containing the columns of all tables that have been instantiated
-				@todo allow objects representing same table, but different columns
+		/** 
+		 * Static variable containing the columns of all tables that have been instantiated
+		 *  	@todo allow objects representing same table, but different columns
 		**/
 		static public $tables = array();
 		/** 
-			Contains the table name of this object  
+		 * 	Contains the table name of this object  
 		**/
 		public $table;
 		private $originalData = array();
 		private $modifiedData = array();
 		static private $primaryKey = array();
 		/**
-			Static variable containing the relations between tables
+		 *	Static variable containing the relations between tables
 		**/
 		static public $relations = array();
 
 		/**
-			Initializes the table.
-				@param string $table
-				@param int $id
-				@param array $columns 
-				@param databaseAdapter $connection
+		 *	Initializes the table.
+		 * 		@param string $table
+		 * 		@param int $id
+		 * 		@param array $columns
+		 * 		@param databaseAdapter $connection
 		**/
 		public function __construct($table, $id=FALSE, $columns = FALSE, $connection = FALSE) {
 			if ($connection) {
@@ -64,9 +66,9 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		}
 		
 		/**
-			Magic method for setting dynamic properties
-				@param string $name
-				@param string $value
+		 *	Magic method for setting dynamic properties
+		 * 		@param string $name
+		 * 		@param string $value
 		**/
 		public function __set($name, $value) {
 			if (!array_search($name,self::$tables[$this->table])) {
@@ -76,9 +78,9 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		}
 			
 		/**
-			Magic method for accesing dynamic properties
-				@param string $name
-				@return mixed
+		 * Magic method for accesing dynamic properties
+		 * 		@param string $name
+		 * 		@return mixed
 		**/
 		public function __get($name) {
 			if (!in_array($name,self::$tables[$this->table])) {
@@ -96,9 +98,10 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		}
 		
 		/**
-			Magic method that checks if a column exists
-				@param string $name
-				@return TRUE|FALSE
+		 * 	Magic method that checks if a column exists
+		 * 		@param string $name
+		 * 		@retval true
+		 * 		@retval false
 		**/
 		public function __isset($name) {
 			if (!in_array($name,self::$tables[$this->table])) {
@@ -108,7 +111,7 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		}
 		
 		/**
-			Magic method for serialization
+		 *	Magic method for serialization
 		**/
 		public function __sleep() {
 			$result = array_merge($this->originalData,$this->modifiedData);
@@ -118,8 +121,8 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		/**
 		 * 	Magic method for setting or getting related tables. If function is called without argument, it will find the related
 		 *  tables. If function is called with a related table as an argument, it will be connected to it.
-		 * 		@params string $name
-		 * 		@params array $args
+		 * 		@param string $name
+		 * 		@param array $args
 		 * 		@todo $args could be a table of $name
 		 */
 		 public function __call($name,$args) {
@@ -187,11 +190,11 @@ define('CUSTOM', 'RELATION_CUSTOM');
 			}
 			
 		 }
+
 		/**
 			Populate the object with data from the table, selected according to primary key value
 				@param number $id
 				@return array 
-		
 		**/
 		private function hydrate($id) {
 			$results = $this->connection->fetchRow("SELECT * FROM {$this->table} WHERE ".self::$primaryKey[$this->table]."='$id'");
@@ -219,17 +222,30 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		}
 		
 		/**
-		 * Returns the values of the current row as a key=>value array. If it hasn't been hydrated, it returns false.
-		 * 	@return mixed
+		 * Returns the values of the current row as a key=>value array. If the $object parameter is set to true, it returns
+		 * 	an object with it's properties having the role of key-value pairs. If it hasn't been hydrated, it returns false.
+		 * 		@param boolena $object
+		 * 		@return mixed
 		 */
-		public function getData() {
+		public function getData($object = FALSE) {
 			if (empty($this->originalData))
 				return false;
+			if ($object) {
+				$properties = array_merge($this->originalData,$this->modifiedData);
+				$obj = new stdClass();
+				foreach ($properties as $name=>$property) {
+					$obj->$name = $property;
+				}
+				return $obj;
+			}
 			return array_merge($this->originalData,$this->modifiedData);
 		}
 		/**
-			Save changes made to object. If the object was hydrated, it will be updated. If it was created from scratch, it will be inserted into the database
-		
+		 * 	Save changes made to object. If the object was hydrated, it will be updated. 
+		 * 	If it was created from scratch, it will be inserted into the database
+		 * 		@retval true If modifying was succesfull
+		 * 		@retval int If a row was inserted, it returns the insert ID
+		 * 		@retval false If there was an error
 		**/
 		public function save() {
 			if (!empty($this->originalData)) {
@@ -260,11 +276,11 @@ define('CUSTOM', 'RELATION_CUSTOM');
 				$this->originalData[self::$primaryKey[$this->table]] = $this->connection->getInsertID();
 				return $this->connection->getInsertID();
 			}
+			return true;
 		}
 		
 		/**
-			Delete the corresponding record from the database
-		
+		 *	Delete the corresponding record from the database		
 		**/
 		public function delete() {
 			if (!empty($this->originalData)) {
@@ -277,8 +293,7 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		}
 			
 		/**
-			Populates the $data property of the object with the columns of the table and gets the primary key of the table, if it exists
-		
+		 * Populates the $data property of the object with the columns of the table and gets the primary key of the table, if it exists
 		**/
 		private function getColumns() {
 			$cols = $this->connection->fetchAll("SELECT COLUMN_NAME, COLUMN_KEY FROM INFORMATION_SCHEMA.COLUMNS
@@ -297,13 +312,12 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		}
 		
 		/**
-			Makes and executes a SQL query, based on various filters, orders, groups, and columns to return.
-				@param string $table Table in which to search
-				@param array $filters Filters to apply. Can be name=>value pair, SQL statement, or recursive array relating to conditions on other tables
-				@param array $ordergroup How to order, group and limit the search
-				@param array $columns What columns to return in search
-				@return array
-		
+		 *	Makes and executes a SQL query, based on various filters, orders, groups, and columns to return.
+		 *		@param string $table Table in which to search
+		 *		@param array $filters Filters to apply. Can be name=>value pair, SQL statement, or recursive array relating to conditions on other tables
+		 *		@param array $ordergroup How to order, group and limit the search
+		 *		@param array $columns What columns to return in search
+		 *		@return array
 		**/
 		public function find($table, $filters = array(), $ordergroup = array(), $columns = array()) {
 			$pK = self::$primaryKey[$this->table];
@@ -317,12 +331,33 @@ define('CUSTOM', 'RELATION_CUSTOM');
 			return self::importRows($table,$results);		
 		}
 		
+		/**
+		 *  Returns the number of rows that result from a SELECT query. Parameters are the
+		 *  same as for find(), except that you can't return only some columns. Also, ordering is not included
+		 *  in the query.
+		 * 		@param string $table Table in which to search
+		 *		@param array $filters Filters to apply. Can be name=>value pair, SQL statement, or recursive array relating to conditions on other tables
+		 *		@param array $ordergroup How to order, group and limit the search
+		 *		@return int
+		 */
+		public function countRows($table, $filters = array(), $ordergroup = array()) {
+			$pK = self::$primaryKey[$this->table];
+			if($pK != false && isset($this->originalData[$pK])) {
+				$filters[$pK] = $this->originalData[$pK];
+				$filters = array($this->table => $filters);
+			}
+			$query = new Query($table, $filters, $ordergroup, array());
+			return $query->getCount();			
+		}
 
 		/** 
-			Adds a relation to another table. This is not for many to many tables. Use addRelationM2M for that. If third argument isn't passed, it defaults to the table primary key
-				@param string $tablename
-				@param string $arg1 
-				@param string $arg2
+		 *	Adds a relation to another table. This is not for many to many tables. Use addRelationM2M for that. 
+		 * 	If third argument isn't passed, it defaults to the table primary key. Returns the table we are working on, to allow 
+		 * 	chaining of methods.
+		 *		@param string $tablename
+		 * 		@param string $arg1 
+		 *		@param string $arg2
+		 * 		@return $this
 		**/
 		public function addRelation($tablename, $arg1, $arg2=FALSE) {
 			if ($arg2) {
@@ -352,18 +387,20 @@ define('CUSTOM', 'RELATION_CUSTOM');
 				trigger_error("$targetKey column doesn't exist in $tablename");
 			}
 			$this->analyzeRelations();
+			return $this;
 		}
 		
 		/**
-			Adds a many-to-many relation between tables. Takes a crapload of arguments.	
-				@param string $connectortable
-				@param string $thisid
-				@param string $mappedid
-				@param string $connectedtable
-				@param string $thatid
-				@param string $cmappedid
-				@todo find a way to reduce arguments
-		
+		 *	Adds a many-to-many relation between tables. Takes a crapload of arguments.	 Returns the table we are working on, to allow 
+		 * 	chaining of methods.
+		 *		@param string $connectortable
+		 * 		@param string $thisid
+		 * 		@param string $mappedid
+		 * 		@param string $connectedtable
+		 * 		@param string $thatid
+		 * 		@param string $cmappedid
+		 * 		@todo find a way to reduce arguments
+		 * 		@return $this		
 		**/
 		
 		public function addRelationM2M($connectortable,$thisid,$mappedid,$connectedtable,$thatid,$cmappedid) {
@@ -383,10 +420,11 @@ define('CUSTOM', 'RELATION_CUSTOM');
 			else {
 					trigger_error("$mappedid column doesn't exist in $connectortable or $cmappedid column doesn't exist in $connectedtable");
 			}
+			return $this;
 		}
+
 		/**
-			Analyzes the relation between tables and marks them accordingly. So far only ONE TO MANY and MANY TO MANY ones. Haven't seen a case of single
-		
+		 *	Analyzes the relation between tables and marks them accordingly. So far only ONE TO MANY and MANY TO MANY ones. Haven't seen a case of single
 		**/
 		private function analyzeRelations() {
 			foreach(self::$relations as $key1 => $table) {
@@ -413,90 +451,89 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		}
 		
 		/**
-			Set all the values of row at once
-				@param array $values
+		 *	Set all the values of row at once. It doesn't save the row to the database.
+		 *		@param array $values
 		**/
-			public function setAll($values) {
-				if (isset($values[self::$primaryKey[$this->table]])) {
-					$this->originalData = $values;
-				}
-				else {
-					$this->modifiedData = $values;
-				}
+		public function setAll($values) {
+			if (isset($values[self::$primaryKey[$this->table]])) {
+				$this->originalData = $values;
 			}
+			else {
+				$this->modifiedData = $values;
+			}
+		}
 			
 		/**
-			Imports an array of rows and returns an array of table objects filled with values
-				@param string $table
-				@param array $values
-				@return array
+		 *	Imports an array of rows and returns an array of table objects filled with values. If there is only 
+		 *  one row in $values, it returns it as an object instead of as an array.
+		 *		@param string $table
+		 *		@param array $values
+		 *		@return array
 		**/
-			public static function importRows($table,$values) {
-				$output = array();
-				if (is_array($values)) {
-					foreach ($values as $value) {
-						$tableObject = new table($table);
-						$tableObject->setAll($value);
-						$output[] = $tableObject;
-					}
+		public static function importRows($table,$values) {
+			$output = array();
+			if (is_array($values)) {
+				foreach ($values as $value) {
+					$tableObject = new table($table);
+					$tableObject->setAll($value);
+					$output[] = $tableObject;
 				}
-				if (!count($output)) {
-					return false;
-				}
-				return count($output)>1?$output:$output[0];
 			}
+			if (!count($output)) {
+				return false;
+			}
+			return count($output)>1?$output:$output[0];
+		}
 			
 		/**
-			Static wrapper functions
-			
+		 *	Static convenience wrapper functions	
 		**/
 		
-		/**
-			Initializes a certain table	
-				@param string $table
-				@param int $id
-				@param array $columns
-				@param databaseAdapter $connection
+		/** 
+		 * Initializes a certain table
+		 * 		@param string $table
+		 * 		@param int $id
+		 * 		@param array $columns
+		 * 		@param databaseAdapter $connection
 		**/
-			public static function set($table, $id=FALSE, $columns = FALSE, $connection = FALSE) {
-				return new table($table, $id, $columns, $connection);
-			}
+		public static function set($table, $id=FALSE, $columns = FALSE, $connection = FALSE) {
+			return new table($table, $id, $columns, $connection);
+		}
 		
-		/**
-			Adds a Many-To-Many relationship statically. For more detailed description, read normal method.
-				@param string $connectortable
-				@param string $thisid
-				@param string $mappedid
-				@param string $connectedtable
-				@param string $thatid
-				@param string $cmappedid
-				@todo find a way to reduce arguments
-				@todo find a way to add relations between tables with other params
+		/** 
+		 * 	Adds a Many-To-Many relationship statically. See addRelationM2M(). 
+		 * 		@param string $table The table from which to start the relation
+		 * 		@param string $connectortable
+		 * 		@param string $thisid
+		 * 		@param string $mappedid
+		 * 		@param string $connectedtable
+		 * 		@param string $thatid
+		 * 		@param string $cmappedid
 		**/
 			public static function addRelationM2MS($table,$connectortable,$thisid,$mappedid,$connectedtable,$thatid,$cmappedid) {
 				$table = new table ($table);
 				$table->addRelationM2M($connectortable,$thisid,$mappedid,$connectedtable,$thatid,$cmappedid);
 			}
 			
-		/** 
-			Adds a relation to another table statically. For more detailed description, read normal method.
-				@param string $tablename
-				@param string $arg1 
-				@param string $arg2
-				@todo find a way to add relationships between tables with other params
+		/**
+		 * 	Adds a relation to another table statically. See addRelation(). 
+		 * 		@param string $table The table from which to start the relation
+		 * 		@param string $tablename
+		 * 		@param string $arg1
+		 * 		@param string $arg2
 		**/
 		public static function addRelationS($table, $tablename, $arg1, $arg2=FALSE) {
 			$table = new table($table);
 			$table->addRelation($tablename, $arg1, $arg2);
 		}
 		
-		/**
-			Static wrapper for find. Arguments the same.
-				@param string $table Table in which to search
-				@param array $filters Filters to apply. Can be name=>value pair, SQL statement, or recursive array relating to conditions on other tables
-				@param array $ordergroup How to order, group and limit the search
-				@param array $columns What columns to return in search
-				@return array
+		/** 
+		 * Static wrapper for find(). Arguments the same.
+		 * 		@param string $table Table in which to search
+		 * 		@param array $filters Filters to apply. Can be name=>value pair, SQL statement, or recursive array relating to conditions on other tables
+		 * 		@param array $ordergroup How to order, group and limit the search
+		 * 		@param array $columns What columns to return in search
+		 * 		@return array
 		**/
 		public static function findS($table, $filters = array(), $ordergroup = array(), $columns = array()) {
 			$Table = new table($table);
@@ -512,13 +549,12 @@ define('CUSTOM', 'RELATION_CUSTOM');
 	
 	class Query extends base{
 		
-		/**
-			Constructor. 
-				@param string $class
-				@param array $filters
-				@param array $ordergroup
-				@param array $columns
-		
+		/** 
+		 * Constructor.
+		 * 		@param string $class
+		 * 		@param array $filters	
+		 * 		@param array $ordergroup
+		 * 		@param array $columns	
 		**/
 		public function __construct($class, $filters, $ordergroup, $columns) {
 			$this->filters = $filters;
@@ -558,13 +594,12 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		}
 		
 		
-		/**
-			Processes the filters passed in the constructor and returns appropiate SQL queries
-				@param mixed $property
-				@param mixed $value
-				@param table $class
-				@return string
-		
+		/** 
+		 * Processes the filters passed in the constructor and returns appropiate SQL queries
+		 * 		@param mixed $property
+		 * 		@param mixed $value
+		 * 		@param table $class
+		 * 		@return string	
 		**/
 		private function buildFilters($property, $value, $class) {
 			//The element was an array => it was a filtering by a related table
@@ -596,10 +631,8 @@ define('CUSTOM', 'RELATION_CUSTOM');
 			}
 		}
 		
-		/**
-			Build the order, group, limit SQL strings for the query
-				
-		
+		/** 
+		 * 	Build the order, group, limit SQL strings for the query
 		**/
 		private function buildOrderBy() {
 			$hasorderby = false;
@@ -619,11 +652,10 @@ define('CUSTOM', 'RELATION_CUSTOM');
 			}
 		}
 		
-		/**
-			Makes the SQL strings for the JOINS necesary in the filtering
-				@param table $child
-				@param table $parent
-		
+		/** 
+		 * Makes the SQL strings for the JOINS necesary in the filtering
+		 * 		@param table $child
+		 * 		@param table $parent	
 		**/
 		private function buildJoins($child, $parent) {
 			switch ($parent::$relations[$parent->table][$child->table]->type) {
@@ -645,10 +677,9 @@ define('CUSTOM', 'RELATION_CUSTOM');
 			$this->joins = array_unique($this->joins);
 		}
 		
-		/**
-			Simply joins and returns all the stuff done in the previous functions	
-				@return string with SQL statement
-		
+		/** 
+		 * Simply joins and returns all the stuff done in the previous functions
+		 * 		@return string with SQL statement		
 		**/
 		public function buildQuery() {
 			$where = (sizeof($this->wheres) > 0) ? ' WHERE '.implode(" \n AND \n\t", $this->wheres) : '';
@@ -659,16 +690,16 @@ define('CUSTOM', 'RELATION_CUSTOM');
 		}
 		
 		/**
-			Get's a count for how many rows would a query return ?
-				@return array;
+		 * 	Get's a count for how many rows would a query return
+		 * 		@return int;
 		***/
 		function getCount() {
 			$where = (sizeof($this->wheres) > 0) ? ' WHERE '.implode(" \n AND \n\t", $this->wheres) : '';
-			$order = (sizeof($this->orders) > 0) ? ' ORDER BY '.implode(", ", $this->orders) : '' ;
 			$group = (sizeof($this->groups) > 0) ? ' GROUP BY '.implode(", ", $this->groups) : '' ;
-			$query = "SELECT count(*) FROM \n\t".$this->class->table."\n ".implode("\n ", $this->joins).$where.' '.$group.' '.$order.' ';
+			$query = "SELECT count(*) FROM \n\t".$this->class->table."\n ".implode("\n ", $this->joins).$where.' '.$group.' ';
 
-			return self::$global['dbCon']->fetchRow($query);
+			$count =self::$global['dbCon']->fetchRow($query,MYSQLI_NUM);
+			return $count[0];
 
 		}
 	

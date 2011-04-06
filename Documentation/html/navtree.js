@@ -1,13 +1,12 @@
 var NAVTREE =
 [
-  [ "rolisz", "index.html", [
+  [ "rolisz framework", "index.html", [
     [ "Related Pages", "pages.html", [
       [ "Todo List", "todo.html", null ]
     ] ],
     [ "Data Structures", "annotated.html", [
       [ "base", "classbase.html", null ],
       [ "databaseAdapter", "interfacedatabase_adapter.html", null ],
-      [ "filter", "classfilter.html", null ],
       [ "MySQLiDatabase", "class_my_s_q_li_database.html", null ],
       [ "Query", "class_query.html", null ],
       [ "rolisz", "classrolisz.html", null ],
@@ -26,20 +25,20 @@ var NAVTREE =
       ] ],
       [ "databaseAdapter", "interfacedatabase_adapter.html", [
         [ "MySQLiDatabase", "class_my_s_q_li_database.html", null ]
-      ] ],
-      [ "filter", "classfilter.html", null ]
+      ] ]
     ] ],
     [ "Data Fields", "functions.html", null ],
     [ "Namespace List", "namespaces.html", [
       [ "rolisz", "namespacerolisz.html", null ]
     ] ],
     [ "File List", "files.html", [
-      [ "databaseAdapter.php", "database_adapter_8php.html", null ],
-      [ "db.php", "db_8php.html", null ],
-      [ "misc_functions.php", "misc__functions_8php.html", null ],
-      [ "rolisz.php", "rolisz_8php.html", null ],
-      [ "router.php", "router_8php.html", null ],
-      [ "template.php", "template_8php.html", null ]
+      [ "C:/wamp/www/framework/base.php", "base_8php.html", null ],
+      [ "C:/wamp/www/framework/databaseAdapter.php", "database_adapter_8php.html", null ],
+      [ "C:/wamp/www/framework/db.php", "db_8php.html", null ],
+      [ "C:/wamp/www/framework/misc_functions.php", "misc__functions_8php.html", null ],
+      [ "C:/wamp/www/framework/rolisz.php", "rolisz_8php.html", null ],
+      [ "C:/wamp/www/framework/router.php", "router_8php.html", null ],
+      [ "C:/wamp/www/framework/template.php", "template_8php.html", null ]
     ] ],
     [ "Globals", "globals.html", null ]
   ] ]

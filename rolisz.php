@@ -2,8 +2,8 @@
 include_once ('base.php');
 /** 
  *	\class rolisz
- *	Central class, contains only stuff that connects the rest
- *		@package rolisz
+ *	Central class, contains only general useful functions or wrappers for the other classes
+ * 		@package rolisz
  *		@author Roland Szabo
 **/
 class rolisz extends base {
@@ -52,6 +52,7 @@ class rolisz extends base {
 	
 	/**
 	 *	Connects to a database adapter that implements the interface defined in databaseAdapter.php
+	 * 	Checks for the existence of the class in databaseAdapter.php and a file called $dbtype.DatabaseAdapter.php
 	 *		@param string $dbtype Database type. For now there is support for MySQL 
 	 *		@param string $host 
 	 *		@param string $username
@@ -62,6 +63,15 @@ class rolisz extends base {
 	public static function connect($dbtype,$host, $username, $password, $db) {
 		include ('databaseAdapter.php');
 		$adapterClass = "{$dbtype}Database";
+		if (!class_exists($adapterClass)) { 
+			if (file_exists($adapterClass.'Adapter.php')) {
+				include ($adapterClass.'Adapter.php');
+			}
+			else {
+				trigger_error('$adapterClass class was not found');
+				return false;
+			} 
+		}
 		self::$global['dbCon'] = new $adapterClass($host, $username, $password, $db);
 		return self::$global['dbCon'];
 	}
@@ -79,8 +89,8 @@ class rolisz extends base {
 
 	
 	/**
-	 *	Trigger an HTTP 404 error
-	 *		@public
+	 *	Trigger an HTTP 404 error. If the 404 framework variable has been set to a function,
+	 * it will get called. Else, it just triggers an error saying the page was not found.
 	**/
 	public static function http404() {
 		header("HTTP/1.0 404 Not Found");
@@ -183,10 +193,10 @@ class rolisz extends base {
 		spl_autoload_register(array('rolisz', 'autoload'));
 		
 		//dunno
-		$root=rolisz::fixSlashes(realpath('.')).'/';
+		$root = rolisz::fixSlashes(realpath('.')).'/';
 		
 		//Set a few site dependent framework variables		
-		self::$global=array(
+		self::$global = array(
 			'BASE'=>preg_replace('/(.*)\/.+/','$1',$_SERVER['SCRIPT_NAME']),
 			'ENCODING'=>'UTF-8',
 			'ERROR'=>NULL,
