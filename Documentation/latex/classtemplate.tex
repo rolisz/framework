@@ -30,6 +30,18 @@ Inheritance diagram for template:\begin{figure}[H]
 \item 
 static \hyperlink{classtemplate_a177589d5a40b626113b51f2e2b1a7eb5}{viewS} (\$\hyperlink{classtemplate}{template})
 \end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtemplate_a57fe1e92cfb84c13658d12becd326984}{checkCompile} (\$\hyperlink{classtemplate}{template})
+\item 
+\hyperlink{classtemplate_ab0a641d23ff3291dc8a94085f06b5dee}{compile} (\$\hyperlink{classtemplate}{template})
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classtemplate_affc45c6ace2eeb3f300b054dbf9592b6}{\$values}
+\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -47,7 +59,7 @@ Provides basic templating capabilites
 \label{classtemplate_a095c5d389db211932136b53f25f39685}
 Empty constructor. It's created separately to prevent inheriting the singleton pattern from base. 
 
-Reimplemented from \hyperlink{classbase}{base}.
+Reimplemented from \hyperlink{classbase_a095c5d389db211932136b53f25f39685}{base}.
 
 
 
@@ -125,6 +137,41 @@ Set the value of a framework variable. If \$var param is string, then a variable
 mixed & {\em \$value} & \\
 \hline
 \end{DoxyParams}
+\hypertarget{classtemplate_a57fe1e92cfb84c13658d12becd326984}{
+\index{template@{template}!checkCompile@{checkCompile}}
+\index{checkCompile@{checkCompile}!template@{template}}
+\subsubsection[{checkCompile}]{\setlength{\rightskip}{0pt plus 5cm}checkCompile (
+\begin{DoxyParamCaption}
+\item[{\$}]{template}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classtemplate_a57fe1e92cfb84c13658d12becd326984}
+Checks if the file has been compiled to the temp folder and if it is more recent than the last change to the template 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$template} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em true} & \\
+\hline
+{\em false} & \\
+\hline
+\end{DoxyRetVals}
+\hypertarget{classtemplate_ab0a641d23ff3291dc8a94085f06b5dee}{
+\index{template@{template}!compile@{compile}}
+\index{compile@{compile}!template@{template}}
+\subsubsection[{compile}]{\setlength{\rightskip}{0pt plus 5cm}compile (
+\begin{DoxyParamCaption}
+\item[{\$}]{template}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classtemplate_ab0a641d23ff3291dc8a94085f06b5dee}
+Performs the replacing of the shorthand tags to full PHP tags in the \$template file. Places the results in a temp folder, in a file called the md5 value of \$template, to prevent collisions. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$template} & \\
+\hline
+\end{DoxyParams}
 \hypertarget{classtemplate_abcdc5267dc378cabc6d0d5de589b358b}{
 \index{template@{template}!getOutput@{getOutput}}
 \index{getOutput@{getOutput}!template@{template}}
@@ -170,6 +217,14 @@ Static wrapper for \hyperlink{classtemplate_ada2685086f0dc2eb8099c94f7d074885}{v
 string & {\em \$template} & \\
 \hline
 \end{DoxyParams}
+
+
+\subsection{Field Documentation}
+\hypertarget{classtemplate_affc45c6ace2eeb3f300b054dbf9592b6}{
+\index{template@{template}!\$values@{\$values}}
+\index{\$values@{\$values}!template@{template}}
+\subsubsection[{\$values}]{\setlength{\rightskip}{0pt plus 5cm}\$values\hspace{0.3cm}{\ttfamily  \mbox{[}static, private\mbox{]}}}}
+\label{classtemplate_affc45c6ace2eeb3f300b054dbf9592b6}
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}

@@ -66,6 +66,29 @@ static \hyperlink{classtable_a3d332a3c374a53802495dcb045f6133f}{\$tables} = arra
 \item 
 static \hyperlink{classtable_a5787b67dccb801e89f4ff779d42edece}{\$relations} = array()
 \end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtable_acd2fc9d3975a06de8837cbb9086eebd3}{hydrate} (\$id)
+\item 
+\hyperlink{classtable_a6287262cb9628d7a89d8fc16dcb51177}{getColumns} ()
+\item 
+\hyperlink{classtable_a143749a0fde8ad809f2be26ff1f9fcbd}{analyzeRelations} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtable_a0d9c79b9b86b3f5891c6d3892f12c6a0}{\$connection}
+\item 
+\hyperlink{classtable_a2b8d61dccac79ff04332cba49ed5b1cb}{\$originalData} = array()
+\item 
+\hyperlink{classtable_aa6f12825505c804bc03b634a7598eb45}{\$modifiedData} = array()
+\end{DoxyCompactItemize}
+\subsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{classtable_a927b0256b942a3ee89485f2649af7981}{\$primaryKey} = array()
+\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
@@ -293,7 +316,16 @@ string & {\em \$arg1} & \\
 string & {\em \$arg2} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{classtable_a456b3964c514406cc9498fc49e8c0317}{
+\hypertarget{classtable_a143749a0fde8ad809f2be26ff1f9fcbd}{
+\index{table@{table}!analyzeRelations@{analyzeRelations}}
+\index{analyzeRelations@{analyzeRelations}!table@{table}}
+\subsubsection[{analyzeRelations}]{\setlength{\rightskip}{0pt plus 5cm}analyzeRelations (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classtable_a143749a0fde8ad809f2be26ff1f9fcbd}
+Analyzes the relation between tables and marks them accordingly. So far only ONE TO MANY and MANY TO MANY ones. Haven't seen a case of single \hypertarget{classtable_a456b3964c514406cc9498fc49e8c0317}{
 \index{table@{table}!countRows@{countRows}}
 \index{countRows@{countRows}!table@{table}}
 \subsubsection[{countRows}]{\setlength{\rightskip}{0pt plus 5cm}countRows (
@@ -377,7 +409,16 @@ array & {\em \$columns} & What columns to return in search \\
 \begin{DoxyReturn}{Returns}
 array 
 \end{DoxyReturn}
-\hypertarget{classtable_ac1eeb13dfaefd70b4c778080e5330525}{
+\hypertarget{classtable_a6287262cb9628d7a89d8fc16dcb51177}{
+\index{table@{table}!getColumns@{getColumns}}
+\index{getColumns@{getColumns}!table@{table}}
+\subsubsection[{getColumns}]{\setlength{\rightskip}{0pt plus 5cm}getColumns (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classtable_a6287262cb9628d7a89d8fc16dcb51177}
+Populates the \$data property of the object with the columns of the table and gets the primary key of the table, if it exists \hypertarget{classtable_ac1eeb13dfaefd70b4c778080e5330525}{
 \index{table@{table}!getData@{getData}}
 \index{getData@{getData}!table@{table}}
 \subsubsection[{getData}]{\setlength{\rightskip}{0pt plus 5cm}getData (
@@ -415,6 +456,23 @@ bool & {\em \$value} & \\
 {\em string} & The name of the primary key \\
 \hline
 \end{DoxyRetVals}
+\hypertarget{classtable_acd2fc9d3975a06de8837cbb9086eebd3}{
+\index{table@{table}!hydrate@{hydrate}}
+\index{hydrate@{hydrate}!table@{table}}
+\subsubsection[{hydrate}]{\setlength{\rightskip}{0pt plus 5cm}hydrate (
+\begin{DoxyParamCaption}
+\item[{\$}]{id}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classtable_acd2fc9d3975a06de8837cbb9086eebd3}
+Populate the object with data from the table, selected according to primary key value 
+\begin{DoxyParams}[1]{Parameters}
+number & {\em \$id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
 \hypertarget{classtable_a0b7ba4f111f6cd48fadd4c61966cc308}{
 \index{table@{table}!importRows@{importRows}}
 \index{importRows@{importRows}!table@{table}}
@@ -493,6 +551,26 @@ array & {\em \$values} & \\
 
 
 \subsection{Field Documentation}
+\hypertarget{classtable_a0d9c79b9b86b3f5891c6d3892f12c6a0}{
+\index{table@{table}!\$connection@{\$connection}}
+\index{\$connection@{\$connection}!table@{table}}
+\subsubsection[{\$connection}]{\setlength{\rightskip}{0pt plus 5cm}\$connection\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classtable_a0d9c79b9b86b3f5891c6d3892f12c6a0}
+\hypertarget{classtable_aa6f12825505c804bc03b634a7598eb45}{
+\index{table@{table}!\$modifiedData@{\$modifiedData}}
+\index{\$modifiedData@{\$modifiedData}!table@{table}}
+\subsubsection[{\$modifiedData}]{\setlength{\rightskip}{0pt plus 5cm}\$modifiedData = array()\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classtable_aa6f12825505c804bc03b634a7598eb45}
+\hypertarget{classtable_a2b8d61dccac79ff04332cba49ed5b1cb}{
+\index{table@{table}!\$originalData@{\$originalData}}
+\index{\$originalData@{\$originalData}!table@{table}}
+\subsubsection[{\$originalData}]{\setlength{\rightskip}{0pt plus 5cm}\$originalData = array()\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
+\label{classtable_a2b8d61dccac79ff04332cba49ed5b1cb}
+\hypertarget{classtable_a927b0256b942a3ee89485f2649af7981}{
+\index{table@{table}!\$primaryKey@{\$primaryKey}}
+\index{\$primaryKey@{\$primaryKey}!table@{table}}
+\subsubsection[{\$primaryKey}]{\setlength{\rightskip}{0pt plus 5cm}\$primaryKey = array()\hspace{0.3cm}{\ttfamily  \mbox{[}static, private\mbox{]}}}}
+\label{classtable_a927b0256b942a3ee89485f2649af7981}
 \hypertarget{classtable_a5787b67dccb801e89f4ff779d42edece}{
 \index{table@{table}!\$relations@{\$relations}}
 \index{\$relations@{\$relations}!table@{table}}

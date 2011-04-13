@@ -1,6 +1,6 @@
 var NAVTREE =
 [
-  [ "rolisz framework", "index.html", [
+  [ "rolisz", "index.html", [
     [ "Related Pages", "pages.html", [
       [ "Todo List", "todo.html", null ]
     ] ],

@@ -1,8 +1,8 @@
-all: refman.pdf
+all: clean refman.pdf
 
 pdf: refman.pdf
 
-refman.pdf: clean refman.tex
+refman.pdf: refman.tex
 	pdflatex refman.tex
 	makeindex refman.idx
 	pdflatex refman.tex
@@ -16,4 +16,4 @@ refman.pdf: clean refman.tex
 
 
 clean:
-	del /s/y *.ps *.dvi *.aux *.toc *.idx *.ind *.ilg *.log *.out refman.pdf
+	rm -f *.ps *.dvi *.aux *.toc *.idx *.ind *.ilg *.log *.out refman.pdf
