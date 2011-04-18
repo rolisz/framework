@@ -261,7 +261,7 @@ include_once('base.php');
 			}
 			$query.=$this->table.' SET ';
 			foreach ($this->modifiedData as $key=>$value) {
-				$query.= $key ."='".$value.'\',';
+				$query.= '`'.$key ."`='".$value.'\',';
 			}
 			$query = substr($query,0,-1);
 			if (!empty($this->originalData)) {
@@ -316,10 +316,13 @@ include_once('base.php');
 		 *		@param string $table Table in which to search
 		 *		@param array $filters Filters to apply. Can be name=>value pair, SQL statement, or recursive array relating to conditions on other tables
 		 *		@param array $ordergroup How to order, group and limit the search
-		 *		@param array $columns What columns to return in search
+		 *		@param array $columns What columns to return in search. You can pass key value pairs to retrieve values from other 
+		 * 	tables such as 'relatedTable'=>'column'
+		 * 		@param bool $import - whether to import the resulting stuff into tables or not. Default is true. Useful if you 
+		 *  	use the $columns parameter to retrieve values from other tables.
 		 *		@return array
 		**/
-		public function find($table, $filters = array(), $ordergroup = array(), $columns = array()) {
+		public function find($table, $filters = array(), $ordergroup = array(), $columns = array(), $import = TRUE) {
 			$pK = self::$primaryKey[$this->table];
 			if($pK != false && isset($this->originalData[$pK])) {
 				$filters[$pK] = $this->originalData[$pK];
@@ -328,7 +331,10 @@ include_once('base.php');
 			$query = new Query($table, $filters, $ordergroup, $columns);
 			$results = $this->connection->fetchAll($query->buildQuery());
 			//return $results;
-			return self::importRows($table,$results);		
+			if ($import)
+				return self::importRows($table,$results);
+			else 
+				return $results;		
 		}
 		
 		/**
@@ -573,9 +579,12 @@ include_once('base.php');
 					$this->fields[] = $tableName.'.'.$property;
 				}
 			}
-			else { // otherwise, use only the fields from $justthese
-				foreach($columns as $property) {
-					$this->fields[] = $tableName.'.'.$property;
+			else { // otherwise, use only the fields from $columns
+				foreach($columns as $table => $property) {
+					if (is_numeric($table)) {
+						$table = $tableName;
+					}
+					$this->fields[] = $table.'.'.$property;
 				}
 			}
 			if(sizeof($filters) > 0 )

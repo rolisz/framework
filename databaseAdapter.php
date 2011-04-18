@@ -217,7 +217,7 @@
 		
 		/** 
 		 * 	Creates a table.
-		 * 		@param string $name Has to match this regex [A-Za-z][A-Za-z0-9_]*
+		 * 		@param string $name Has to match this regex [A-Za-z0-9_]*
 		 * 		@param array $params Example: array('id'=>array('INT','NOT NULL','AUTO_INCREMENT','PRIMARY KEY'),'text'=>array('TEXT','NOT NULL'))
 		 * 		@retval true
 		 * 		@retval false
@@ -225,7 +225,7 @@
 		public function createTable($name,$params) {
 			if (!is_array($params))
 				return false;
-			if (!preg_match('/^[A-Za-z][A-Za-z0-9_.-]*$/',$name)) {
+			if (!preg_match('/^[A-Za-z0-9_.-]*$/',$name)) {
 				return false;
 			}
 			$query = "CREATE TABLE `{$this->database}`.`{$name}` (";
@@ -271,7 +271,7 @@
 			if (!$this->tableExists($name)) 
 				return false;
 			$query = "ALTER TABLE `{$this->database}`.`{$name}` ";
-			if (isset($params['name']) && preg_match('/^[A-Za-z][A-Za-z0-9_.-]*$/',$params['name'])) {
+			if (isset($params['name']) && preg_match('/^[A-Za-z0-9_.-]*$/',$params['name'])) {
 				$query.= "RENAME TO `{$this->database}`.`{$params['name']}`, ";
 			}
 			if (isset($params['add']) && is_array($params['add'])) {

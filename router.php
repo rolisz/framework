@@ -1,8 +1,15 @@
 <?php
 include_once ('rolisz.php');
+/**
+ *  \class router
+ * 	This class provides URL routing, pretty URLs and named URLs functionality. 
+ * 		@package rolisz
+ * 		@author Roland Szabo
+ */
 class router extends base {
 	/**
-	 *  Assign handler to route pattern
+	 *  Set a new route pattern. First parameter defines the route. It can contain variables like /:var/ and catch-alls at the end: url/*.
+	 * 	Second parameter defines the functions that can be passed as arguments.  
 	 * 		@param string $pattern
 	 * 		@param mixed $funcs
 	 * 		@param string $http
@@ -43,7 +50,16 @@ class router extends base {
 				}
 			}
 		}
-		elseif (!is_callable($funcs)) {
+		elseif (is_array($funcs)) {
+			foreach ($funcs as &$function) {
+				if (!is_callable($function)) {
+					// Invalid function
+					trigger_error($function.' is not a valid function');
+					unset ($functions);
+				}
+			}
+		} 		
+		elseif(!is_callable($funcs)) {
 			// Invalid function
 			trigger_error($func.' is not a valid function');
 			return;
@@ -120,6 +136,7 @@ class router extends base {
 		self::$global['ARGS'] = array();
 		
 		$valid_routes = array();
+		rolisz::runPlugins('beforeMatch',self::$global['ROUTE']);
 		// Search recursively the depth to which an identical route is defined 
 		foreach ($routes as $route) {
 			if (self::matches($route)) {
@@ -141,6 +158,7 @@ class router extends base {
 		if (!isset(self::$global['ARGS'][$valid_routes[0]])) {
 			self::$global['ARGS'][$valid_routes[0]] = array();
 		}
+		rolisz::runPlugins('afterMatch',self::$global['ROUTE'],self::$global['ROUTES'][$_SERVER['REQUEST_METHOD']][$valid_routes[0]]);
 		//Remaining part of URL is passed to functions as arguments
 		rolisz::call(self::$global['ROUTES'][$_SERVER['REQUEST_METHOD']][$valid_routes[0]],self::$global['ARGS'][$valid_routes[0]]);
 		

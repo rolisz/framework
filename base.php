@@ -18,7 +18,11 @@ class base {
 	
 	protected static
 		// rolisz global variables
-		$global;
+		$global,
+		//Internal list of the plugins registered
+		$plugins,
+		//Internal list of execution points for the plugins
+		$executionPoints;
 
 	/**
 	 * 	Intercept calls to undefined static methods

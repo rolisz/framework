@@ -8,6 +8,7 @@ include_once ('base.php');
 **/
 class rolisz extends base {
 
+
 	/**
 	 *	Provide sandbox for functions and import files to prevent direct
 	 *	access to framework internals and other scripts
@@ -61,7 +62,7 @@ class rolisz extends base {
 	 *		@return databaseAdapter
 	**/
 	public static function connect($dbtype,$host, $username, $password, $db) {
-		include ('databaseAdapter.php');
+		include_once ('databaseAdapter.php');
 		$adapterClass = "{$dbtype}Database";
 		if (!class_exists($adapterClass)) { 
 			if (file_exists($adapterClass.'Adapter.php')) {
@@ -96,9 +97,11 @@ class rolisz extends base {
 		header("HTTP/1.0 404 Not Found");
 		if (self::check('404')) {
 			self::call(self::get('404'));
+			die();
 		}
 		else {
 			trigger_error('Page not found');
+			die();
 		}
 	}
 	
@@ -113,19 +116,6 @@ class rolisz extends base {
 	}
 	
 	/**
-	 *	Convert double quotes to equivalent XML entities (&#34;)
-	 *		@param string $val 	
-	 *		@return string
-	 *		@public
-	**/
-	public static function fixQuotes($val) {
-		return is_array($val)?
-			array_map('self::fixQuotes',$val):
-			(is_string($val)?
-				str_replace('"','&#34;',self::resolve($val)):$val);
-	}
-	
-	/**
 	 *	Fix mangled braces
 	 *		@param string $str 
 	 *		@return string
@@ -136,6 +126,21 @@ class rolisz extends base {
 		return strtr(
 			$str,array('%7B'=>'{','%7D'=>'}','%5B'=>'[','%5D'=>']','%20'=>' ')
 		);
+	}
+	
+	/**
+	 * Plugin functions
+	 */
+	 
+	public static function plugin () {
+		include_once 'pluginStructure.php';
+		return new pluginStructure();
+	} 
+	
+	public static function runPlugins($name) {
+		if (class_exists('pluginStructure')) {
+			call_user_func_array(array('pluginStructure','runPlugins'),func_get_args());
+		}
 	}
 	
 	/**
@@ -207,6 +212,11 @@ class rolisz extends base {
 			'TIME'=>time(),
 			'THROTTLE'=>0,
 			'VERSION'=>self::AppName.' '.self::Version
+		);
+		
+		self::$executionPoints = array( 
+			'beforeMatch' => array(),
+			'afterMatch' => array()
 		);
 	}
 }
