@@ -9,7 +9,11 @@ include_once ('rolisz.php');
 class router extends base {
 	/**
 	 *  Set a new route pattern. First parameter defines the route. It can contain variables like /:var/ and catch-alls at the end: url/*.
-	 * 	Second parameter defines the functions that can be passed as arguments.  
+	 * 	Second parameter defines the functions that can be passed as arguments. The functions can given as a list names separated by |, an array
+	 *  consisting of things that return true to is_callable. If the array contains things that return false, it will trigger an error and
+	 * 	the element will be unset. Also, you can just pass an anonymous function. If you give it as a string, you can also pass files.
+	 * 	The third parameter is optional, defaults to GET, and is the HTTP method for which this route is valid. It can be GET or POST.
+	 * 	The fourth parameter is optional, defaults to FALSE and gives the name of the route, to be used with urlFor().   
 	 * 		@param string $pattern
 	 * 		@param mixed $funcs
 	 * 		@param string $http
@@ -51,11 +55,13 @@ class router extends base {
 			}
 		}
 		elseif (is_array($funcs)) {
-			foreach ($funcs as &$function) {
-				if (!is_callable($function)) {
-					// Invalid function
-					trigger_error($function.' is not a valid function');
-					unset ($functions);
+			foreach ($funcs as $function) {
+				if (!is_array($function) && substr_count($function,'.php')!=0 ) {
+					if (!is_file($function)) {
+						// Invalid file 
+						trigger_error($function." is not a valid file");
+						return;
+					}
 				}
 			}
 		} 		
@@ -184,8 +190,6 @@ class router extends base {
 		foreach ($params as $key=>$value) {
 			$route = str_replace(':' . $key, $value, $route);
 		}
-		echo $name; 
-		var_dump($params);
 		return self::$global['BASE'].$route;
 	}
 }

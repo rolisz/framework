@@ -1,5 +1,4 @@
 <?php
-include_once('rolisz.php');
 
 /**
  * \class pluginStructure
@@ -162,7 +161,6 @@ include_once('rolisz.php');
 			&& is_array(self::$executionPoints[$name]) 
 			&& !empty(self::$executionPoints[$name])) {
 				$args = array_slice(func_get_args(),1);
-				var_dump($args);
 				foreach (self::$executionPoints[$name] as $function) {
 					if (is_array($function)) {
 						$class = new $function[0];
@@ -176,7 +174,16 @@ include_once('rolisz.php');
 						$class = new $function;
 						$method = $function::getDefaultMethod();
 					}
-					call_user_func_array(array($class,$method),$args);
+					//because call_user_func_array is slooow
+					switch(count($args)) { 
+				        case 0: $class->{$method}(); break; 
+				        case 1: $class->{$method}($args[0]); break; 
+				        case 2: $class->{$method}($args[0], $args[1]); break; 
+				        case 3: $class->{$method}($args[0], $args[1], $args[2]); break; 
+				        case 4: $class->{$method}($args[0], $args[1], $args[2], $args[3]); break; 
+				        case 5: $class->{$method}($args[0], $args[1], $args[2], $args[3], $args[4]); break; 
+				        default: call_user_func_array(array($class, $method), $args);  break; 
+				    } 
 				}
 		}
 	 }

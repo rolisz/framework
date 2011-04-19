@@ -30,13 +30,15 @@ class rolisz extends base {
 					
 					include $file;
 					$functions = explode(':',$functions);
-					foreach ($functions as $function) {
-						if (!is_callable($function)) {
-							// Invalid route handler
-							trigger_error($function.' is not a valid function');
-							return;
+					if ($functions[0]!='') {
+						foreach ($functions as $function) {
+							if (!is_callable($function)) {
+								// Invalid route handler
+								trigger_error($function.' is not a valid function');
+								return;
+							}
+							call_user_func_array($function,$args);
 						}
-						call_user_func_array($function,$args);
 					}
 				} 
 				else {
@@ -45,7 +47,18 @@ class rolisz extends base {
 				}
 			}
 		}
-		else
+		elseif (is_array($funcs)) {
+			foreach ($funcs as $func) {
+				if (is_string($func) && substr_count($func,'.php')!=0) {
+					// Run external PHP script
+					include $func;
+				} 
+				else {
+					call_user_func_array($func,$args);
+				}
+			}
+		}
+		else 
 			// Call lambda function
 			call_user_func_array($funcs,$args);
 
@@ -82,10 +95,16 @@ class rolisz extends base {
 	 *		@param string $class
 	**/
 	 public static function autoload( $class ) {
-        $file = dirname(__FILE__) . '/../' . str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+        $file = dirname(__FILE__) . '/' . str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
         if ( file_exists($file) ) {
             require $file;
         }
+		else {
+			 $file = dirname(__FILE__) . '/plugins/' . str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+			 if ( file_exists($file) ) {
+            	require $file;
+       		 }
+		}
     }
 
 	

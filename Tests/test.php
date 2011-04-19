@@ -34,12 +34,14 @@ rolisz::plugin()->registerPlugin(array('test4','boo'),'afterMatch');
 
 include ('../plugins/acl.php');
 $acl = new acl('rolisz',array(
-		'requesters'=>array('users'=>array('test','rolisz'),'mods'=>array('bad_mod'),'admins'),
+		'requesters'=>array('users'=>array('test','grupare'=>array('mai_multi','rolisz')),'mods'=>array('bad_mod'),'admins'),
 		'resources'=>array('posts','stats','comments','users'),
 		'actions'=>array('add','view','edit','delete','ban'),
-		'relations'=>array(array('users','posts','view'),
+		'permissions'=>array(array('users','posts','view'),
 						   array('users','comments','view'),
-						   array('users','comments','add')
+						   array('users','comments','add'),
+						   array('admins','posts','delete'),
+						   array('users','showPostList')
 						   )
 						   )
 			 	);

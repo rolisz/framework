@@ -1,5 +1,4 @@
 <?php
-include_once('../plugin.php');
 
 class acl extends plugin {
 	
@@ -7,6 +6,7 @@ class acl extends plugin {
 	private $source;
 	private $sourceType;
 	private $requester;
+	private $prefix = NULL;
 	
 	/**
 	 *  Constructor for ACL lists. Initializes internal list. First parameter gives the requester that will be used for ACL. 
@@ -15,7 +15,7 @@ class acl extends plugin {
 	 *		'requesterss'=>array('users'=>array('test','rolisz'),'mods'=>array('bad_mod'),'admins'),
 	 *		'resources'=>array('posts','stats','comments','users'),
 	 *		'actions'=>array('view','edit','delete','ban'),
-	 *		'relations'=>array(array('users','posts','view'),
+	 *		'permissions'=>array(array('users','posts','view'),
 						   array('users','comments','view'),
 						   array('users','comments','add')
 						   ))
@@ -39,8 +39,21 @@ class acl extends plugin {
 			if (!$this->checkConsistency()) {
 				trigger_error('The ACL list is inconsistent or faulty');
 			}
+			$currentUserGroups = $this->getPath($this->acl['requesters']);
+			foreach ($this->acl['permissions'] as $key=> $value) {
+				if (is_numeric($key)) {
+					if (in_array($value[0],$currentUserGroups)) {
+						if (!isset($value[2])) {
+							$value[2]=NULL;
+						}
+						$this->acl['permissions'][$value[1]][] = $value[2];
+					}
+					unset ($this->acl['permissions'][$key]);
+				}
+			}
 		}
 		elseif ($sourceType instanceof databaseAdapter) {
+			$this->prefix = $prefix;
 			$perms = rolisz::table($prefix.'_permissions')
 				->addRelation($prefix.'_actions','action','id')
 				->addRelation($prefix.'_resources','resource','id')
@@ -57,11 +70,17 @@ class acl extends plugin {
 												`left` <= (SELECT `{$prefix}_requesters`.left FROM {$prefix}_requesters WHERE _requesters.requester='{$requester}') AND 
 												`right` >= (SELECT `{$prefix}_requesters`.right FROM {$prefix}_requesters WHERE _requesters.requester='{$requester}') ORDER BY `left`)");
 			$this->acl = array('permissions'=>$perms);
-			//var_dump($this->acl);
+			foreach ($this->acl['permissions'] as $key => &$value) {
+				if (is_numeric($key)) {
+					$this->acl['permissions'][$value['resource']][] = $value['action'];
+					unset ($this->acl['permissions'][$key]);
+				} 
+			}
 		}
 		elseif($sourceType == 'xml') {
 			//@todo implement
-			
+			//In this case it's the xml file
+			$this->prefix = $prefix;
 			echo 'Not implemented yet';
 		}
 	}
@@ -72,16 +91,77 @@ class acl extends plugin {
 	 * 		@retval false
 	 */
 	private function checkConsistency() {
-		if (!isset($this->acl['requesters']) || !isset($this->acl['resources']) || !isset($this->acl['relations'])) {
+		if (!isset($this->acl['requesters']) || !isset($this->acl['resources']) || !isset($this->acl['permissions'])) {
 			return false;
 		}
 		//@todo implement better check
 		return true;
 	}
 	
+	/**
+	 *  Recursively search for requester in acl list
+	 * 		@param array $array
+	 */
+	 private function getPath($array) {
+
+	 	if (is_array($array) && in_array($this->requester,$array)) {
+	 		return array($this->requester);
+	 	}
+	 	if (is_array($array))
+		 	foreach ($array as $key=>&$value) {
+		 		$ceva = $this->getPath($value);
+		 		if ($ceva) {
+		 			$ceva[]= $key;
+		 			return $ceva;
+		 		}
+				unset($array[$key]);
+		 	}
+		return false;
+	 }
+	 
+	 /**
+	  *  Executes the plugin at an execution point.
+	  * 	@param string $url - here because of compatibility with other plugins that might be executed at afterMatch
+	  * 	@param mixed $funcs
+	  */
 	public function run($url, $funcs) {
+		if (is_string($funcs)) {
+			$funcs = explode('|',$funcs);
+			foreach ($funcs as &$func) {
+				if (substr_count($func,'.php')!=0) {
+					$func = substr(strstr($func,'.php'),5);
+				} 
+			}
+		}
 		if (is_array($funcs)) {
-			
+			foreach ($funcs as &$func) {
+				if (is_string($func) && substr_count($func,'.php')!=0) {
+					continue;
+				}
+				if ($this->isAllowed($func)) {
+					echo 'yay';	
+				}
+				else {
+					echo 'nay';
+					unset($func);
+				}
+			}
+		}
+	}
+	
+	/**
+	 *  Verifies if requester has clearance for this. 
+	 * 		@param function $function
+	 * 		@retval true
+	 * 		@retval false
+	 */
+	public function isAllowed($function) {
+		if ((!is_array($function) && key_exists($function,$this->acl['permissions'])) ||  // case if only a function is given, so check only resource 
+			(is_array($function) && isset($this->acl['permissions'][$function[0]]) && $this->acl['permissions'][$function[0]]=$function[1])) { //case when object and function given, so check resource and action				
+			return true;
+		}
+		else {
+			return false;	
 		}
 	}
 	
@@ -128,6 +208,21 @@ class acl extends plugin {
 		$req->resource = 1;
 		$req->action = 1;
 		$req->save();
+	}
+
+	/**
+	 *  Adds a new type of resource, action, requester or permission. Works only with database and XML based ACLs.
+	 * 		@param string $type
+	 * 		@param mixed $what
+	 * 		@param string $where
+	 * 		@retval false
+	 */
+	public function addNew($type, $what, $where = FALSE) {
+		if (is_null($this->prefix)) 
+			return false;
+		if ($type = 'resource') {
+			
+		}
 	}
 }
 ?>
