@@ -31,7 +31,7 @@ Inheritance diagram for table:\begin{figure}[H]
 \item 
 \hyperlink{classtable_a13bdffdd926f26b825ea57066334ff01}{delete} ()
 \item 
-\hyperlink{classtable_a144f2a49e9970315392c13525d5de652}{find} (\$\hyperlink{classtable}{table}, \$filters=array(), \$ordergroup=array(), \$columns=array())
+\hyperlink{classtable_a54c67ef7f9e768176aedf92e3856abaa}{find} (\$\hyperlink{classtable}{table}, \$filters=array(), \$ordergroup=array(), \$columns=array(), \$import=TRUE)
 \item 
 \hyperlink{classtable_a456b3964c514406cc9498fc49e8c0317}{countRows} (\$\hyperlink{classtable}{table}, \$filters=array(), \$ordergroup=array())
 \item 
@@ -131,7 +131,9 @@ array & {\em \$columns} & \\
 \end{DoxyParamCaption}
 )}}
 \label{classtable_af231e86ad32039b9573ae228db5a29fa}
-Magic method for setting or getting related tables. If function is called without argument, it will find the related tables. If function is called with a related table as an argument, it will be connected to it. 
+Magic method for setting or getting related tables. If function is called without argument, it will find the related tables. It will automatically save the connectin! \begin{Desc}
+\item[\hyperlink{todo__todo000006}{Todo}]If function is called with a related table as an argument, it will be connected to it. \end{Desc}
+
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$name} & \\
 \hline
@@ -139,7 +141,7 @@ array & {\em \$args} & \\
 \hline
 \end{DoxyParams}
 \begin{Desc}
-\item[\hyperlink{todo__todo000006}{Todo}]\$args could be a table of \$name \end{Desc}
+\item[\hyperlink{todo__todo000007}{Todo}]\$args could be a table of \$name \end{Desc}
 \hypertarget{classtable_abc8e9e31bb15c8a44c3210ec551407c8}{
 \index{table@{table}!\_\-\_\-get@{\_\-\_\-get}}
 \index{\_\-\_\-get@{\_\-\_\-get}!table@{table}}
@@ -257,7 +259,7 @@ string & {\em \$cmappedid} & \\
 \hline
 \end{DoxyParams}
 \begin{Desc}
-\item[\hyperlink{todo__todo000007}{Todo}]find a way to reduce arguments \end{Desc}
+\item[\hyperlink{todo__todo000008}{Todo}]find a way to reduce arguments \end{Desc}
 \begin{DoxyReturn}{Returns}
 \$this 
 \end{DoxyReturn}
@@ -336,7 +338,7 @@ Analyzes the relation between tables and marks them accordingly. So far only ONE
 \end{DoxyParamCaption}
 )}}
 \label{classtable_a456b3964c514406cc9498fc49e8c0317}
-Returns the number of rows that result from a SELECT query. Parameters are the same as for \hyperlink{classtable_a144f2a49e9970315392c13525d5de652}{find()}, except that you can't return only some columns. Also, ordering is not included in the query. 
+Returns the number of rows that result from a SELECT query. Parameters are the same as for \hyperlink{classtable_a54c67ef7f9e768176aedf92e3856abaa}{find()}, except that you can't return only some columns. Also, ordering is not included in the query. 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$table} & Table in which to search \\
 \hline
@@ -357,7 +359,7 @@ int
 \end{DoxyParamCaption}
 )}}
 \label{classtable_a13bdffdd926f26b825ea57066334ff01}
-Delete the corresponding record from the database \hypertarget{classtable_a144f2a49e9970315392c13525d5de652}{
+Delete the corresponding record from the database \hypertarget{classtable_a54c67ef7f9e768176aedf92e3856abaa}{
 \index{table@{table}!find@{find}}
 \index{find@{find}!table@{table}}
 \subsubsection[{find}]{\setlength{\rightskip}{0pt plus 5cm}find (
@@ -365,10 +367,11 @@ Delete the corresponding record from the database \hypertarget{classtable_a144f2
 \item[{\$}]{table, }
 \item[{\$}]{filters = {\ttfamily array()}, }
 \item[{\$}]{ordergroup = {\ttfamily array()}, }
-\item[{\$}]{columns = {\ttfamily array()}}
+\item[{\$}]{columns = {\ttfamily array()}, }
+\item[{\$}]{import = {\ttfamily TRUE}}
 \end{DoxyParamCaption}
 )}}
-\label{classtable_a144f2a49e9970315392c13525d5de652}
+\label{classtable_a54c67ef7f9e768176aedf92e3856abaa}
 Makes and executes a SQL query, based on various filters, orders, groups, and columns to return. 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$table} & Table in which to search \\
@@ -377,7 +380,9 @@ array & {\em \$filters} & Filters to apply. Can be name=$>$value pair, SQL state
 \hline
 array & {\em \$ordergroup} & How to order, group and limit the search \\
 \hline
-array & {\em \$columns} & What columns to return in search \\
+array & {\em \$columns} & What columns to return in search. You can pass key value pairs to retrieve values from other tables such as 'relatedTable'=$>$'column' \\
+\hline
+bool & {\em \$import} & -\/ whether to import the resulting stuff into tables or not. Default is true. Useful if you use the \$columns parameter to retrieve values from other tables. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -395,7 +400,7 @@ array
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
 \label{classtable_ae5daa73e570561db01a6198d85c50a1d}
-Static wrapper for \hyperlink{classtable_a144f2a49e9970315392c13525d5de652}{find()}. Arguments the same. 
+Static wrapper for \hyperlink{classtable_a54c67ef7f9e768176aedf92e3856abaa}{find()}. Arguments the same. 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$table} & Table in which to search \\
 \hline

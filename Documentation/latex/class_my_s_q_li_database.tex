@@ -25,6 +25,8 @@ Inheritance diagram for MySQLiDatabase:\begin{figure}[H]
 \item 
 \hyperlink{class_my_s_q_li_database_aebc962126fd37fd3478c4689156d5f83}{Query} (\$query)
 \item 
+\hyperlink{class_my_s_q_li_database_a3e35f6f5604ebbf57a86508c708bd33c}{fetchFirst} (\$query=false)
+\item 
 \hyperlink{class_my_s_q_li_database_acdee1c4e55c3792b3dbfeedfac35912f}{fetchRow} (\$query=false, \$type=1)
 \item 
 \hyperlink{class_my_s_q_li_database_a1750ab2493620de034b80a77577f3e8b}{fetchAll} (\$query=false, \$type=1)
@@ -158,7 +160,7 @@ Reimplemented from \hyperlink{interfacedatabase_adapter_a4c4f3316747e665b9e02f6d
 \label{class_my_s_q_li_database_a4b06dfe3bf7dd552f828a80fece817d8}
 Creates a table. 
 \begin{DoxyParams}[1]{Parameters}
-string & {\em \$name} & Has to match this regex \mbox{[}A-\/Za-\/z\mbox{]}\mbox{[}A-\/Za-\/z0-\/9\_\-\mbox{]}$\ast$ \\
+string & {\em \$name} & Has to match this regex \mbox{[}A-\/Za-\/z0-\/9\_\-\mbox{]}$\ast$ \\
 \hline
 array & {\em \$params} & Example: array('id'=$>$array('INT','NOT NULL','AUTO\_\-INCREMENT','PRIMARY KEY'),'text'=$>$array('TEXT','NOT NULL')) \\
 \hline
@@ -257,6 +259,23 @@ mixed
 
 Reimplemented from \hyperlink{interfacedatabase_adapter_a861f65695740a1d866ce1001f0ae706d}{databaseAdapter}.
 
+\hypertarget{class_my_s_q_li_database_a3e35f6f5604ebbf57a86508c708bd33c}{
+\index{MySQLiDatabase@{MySQLiDatabase}!fetchFirst@{fetchFirst}}
+\index{fetchFirst@{fetchFirst}!MySQLiDatabase@{MySQLiDatabase}}
+\subsubsection[{fetchFirst}]{\setlength{\rightskip}{0pt plus 5cm}fetchFirst (
+\begin{DoxyParamCaption}
+\item[{\$}]{query = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_my_s_q_li_database_a3e35f6f5604ebbf57a86508c708bd33c}
+Fetches the first value from the first row. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$query} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed 
+\end{DoxyReturn}
 \hypertarget{class_my_s_q_li_database_acdee1c4e55c3792b3dbfeedfac35912f}{
 \index{MySQLiDatabase@{MySQLiDatabase}!fetchRow@{fetchRow}}
 \index{fetchRow@{fetchRow}!MySQLiDatabase@{MySQLiDatabase}}

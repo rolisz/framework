@@ -108,6 +108,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#ab624b0b234f9db9dbc6dc4180f566b1f">selectDatabase</a> ($db)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a039ae2e8f2bf579fd75d9df8df87eee3">escapeValue</a> ($value)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#aebc962126fd37fd3478c4689156d5f83">Query</a> ($query)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a3e35f6f5604ebbf57a86508c708bd33c">fetchFirst</a> ($query=false)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#acdee1c4e55c3792b3dbfeedfac35912f">fetchRow</a> ($query=false, $type=1)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a1750ab2493620de034b80a77577f3e8b">fetchAll</a> ($query=false, $type=1)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a24ada5decce3d1b79cd82f5a90ccf404">getError</a> ()</td></tr>
@@ -304,7 +305,7 @@ Data Fields</h2></td></tr>
 <p>Creates a table. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>Has to match this regex [A-Za-z][A-Za-z0-9_]* </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>Has to match this regex [A-Za-z0-9_]* </td></tr>
     <tr><td class="paramtype">array</td><td class="paramname">$params</td><td>Example: array('id'=&gt;array('INT','NOT NULL','AUTO_INCREMENT','PRIMARY KEY'),'text'=&gt;array('TEXT','NOT NULL')) </td></tr>
   </table>
   </dd>
@@ -435,6 +436,31 @@ Data Fields</h2></td></tr>
 <dl class="return"><dt><b>Returns:</b></dt><dd>mixed </dd></dl>
 
 <p>Reimplemented from <a class="el" href="interfacedatabase_adapter.html#a861f65695740a1d866ce1001f0ae706d">databaseAdapter</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a3e35f6f5604ebbf57a86508c708bd33c"></a><!-- doxytag: member="MySQLiDatabase::fetchFirst" ref="a3e35f6f5604ebbf57a86508c708bd33c" args="($query=false)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">fetchFirst </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>query</em> = <code>false</code></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Fetches the first value from the first row. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$query</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>mixed </dd></dl>
 
 </div>
 </div>
@@ -713,7 +739,7 @@ Data Fields</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="class_my_s_q_li_database.html">MySQLiDatabase</a>      </li>
-      <li class="footer">Generated on Wed Apr 13 2011 17:21:24 for rolisz by&#160;
+      <li class="footer">Generated on Wed Apr 20 2011 21:46:59 for rolisz by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

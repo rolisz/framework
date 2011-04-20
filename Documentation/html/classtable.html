@@ -116,7 +116,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#ac1eeb13dfaefd70b4c778080e5330525">getData</a> ($object=FALSE)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#afc8a3c62679cf00ade9f15fb2a6d6132">save</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a13bdffdd926f26b825ea57066334ff01">delete</a> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a144f2a49e9970315392c13525d5de652">find</a> ($<a class="el" href="classtable.html">table</a>, $filters=array(), $ordergroup=array(), $columns=array())</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a54c67ef7f9e768176aedf92e3856abaa">find</a> ($<a class="el" href="classtable.html">table</a>, $filters=array(), $ordergroup=array(), $columns=array(), $import=TRUE)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a456b3964c514406cc9498fc49e8c0317">countRows</a> ($<a class="el" href="classtable.html">table</a>, $filters=array(), $ordergroup=array())</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#aa86daa58bc1ff877f2137c27b222dff6">addRelation</a> ($tablename, $arg1, $arg2=FALSE)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a29c2012e7cc6b182cc3ca63acfc324b9">addRelationM2M</a> ($connectortable, $thisid, $mappedid, $connectedtable, $thatid, $cmappedid)</td></tr>
@@ -226,7 +226,8 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Magic method for setting or getting related tables. If function is called without argument, it will find the related tables. If function is called with a related table as an argument, it will be connected to it. </p>
+<p>Magic method for setting or getting related tables. If function is called without argument, it will find the related tables. It will automatically save the connectin! </p>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>If function is called with a related table as an argument, it will be connected to it. </dd></dl>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
@@ -234,7 +235,7 @@ Static Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>$args could be a table of $name </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>$args could be a table of $name </dd></dl>
 
 </div>
 </div>
@@ -449,7 +450,7 @@ Static Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>find a way to reduce arguments </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>find a way to reduce arguments </dd></dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>$this </dd></dl>
 
 </div>
@@ -620,7 +621,7 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Returns the number of rows that result from a SELECT query. Parameters are the same as for <a class="el" href="classtable.html#a144f2a49e9970315392c13525d5de652">find()</a>, except that you can't return only some columns. Also, ordering is not included in the query. </p>
+<p>Returns the number of rows that result from a SELECT query. Parameters are the same as for <a class="el" href="classtable.html#a54c67ef7f9e768176aedf92e3856abaa">find()</a>, except that you can't return only some columns. Also, ordering is not included in the query. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$table</td><td>Table in which to search </td></tr>
@@ -650,7 +651,7 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a144f2a49e9970315392c13525d5de652"></a><!-- doxytag: member="table::find" ref="a144f2a49e9970315392c13525d5de652" args="($table, $filters=array(), $ordergroup=array(), $columns=array())" -->
+<a class="anchor" id="a54c67ef7f9e768176aedf92e3856abaa"></a><!-- doxytag: member="table::find" ref="a54c67ef7f9e768176aedf92e3856abaa" args="($table, $filters=array(), $ordergroup=array(), $columns=array(), $import=TRUE)" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -676,7 +677,13 @@ Static Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>columns</em> = <code>array()</code>&#160;</td>
+          <td class="paramname"><em>columns</em> = <code>array()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>import</em> = <code>TRUE</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -692,7 +699,8 @@ Static Private Attributes</h2></td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$table</td><td>Table in which to search </td></tr>
     <tr><td class="paramtype">array</td><td class="paramname">$filters</td><td>Filters to apply. Can be name=&gt;value pair, SQL statement, or recursive array relating to conditions on other tables </td></tr>
     <tr><td class="paramtype">array</td><td class="paramname">$ordergroup</td><td>How to order, group and limit the search </td></tr>
-    <tr><td class="paramtype">array</td><td class="paramname">$columns</td><td>What columns to return in search </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$columns</td><td>What columns to return in search. You can pass key value pairs to retrieve values from other tables such as 'relatedTable'=&gt;'column' </td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$import</td><td>- whether to import the resulting stuff into tables or not. Default is true. Useful if you use the $columns parameter to retrieve values from other tables. </td></tr>
   </table>
   </dd>
 </dl>
@@ -736,7 +744,7 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Static wrapper for <a class="el" href="classtable.html#a144f2a49e9970315392c13525d5de652">find()</a>. Arguments the same. </p>
+<p>Static wrapper for <a class="el" href="classtable.html#a54c67ef7f9e768176aedf92e3856abaa">find()</a>. Arguments the same. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$table</td><td>Table in which to search </td></tr>
@@ -1086,7 +1094,7 @@ Static Private Attributes</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="classtable.html">table</a>      </li>
-      <li class="footer">Generated on Wed Apr 13 2011 17:21:24 for rolisz by&#160;
+      <li class="footer">Generated on Wed Apr 20 2011 21:47:00 for rolisz by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

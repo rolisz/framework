@@ -46,8 +46,25 @@ $acl = new acl('rolisz',array(
 						   )
 			 	);
 $db = rolisz::connect('MySQLi','localhost','root','','rolisz');
-$acl2= new acl('rolisz','',$db);
+$acl2= new acl('rolisz','','default',$db);
+/*$acl2->editACL('action','test','test1');
+$acl2->editACL('resource','file','filer');
+$acl2->editACL('requester','pista','gyuri');
+$acl2->editACL('requester','rolisz','rolisz',8);
+//$acl2->addNew('permission',array('requester'=>'rolisz','action'=>'view','resource'=>'file'));
+//$acl2->addNew('permission',array('requester'=>1,'action'=>3,'resource'=>4));
+$acl2->editACL('permission',3,array('requester'=>4,'action'=>2,'resource'=>2));
+$acl2->editACL('permission',5,array('requester'=>'mods'));
+$acl2->deleteACL('action','test1');
+$acl2->deleteACL('requester',9);
+$acl2->deleteACL('resource','filer');
+$acl2->deleteACL('permission',13);*/
 //$acl->init('',$db);
+var_dump($acl2->getACL('action'));
+var_dump($acl2->getACL('requester'));
+var_dump($acl2->getACL('resource'));
+var_dump($acl2->getACL('permission'));
+
 rolisz::plugin()->registerPlugin($acl2,'afterMatch');
 $_SERVER['REQUEST_URI']='framework/test.php';
 	rolisz::set('THROTTLE',1);

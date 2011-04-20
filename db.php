@@ -120,7 +120,8 @@ include_once('base.php');
 		
 		/**
 		 * 	Magic method for setting or getting related tables. If function is called without argument, it will find the related
-		 *  tables. If function is called with a related table as an argument, it will be connected to it.
+		 *  tables. It will automatically save the connectin!
+		 * 		@todo If function is called with a related table as an argument, it will be connected to it.
 		 * 		@param string $name
 		 * 		@param array $args
 		 * 		@todo $args could be a table of $name
@@ -131,7 +132,9 @@ include_once('base.php');
 		 	if (empty($args)) {
 		 		return $this->find($name);
 		 	}
-			$args = $args[0];
+		 	var_dump($args);
+			if (is_numeric($args[0]))
+				$args = $args[0];
 			if (is_numeric($args)) {
 				$args = array(self::$primaryKey[$name]=>$args);
 			}
@@ -614,6 +617,7 @@ include_once('base.php');
 			//The element was an array => it was a filtering by a related table
 			if ((isset(table::$relations[$class->table]) && array_key_exists($property,table::$relations[$class->table]) || $property==$class->table) && is_array($value)) {
 				$allFilters = array();
+				
 				$property = new table($property);
 				foreach($value as $key=>$val) {
 					if ($property->table!=$class->table)

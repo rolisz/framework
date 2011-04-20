@@ -97,11 +97,13 @@ Inheritance diagram for base:</div>
  <div class="center">
   <img src="classbase.png" usemap="#base_map" alt=""/>
   <map id="base_map" name="base_map">
-<area href="class_query.html" alt="Query" shape="rect" coords="0,56,58,80"/>
-<area href="classrolisz.html" alt="rolisz" shape="rect" coords="68,56,126,80"/>
-<area href="classrouter.html" alt="router" shape="rect" coords="136,56,194,80"/>
-<area href="classtable.html" alt="table" shape="rect" coords="204,56,262,80"/>
-<area href="classtemplate.html" alt="template" shape="rect" coords="272,56,330,80"/>
+<area href="classplugin.html" alt="plugin" shape="rect" coords="0,56,98,80"/>
+<area href="classplugin_structure.html" alt="pluginStructure" shape="rect" coords="108,56,206,80"/>
+<area href="class_query.html" alt="Query" shape="rect" coords="216,56,314,80"/>
+<area href="classrolisz.html" alt="rolisz" shape="rect" coords="324,56,422,80"/>
+<area href="classrouter.html" alt="router" shape="rect" coords="432,56,530,80"/>
+<area href="classtable.html" alt="table" shape="rect" coords="540,56,638,80"/>
+<area href="classtemplate.html" alt="template" shape="rect" coords="648,56,746,80"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -116,6 +118,8 @@ Data Fields</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbase.html#aab75444b144ffc4e972a9170e0a76ec0">AppName</a> = '<a class="el" href="classrolisz.html">rolisz</a> PHP framework'</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbase.html#a62e44de9100d83ee01f5b4875b49a02b">Version</a> = '0.0.1'</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">const&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbase.html#a2c348358c1db4bb5136855f7f31e1157">Module</a> = 'Base class'</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbase.html#a4ab51386acb82cd0a0066eac2567b2bd">$plugins</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbase.html#a878a31351411a5b5d68c12c87c154084">$executionPoints</a></td></tr>
 <tr><td colspan="2"><h2><a name="pro-static-attribs"></a>
 Static Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classbase.html#aad844777d9d6beb4ca7c92d97afe7d27">$global</a></td></tr>
@@ -141,7 +145,7 @@ Private Member Functions</h2></td></tr>
 <div class="memdoc">
 <p>Base constructor is private to disable creation of objects and to reinforce the usage of singleton pattern </p>
 
-<p>Reimplemented in <a class="el" href="classtemplate.html#a095c5d389db211932136b53f25f39685">template</a>.</p>
+<p>Reimplemented in <a class="el" href="classplugin.html#a095c5d389db211932136b53f25f39685">plugin</a>, <a class="el" href="classplugin_structure.html#a095c5d389db211932136b53f25f39685">pluginStructure</a>, and <a class="el" href="classtemplate.html#a095c5d389db211932136b53f25f39685">template</a>.</p>
 
 </div>
 </div>
@@ -277,12 +281,38 @@ Private Member Functions</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Field Documentation</h2>
+<a class="anchor" id="a878a31351411a5b5d68c12c87c154084"></a><!-- doxytag: member="base::$executionPoints" ref="a878a31351411a5b5d68c12c87c154084" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$executionPoints</td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
 <a class="anchor" id="aad844777d9d6beb4ca7c92d97afe7d27"></a><!-- doxytag: member="base::$global" ref="aad844777d9d6beb4ca7c92d97afe7d27" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">$global<code> [static, protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+</div>
+</div>
+<a class="anchor" id="a4ab51386acb82cd0a0066eac2567b2bd"></a><!-- doxytag: member="base::$plugins" ref="a4ab51386acb82cd0a0066eac2567b2bd" args="" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">$plugins</td>
         </tr>
       </table>
 </div>
@@ -337,7 +367,7 @@ Private Member Functions</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="classbase.html">base</a>      </li>
-      <li class="footer">Generated on Wed Apr 13 2011 17:21:24 for rolisz by&#160;
+      <li class="footer">Generated on Wed Apr 20 2011 21:46:59 for rolisz by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

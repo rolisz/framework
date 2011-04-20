@@ -105,8 +105,9 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#ab4c022bf9d3474583030f31894865182">autoload</a> ($class)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#a6fdc4c9fc517c619d860c7e91d17b02d">http404</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#a13d0c0500b75a5bdd849a4a55ba8e2b1">fixSlashes</a> ($str)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#a031dd360aea86d999059dbfd18687973">fixQuotes</a> ($val)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#ab8e0e9e5ffd59108f38efefe79511c5b">fixBraces</a> ($str)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#a03afea9d9791d58f53a20d8f2dba4916">plugin</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#a8dd32bd8570aaba99ee7b4e34e5f17f9">runPlugins</a> ($name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#aafd29366ef6399da1dd079fc131d8858">route</a> ($pattern, $funcs, $http= 'GET', $name=FALSE)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#ad3a572002fd350672b531756f7306e8f">run</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrolisz.html#a2c24b81993e81c6401edd6c4caff0336">urlFor</a> ($name, $params=array())</td></tr>
@@ -257,31 +258,6 @@ Static Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a031dd360aea86d999059dbfd18687973"></a><!-- doxytag: member="rolisz::fixQuotes" ref="a031dd360aea86d999059dbfd18687973" args="($val)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">static fixQuotes </td>
-          <td>(</td>
-          <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>val</em></td><td>)</td>
-          <td><code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Convert double quotes to equivalent XML entities (&amp;#34;) </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$val</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>string </dd></dl>
-
-</div>
-</div>
 <a class="anchor" id="a13d0c0500b75a5bdd849a4a55ba8e2b1"></a><!-- doxytag: member="rolisz::fixSlashes" ref="a13d0c0500b75a5bdd849a4a55ba8e2b1" args="($str)" -->
 <div class="memitem">
 <div class="memproto">
@@ -321,6 +297,23 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>Trigger an HTTP 404 error. If the 404 framework variable has been set to a function, it will get called. Else, it just triggers an error saying the page was not found. </p>
+
+</div>
+</div>
+<a class="anchor" id="a03afea9d9791d58f53a20d8f2dba4916"></a><!-- doxytag: member="rolisz::plugin" ref="a03afea9d9791d58f53a20d8f2dba4916" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static <a class="el" href="classplugin.html">plugin</a> </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Plugin functions </p>
 
 </div>
 </div>
@@ -379,6 +372,23 @@ Static Public Member Functions</h2></td></tr>
 </div>
 <div class="memdoc">
 <dl class="see"><dt><b>See also:</b></dt><dd><a class="el" href="classrouter.html#ad3a572002fd350672b531756f7306e8f">router::run</a> </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8dd32bd8570aaba99ee7b4e34e5f17f9"></a><!-- doxytag: member="rolisz::runPlugins" ref="a8dd32bd8570aaba99ee7b4e34e5f17f9" args="($name)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static runPlugins </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>name</em></td><td>)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
 
 </div>
 </div>
@@ -476,7 +486,7 @@ Static Public Member Functions</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="classrolisz.html">rolisz</a>      </li>
-      <li class="footer">Generated on Wed Apr 13 2011 17:21:24 for rolisz by&#160;
+      <li class="footer">Generated on Wed Apr 20 2011 21:46:59 for rolisz by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

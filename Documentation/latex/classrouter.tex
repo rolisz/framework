@@ -24,6 +24,9 @@ static \hyperlink{classrouter_a78ab5fc58d307458ac8767f50178fc7a}{matches} (\$rou
 \end{DoxyCompactItemize}
 
 
+\subsection{Detailed Description}
+This class provides URL routing, pretty URLs and named URLs functionality. 
+
 \subsection{Member Function Documentation}
 \hypertarget{classrouter_a78ab5fc58d307458ac8767f50178fc7a}{
 \index{router@{router}!matches@{matches}}
@@ -58,7 +61,7 @@ string & {\em \$route} & \\
 \end{DoxyParamCaption}
 )\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
 \label{classrouter_aafd29366ef6399da1dd079fc131d8858}
-Assign handler to route pattern 
+Set a new route pattern. First parameter defines the route. It can contain variables like /:var/ and catch-\/alls at the end: url/$\ast$. If it's an array of routes (that all lead to the same thing), the \$name parameter will be ignored. Second parameter defines the functions that can be passed as arguments. The functions can given as a list names separated by $|$, an array consisting of things that return true to is\_\-callable. If the array contains things that return false, it will trigger an error and the element will be unset. Also, you can just pass an anonymous function. If you give it as a string, you can also pass files. The third parameter is optional, defaults to GET, and is the HTTP method for which this route is valid. It can be GET or POST. The fourth parameter is optional, defaults to FALSE and gives the name of the route, to be used with \hyperlink{classrouter_a2c24b81993e81c6401edd6c4caff0336}{urlFor()}. 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$pattern} & \\
 \hline

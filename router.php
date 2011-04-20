@@ -8,7 +8,8 @@ include_once ('rolisz.php');
  */
 class router extends base {
 	/**
-	 *  Set a new route pattern. First parameter defines the route. It can contain variables like /:var/ and catch-alls at the end: url/*.
+	 *  Set a new route pattern. First parameter defines the route. It can contain variables like /:var/ and catch-alls at the end: url/*. If
+	 * 	it's an array of routes (that all lead to the same thing), the $name parameter will be ignored.
 	 * 	Second parameter defines the functions that can be passed as arguments. The functions can given as a list names separated by |, an array
 	 *  consisting of things that return true to is_callable. If the array contains things that return false, it will trigger an error and
 	 * 	the element will be unset. Also, you can just pass an anonymous function. If you give it as a string, you can also pass files.
@@ -20,7 +21,7 @@ class router extends base {
 	 * 		@param string $name
 	**/
 	public static function route($pattern, $funcs, $http = 'GET', $name = FALSE) {
-		if ($name) {
+		if ($name && is_string($pattern)) {
 			self::$global['namedRoutes'][$name] = trim($pattern);
 		}
 		
@@ -47,11 +48,6 @@ class router extends base {
 						return;
 					}
 				} 
-				elseif (!is_callable($func)) {
-					// Invalid route handler
-					trigger_error($func.' is not a valid function');
-					return;
-				}
 			}
 		}
 		elseif (is_array($funcs)) {
@@ -74,8 +70,12 @@ class router extends base {
 		// Use pattern and HTTP method as array indices
 		// Save handlers
 		foreach ($http as $method) {
-			$route = $pattern;
-			self::$global['ROUTES'][$method][$route] = $funcs;
+			if (is_string($pattern))
+				$pattern = array($pattern);
+			foreach ($pattern as $pat) {
+				$route = $pat;
+				self::$global['ROUTES'][$method][$route] = $funcs;
+			}
 		}
 	}
 	
@@ -164,9 +164,9 @@ class router extends base {
 		if (!isset(self::$global['ARGS'][$valid_routes[0]])) {
 			self::$global['ARGS'][$valid_routes[0]] = array();
 		}
-		rolisz::runPlugins('afterMatch',self::$global['ROUTE'],self::$global['ROUTES'][$_SERVER['REQUEST_METHOD']][$valid_routes[0]]);
-		//Remaining part of URL is passed to functions as arguments
-		rolisz::call(self::$global['ROUTES'][$_SERVER['REQUEST_METHOD']][$valid_routes[0]],self::$global['ARGS'][$valid_routes[0]]);
+		self::$global['currentRoute'] = self::$global['ROUTES'][$_SERVER['REQUEST_METHOD']][$valid_routes[0]];
+		rolisz::runPlugins('afterMatch',self::$global['currentRoute']);
+		rolisz::call(self::$global['currentRoute'],self::$global['ROUTE'],self::$global['ARGS'][$valid_routes[0]]);
 		
 		// Delay output for throttling
 		$elapsed=time()-$time;

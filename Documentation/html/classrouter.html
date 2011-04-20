@@ -108,7 +108,9 @@ Static Public Member Functions</h2></td></tr>
 Static Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrouter.html#a78ab5fc58d307458ac8767f50178fc7a">matches</a> ($route)</td></tr>
 </table>
-<hr/><h2>Member Function Documentation</h2>
+<hr/><a name="_details"></a><h2>Detailed Description</h2>
+<div class="textblock"><p>This class provides URL routing, pretty URLs and named URLs functionality. </p>
+</div><hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a78ab5fc58d307458ac8767f50178fc7a"></a><!-- doxytag: member="router::matches" ref="a78ab5fc58d307458ac8767f50178fc7a" args="($route)" -->
 <div class="memitem">
 <div class="memproto">
@@ -176,7 +178,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Assign handler to route pattern </p>
+<p>Set a new route pattern. First parameter defines the route. It can contain variables like /:var/ and catch-alls at the end: url/*. If it's an array of routes (that all lead to the same thing), the $name parameter will be ignored. Second parameter defines the functions that can be passed as arguments. The functions can given as a list names separated by |, an array consisting of things that return true to is_callable. If the array contains things that return false, it will trigger an error and the element will be unset. Also, you can just pass an anonymous function. If you give it as a string, you can also pass files. The third parameter is optional, defaults to GET, and is the HTTP method for which this route is valid. It can be GET or POST. The fourth parameter is optional, defaults to FALSE and gives the name of the route, to be used with <a class="el" href="classrouter.html#a2c24b81993e81c6401edd6c4caff0336">urlFor()</a>. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$pattern</td><td></td></tr>
@@ -250,7 +252,7 @@ Static Private Member Functions</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="classrouter.html">router</a>      </li>
-      <li class="footer">Generated on Wed Apr 13 2011 17:21:24 for rolisz by&#160;
+      <li class="footer">Generated on Wed Apr 20 2011 21:46:59 for rolisz by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

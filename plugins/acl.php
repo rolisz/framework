@@ -7,10 +7,12 @@ class acl extends plugin {
 	private $sourceType;
 	private $requester;
 	private $prefix = NULL;
+	private $denyFunction;
 	
 	/**
 	 *  Constructor for ACL lists. Initializes internal list. First parameter gives the requester that will be used for ACL. 
-	 * 	The second parameter is either the prefix for the tables, if database based ACL's are used or tt can be an array, passed like
+	 * The second parameter indicates a function that will be called instead of those that the requester can't acces.
+	 * 	The third parameter is either the prefix for the tables, if database based ACL's are used or tt can be an array, passed like
 	 * 	this: <code>array(
 	 *		'requesterss'=>array('users'=>array('test','rolisz'),'mods'=>array('bad_mod'),'admins'),
 	 *		'resources'=>array('posts','stats','comments','users'),
@@ -20,16 +22,26 @@ class acl extends plugin {
 						   array('users','comments','add')
 						   ))
 	 * </code>. It can be a database table, in which case
-	 * 	the plugin will use the default database connection through the table class. Or it can be an XML file. Second parameter is optional,
+	 * 	the plugin will use the default database connection through the table class. Or it can be an XML file. Fourth parameter is optional,
 	 *  defaults to 'db'. It must be 'xml' if you use an XML file, or a databaseAdapter object if you want to get the ACL table 
 	 * 	from a different database. 
 	 * 		@param string $requester 
+	 * 		@param function $deny
 	 * 		@param $prefix  - array
 	 * 						- string
 	 * 		@param $sourceType
 	 */
-	public function __construct($requester, $prefix = '', $sourceType = 'db') {
-		$this->requester = $requester;		
+	public function __construct($requester, $prefix = '', $deny = 'default',$sourceType = 'db') {
+		$this->requester = $requester;	
+		if ($deny!='default') {
+			$this->denyFunction = $deny;
+		}
+		else {
+			$this->denyFunction  =  function () {
+				echo 'You can\'t touch this. Hammertime';
+			};
+		}	
+		
 		if (is_array($prefix)) {
 			if (empty($prefix)) {
 				trigger_error('The array for the ACL is empty');
@@ -124,17 +136,13 @@ class acl extends plugin {
 	  * 	@param string $url - here because of compatibility with other plugins that might be executed at afterMatch
 	  * 	@param mixed $funcs
 	  */
-	public function run($url, $funcs) {
+	public function run() {
+		$funcs = &self::$global['currentRoute'];
 		if (is_string($funcs)) {
 			$funcs = explode('|',$funcs);
-			foreach ($funcs as &$func) {
-				if (substr_count($func,'.php')!=0) {
-					$func = substr(strstr($func,'.php'),5);
-				} 
-			}
 		}
 		if (is_array($funcs)) {
-			foreach ($funcs as &$func) {
+			foreach ($funcs as $key => $func) {
 				if (is_string($func) && substr_count($func,'.php')!=0) {
 					continue;
 				}
@@ -143,7 +151,7 @@ class acl extends plugin {
 				}
 				else {
 					echo 'nay';
-					unset($func);
+					$funcs[$key] = $this->denyFunction;
 				}
 			}
 		}
@@ -175,6 +183,7 @@ class acl extends plugin {
 		if (!$dbCon) {
 			$dbCon = self::$globals['dbCon'];
 		}
+		$this->prefix = $prefix;
 		//This table contains the requester types and their groups stored as Modified Preorder Tree Traversal 
 		$dbCon->createTable($prefix.'_requesters',array('id'=>array('INT','NOT NULL','AUTO_INCREMENT','PRIMARY KEY'),
 														'requester'=>array('TEXT','NOT NULL'),
@@ -212,17 +221,206 @@ class acl extends plugin {
 
 	/**
 	 *  Adds a new type of resource, action, requester or permission. Works only with database and XML based ACLs.
-	 * 		@param string $type
-	 * 		@param mixed $what
-	 * 		@param string $where
-	 * 		@retval false
+	 * 		@param string $type It can be 'resource', 'action', 'requester' or 'permission'
+	 * 		@param mixed $what For 'resource', 'action' and 'requester' it should be a string containing the name of the new 
+	 * 	element. For 'permission' it should be an associative array containing key-value pairs for each of the types. If no action
+	 * 	has to be defined then it action should be NULL. 
+	 * 		@param string $where Used only for 'requester', it should the name of the node after which to insert. If it is not found,
+	 * 	the new value is inserted as a new group.
+	 * 		@retval false It returns false if you are trying to use it without a database or XML file.
+	 * 		@retval true
 	 */
 	public function addNew($type, $what, $where = FALSE) {
 		if (is_null($this->prefix)) 
 			return false;
-		if ($type = 'resource') {
-			
+		//Check to make sure it doesn't already exist. Permissions are not checked
+		if ($type == 'resource' || $type == 'action' || $type == 'requester') {
+			$search = rolisz::table($this->prefix."_{$type}s",array($type=>$what));
+			if ($search){
+				trigger_error("$what $type already exists");
+				return false;
+			} 
 		}
+		if ($type == 'resource' || $type == 'action') {
+			$req = new table($this->prefix."_{$type}s");
+			$req->$type = $what;
+			$req->save();
+		}
+		if ($type == 'requester') {
+			$req = new table($this->prefix.'_requesters');
+			//Treat cases where $where is another requester, another id, or it is not defined/found
+			if (is_numeric($where)) {
+				$orig = new table($this->prefix.'_requesters',$where);
+			}
+			else {
+				$orig = $req->find($this->prefix.'_requesters',array('requester'=>$where));
+			}
+			if ($orig) {
+				$right = $orig->right;
+			}
+			else {
+				$right = rolisz::get('dbCon')->fetchFirst("SELECT MAX(`right`) FROM `{$this->prefix}_requesters`");
+			}
+			rolisz::get('dbCon')->query("UPDATE `{$this->prefix}_requesters` SET left = left +2 WHERE left>{$right}");
+			rolisz::get('dbCon')->query("UPDATE `{$this->prefix}_requesters` SET right = right +2 WHERE right>{$right}");
+			$req->requester = $what;
+			$req->left = $right+1;
+			$req->right = $right+2;
+			$req->save();
+		}
+		if ($type == 'permission') {
+			if (!isset($what['action'])) {
+				$what['action'] = NULL;
+			}
+			//Loop through each type and if it's a string, get the associated id
+			foreach (array('action','resource','requester') as $type) {
+				if (is_string($what[$type])) {
+					$what[$type] = rolisz::table($this->prefix."_{$type}s")->find($this->prefix."_{$type}s",array($type=>$what[$type]));
+					if (!$what[$type]) {
+						trigger_error("{$what[$type]} {$type} not found");
+						return false;
+					}
+					$what[$type] = $what[$type]->id;
+				}
+			}
+			$perm = new table($this->prefix.'_permissions');
+			$perm->requester = $what['requester'];
+			$perm->resource = $what['resource'];
+			$perm->action = $what['action'];
+			$perm->save();
+		}
+		return true;
 	}
+
+	/**
+	 *  Edit the ACL. Parameters the same as for addNew(), except an extra parameter.
+	 * 		@param string $type It can be 'resource', 'action', 'requester' or 'permission'
+	 * 		@param mixed $what For 'resource', 'action' and 'requester' it should be a string containing the name of the new 
+	 * 	element. For 'permission' it should be an associative array containing key-value pairs for each of the types. If no action
+	 * 	has to be defined then it action should be NULL. 
+	 * 		@param string $towhat What to change this to
+	 * 		@param string $where Used only for 'requester', it should the name of the node after which to insert. If it is not found,
+	 * 	the new value is inserted as a new group.
+	 * 		@retval false It returns false if you are trying to use it without a database or XML file or if an element can't be found.
+	 * 		@retval true
+	 * 
+	 */
+	public function editACL($type, $what, $towhat, $where = FALSE) {
+		if (is_null($this->prefix)) 
+			return false;
+		if (is_string($what)) {
+			$req = table::findS($this->prefix."_{$type}s",array($type=>$what));
+			if (!$req) {
+				trigger_error("Can't find {$what} of {$type}");
+				return false;
+			}
+			$what = $req->id;
+		}
+		if ($type == 'resource' || $type == 'action') {
+			$req = new table($this->prefix."_{$type}s",$what);
+			$req->$type = $towhat;
+			$req->save();
+		}
+		if ($type == 'requester') {
+			$req = new table($this->prefix.'_requesters',$what);
+			if (!$req) {
+				trigger_error("Can't find {$what} {$type} to edit");
+				return false;
+			}
+			//Treat cases where $where is another requester, another id, or it is not defined/found
+			if ($where) {
+				if (is_numeric($where)) {
+					$orig = new table($this->prefix.'_requesters',$where);
+				}
+				else  {
+					$orig = $req->find($this->prefix.'_requesters',array('requester'=>$where));
+				}
+				if ($orig) {
+					$right = $orig->right;
+				}
+				else {
+					trigger_error("Can't find {$where} to put there the {$what} {$type}");
+					return false;
+				}
+				rolisz::get('dbCon')->query("UPDATE `{$this->prefix}_requesters` SET 
+								left = left-2 WHERE left>{$req->right} AND left<{$right}+3");
+				rolisz::get('dbCon')->query("UPDATE `{$this->prefix}_requesters` SET 
+								right = right-2 WHERE right>{$req->right} AND right<{$right}+3");
+				$req->left = $right+1;
+				$req->right = $right+2;
+			}
+			$req->requester = $towhat;		
+			$req->save();
+		}
+		if ($type == 'permission') {
+			//Loop through each type and if it's a string, get the associated id
+			foreach ($towhat as $type=>$value) {
+				if (is_string($value)) {
+					$towhat[$type] = rolisz::table($this->prefix."_{$type}s")->find($this->prefix."_{$type}s",array($type=>$value));
+					if (!$towhat[$type]) {
+						trigger_error("{$value} {$type} not found");
+						return false;
+					}
+					$towhat[$type] = $towhat[$type]->id;
+				}
+			}
+			$perm = new table($this->prefix.'_permissions',$what);
+			foreach ($towhat as $type=>$value) {
+				$perm->$type=$value;
+			}
+			$perm->save();
+		}
+		return true;
+	}
+
+
+	/**
+	 *  Delete something from the ACL. Parameters the same as for addNew(), except missing the last parameter
+	 * 		@param string $type It can be 'resource', 'action', 'requester' or 'permission'
+	 * 		@param mixed $what For 'resource', 'action' and 'requester' it should be a string containing the name of the new 
+	 * 	element. For 'permission' it should be an associative array containing key-value pairs for each of the types. If no action
+	 * 	has to be defined then it action should be NULL. 
+	 * 		@retval false It returns false if you are trying to use it without a database or XML file or if an element can't be found.
+	 * 		@retval true
+	 * 
+	 */
+	public function deleteACL($type, $what) {
+		if (is_null($this->prefix)) 
+			return false;
+		if (is_string($what)) {
+			$req = table::findS($this->prefix."_{$type}s",array($type=>$what));
+			if (!$req) {
+				trigger_error("Can't find {$what} of {$type}");
+				return false;
+			}
+			$what = $req->id;
+		}
+		$element = rolisz::table($this->prefix."_{$type}s",$what);
+		$element->delete();
+	}
+		
+	/**
+	 *  Retrieves all requesters, resources, actions or permissions from the database or XML file. 
+	 * 		@param string $type
+	 * 		@return array
+	 */
+	 public function getACL($type) {
+	 	if (is_null($this->prefix)) 
+			return false;
+		if ($type == 'permission') {
+			return rolisz::get('dbCon')->fetchAll("SELECT act.action, req.requester, res.resource, perm.id FROM {$this->prefix}_permissions AS perm 
+						LEFT JOIN {$this->prefix}_actions AS act ON perm.action=act.id 
+						LEFT JOIN {$this->prefix}_requesters AS req ON perm.requester=req.id 
+						LEFT JOIN {$this->prefix}_resources AS res ON perm.resource=res.id");	
+		}
+		$acl =  table::findS($this->prefix."_{$type}s");
+		if (!is_array($acl)) {
+			$acl = array($acl);
+		}
+		foreach ($acl as &$element) {
+			$element = $element->getData();
+		}
+		return $acl;
+	 }
 }
 ?>

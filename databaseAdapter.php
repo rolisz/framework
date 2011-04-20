@@ -134,6 +134,23 @@
 		}
 		
 		/**
+		 *  Fetches the first value from the first row.
+		 * 		@param string $query
+		 * 		@return mixed
+		 */
+		public function fetchFirst($query = false){
+			if ($query != false ) {
+					$this->Query($query);
+			}
+			if ($this->result != false && $this->result->num_rows > 0 && $this->result->field_count > 0) {
+				$result = $this->result->fetch_array();
+				return $result[0];
+				
+			}
+			return false;
+		}
+		
+		/**
 		 *	Fetches first row from the results of a query. Returns numeric array, associative array or both depending on second parameter:1,2,3
 		 * 		@param string $query		
 		 * 		@param int $type 1 - Associative array, 2 - Numeric array, 3 - Both
