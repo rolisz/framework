@@ -25,11 +25,11 @@
 	 */
 	public static function registerPlugin($name,$execution = FALSE) {
 		if (is_object($name) && !is_subclass_of($name,'plugin')) {
-			trigger_error('You are trying to register a plugin, but you are giving the wrong object');
+			throw new Exception('You are trying to register a plugin, but you are giving the wrong object');
 		} 
 		elseif (is_array($name) && count($name) == 2) {
 			if (!class_exists($name[0]) || !method_exists($name[0],$name[1])) {
-				trigger_error('You are trying to register a plugin, but the arrays is wrong');
+				throw new Exception('You are trying to register a plugin, but the arrays is wrong');
 				return false;
 			}
 		}
@@ -41,20 +41,20 @@
 				}
 				elseif (!file_exists($name)) {
 					
-					trigger_error('Cannot find such a plugin, not as a class, not as a file');
+					throw new Exception('Cannot find such a plugin, not as a class, not as a file');
 					return false;
 				} 
 				include_once($name);
 				$name = pathinfo($name,PATHINFO_BASENAME );
 				$name = substr($name,0,-4);
 				if (!class_exists($name) || !is_subclass_of($name,'plugin')) {
-					trigger_error('You are trying to register a plugin that is not really a plugin');
+					throw new Exception('You are trying to register a plugin that is not really a plugin');
 					return false;
 				}
 			}
 		}
 		if (!is_array($name) && !is_string($name) && !is_object($name)) {
-			trigger_error('You are trying to register an plugin with, but first parameter is the wrong type');
+			throw new Exception('You are trying to register an plugin with, but first parameter is the wrong type');
 		}
 		self::$plugins [] = $name;
 		
@@ -65,7 +65,7 @@
 				self::$executionPoints[$execution][] = $name;
 			}
 			else {
-				trigger_error('Inexistent execution point given');
+				throw new Exception('Inexistent execution point given');
 			}
 		}
 		elseif ($name::getDefaultExecutionPoints()) {
@@ -79,7 +79,7 @@
 				}
 			}
 			else {
-				trigger_error($name.' plugin has incorrect default execution points');
+				throw new Exception($name.' plugin has incorrect default execution points');
 			}
 		}
 	} 
@@ -94,7 +94,7 @@
 			//@todo remove from execution point lists too
 		}
 		else {
-			trigger_error($name.' plugin not found');
+			throw new Exception($name.' plugin not found');
 		}
 	}
 
@@ -120,7 +120,7 @@
 			self::$executionPoints[$name] = array();
 		}
 		else {
-			trigger_error("{$name} execution point already exists");
+			throw new Exception("{$name} execution point already exists");
 		}
 	}
 	 
@@ -134,7 +134,7 @@
 			unset(self::$executionPoints[$name]);
 		}
 		else {
-			trigger_error("{$name} execution point doesn't exist");
+			throw new Exception("{$name} execution point doesn't exist");
 		}
 	}
 	

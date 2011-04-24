@@ -8,17 +8,15 @@ include_once ('rolisz.php');
  */
 class router extends base {
 	/**
-	 *  Set a new route pattern. First parameter defines the route. It can contain variables like /:var/ and catch-alls at the end: url/*. If
+	 *  Set a new route pattern.  
+	 * 		@param string $pattern defines the route. It can contain variables like /:var/ and catch-alls at the end: url/*. If
 	 * 	it's an array of routes (that all lead to the same thing), the $name parameter will be ignored.
-	 * 	Second parameter defines the functions that can be passed as arguments. The functions can given as a list names separated by |, an array
+	 * 		@param mixed $funcs defines the functions that can be passed as arguments. The functions can given as a list names separated by |, an array
 	 *  consisting of things that return true to is_callable. If the array contains things that return false, it will trigger an error and
 	 * 	the element will be unset. Also, you can just pass an anonymous function. If you give it as a string, you can also pass files.
-	 * 	The third parameter is optional, defaults to GET, and is the HTTP method for which this route is valid. It can be GET or POST.
-	 * 	The fourth parameter is optional, defaults to FALSE and gives the name of the route, to be used with urlFor().   
-	 * 		@param string $pattern
-	 * 		@param mixed $funcs
-	 * 		@param string $http
-	 * 		@param string $name
+	 * 		@param string $http optional, defaults to GET, and is the HTTP method for which this route is valid. It can be GET or POST.
+	 * 	If you want the route to be valid for AJAX calls only, use AGET or APOST.
+	 * 		@param string $name optional, defaults to FALSE and gives the name of the route, to be used with urlFor(). 
 	**/
 	public static function route($pattern, $funcs, $http = 'GET', $name = FALSE) {
 		if ($name && is_string($pattern)) {
@@ -28,8 +26,8 @@ class router extends base {
 		// Check if http is correct 
 		$http = explode('|',$http);
 		foreach ($http as $method) {
-			if (!preg_match('/(GET|POST)/',$method)) {
-				trigger_error("HTTP request type $http is invalid");
+			if (!preg_match('/A?(GET|POST)/',$method)) {
+				throw new Exception("HTTP request type $http is invalid");
 				return;
 			}
 		}
@@ -44,7 +42,7 @@ class router extends base {
 					$file = strstr($func,'.php',TRUE).'.php';
 					if (!is_file($file)) {
 						// Invalid route handler
-						trigger_error($file." is not a valid file");
+						throw new Exception($file." is not a valid file");
 						return;
 					}
 				} 
@@ -55,7 +53,7 @@ class router extends base {
 				if (!is_array($function) && substr_count($function,'.php')!=0 ) {
 					if (!is_file($function)) {
 						// Invalid file 
-						trigger_error($function." is not a valid file");
+						throw new Exception($function." is not a valid file");
 						return;
 					}
 				}
@@ -63,7 +61,7 @@ class router extends base {
 		} 		
 		elseif(!is_callable($funcs)) {
 			// Invalid function
-			trigger_error($func.' is not a valid function');
+			throw new Exception($func.' is not a valid function');
 			return;
 		}
 		
@@ -128,7 +126,9 @@ class router extends base {
 	
 	public static function run() {
 		$routes = array_keys(self::$global['ROUTES'][$_SERVER['REQUEST_METHOD']]);
-		
+		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
+			$routes = array_merge($routes, array_keys(self::$global['ROUTES']['A'.$_SERVER['REQUEST_METHOD']]));
+		}
 		// Process routes
 		if (!isset($routes)) {
 			trigger_error('No routes set!');
@@ -184,7 +184,7 @@ class router extends base {
 	**/
 	public static function urlFor($name, $params = array()) {
 		if (!isset(self::$global['namedRoutes'][$name])) {
-			trigger_error("The $name route could not be found");
+			throw new Exception("The $name route could not be found");
 		}
 		$route = self::$global['namedRoutes'][$name];
 		foreach ($params as $key=>$value) {

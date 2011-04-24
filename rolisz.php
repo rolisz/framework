@@ -34,7 +34,7 @@ class rolisz extends base {
 						foreach ($functions as $function) {
 							if (!is_callable($function)) {
 								// Invalid route handler
-								trigger_error($function.' is not a valid function');
+								throw new Exception($function.' is not a valid function');
 								return;
 							}
 							call_user_func_array($function,$args);
@@ -157,7 +157,7 @@ class rolisz extends base {
 	} 
 	
 	public static function runPlugins($name) {
-		if (class_exists('pluginStructure')) {
+		if (class_exists('pluginStructure',FALSE)) {
 			call_user_func_array(array('pluginStructure','runPlugins'),func_get_args());
 		}
 	}

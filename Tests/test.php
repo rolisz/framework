@@ -60,10 +60,12 @@ $acl2->deleteACL('requester',9);
 $acl2->deleteACL('resource','filer');
 $acl2->deleteACL('permission',13);*/
 //$acl->init('',$db);
-var_dump($acl2->getACL('action'));
-var_dump($acl2->getACL('requester'));
-var_dump($acl2->getACL('resource'));
-var_dump($acl2->getACL('permission'));
+try {
+	rolisz::get('dbCon')->query('booyah');
+}
+catch (Exception $e) {
+	var_dump($e->getMessage());
+}
 
 rolisz::plugin()->registerPlugin($acl2,'afterMatch');
 $_SERVER['REQUEST_URI']='framework/test.php';

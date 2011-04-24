@@ -1,3 +1,4 @@
+<?php
 /**
 		Turn linear array into a recursively nested array, with optional argument to be the the value at the end \n
 		ex: array('1','2','3') turns into array('1'=>array('2'=>array('3'=>'')))
@@ -41,3 +42,5 @@
 		
 		return $input;
 	}
+	
+?>

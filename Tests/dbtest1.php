@@ -1,8 +1,8 @@
 <?php
-include ('rolisz.php');
+include ('../rolisz.php');
 rolisz::connect('MySQLi','localhost','root','','wordpress');
 
-include('db.php');
+include('../db.php');
 
 $posts = new table('wpb_posts','59');
 $posts->addRelationM2M('wpb_term_relationships','id','object_id','wpb_terms','term_id','term_taxonomy_id');

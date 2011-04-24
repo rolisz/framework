@@ -70,8 +70,7 @@ class base {
 	/**
 	 *	Set the value of a framework variable. If $var param is string, then a variable called $var will have the value of $value.
 	 * If $var is array, it should be a key-pair value like this array('var_name'=>'132','2ndvar'=>123).
-	 *		@param $var - string
-	 * 					- array 
+	 *		@param string|array $var 
 	 *		@param mixed $value 
 	 *		@public
 	**/

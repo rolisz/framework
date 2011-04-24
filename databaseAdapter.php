@@ -77,7 +77,7 @@
 		public function connect($host, $username, $password) {
 			$this->connection = @new mysqli($host, $username, $password, $this->database);
 			if ($this->connection->connect_error) {
-				trigger_error('Connect Error (' . $this->connection->connect_errno . ') '
+				throw new Exception('Connect Error (' . $this->connection->connect_errno . ') '
 				. $this->connection->connect_error);
 				return false;
 			}
@@ -128,6 +128,7 @@
 			$this->queries[] = $query;
 			$this->result = $this->connection->query($query);
 			if (!$this->result) {
+				throw new Exception($this->getError());
 				return false;
 			}
 			return $this->result;

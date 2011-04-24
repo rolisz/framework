@@ -1,5 +1,12 @@
 <?php
 
+/**
+ *  \class acl
+ * 	This plugin allows you to easily work with Access Control Lists. It integrates with the router class, automatically checking 
+ * 	if the current requester has permission to run the functions associated with the URL. 
+ *		@author Roland Szabo
+ * 		@package rolisz 
+ */
 class acl extends plugin {
 	
 	private $acl;
@@ -27,8 +34,7 @@ class acl extends plugin {
 	 * 	from a different database. 
 	 * 		@param string $requester 
 	 * 		@param function $deny
-	 * 		@param $prefix  - array
-	 * 						- string
+	 * 		@param array|string $prefix  
 	 * 		@param $sourceType
 	 */
 	public function __construct($requester, $prefix = '', $deny = 'default',$sourceType = 'db') {
@@ -147,10 +153,9 @@ class acl extends plugin {
 					continue;
 				}
 				if ($this->isAllowed($func)) {
-					echo 'yay';	
+
 				}
 				else {
-					echo 'nay';
 					$funcs[$key] = $this->denyFunction;
 				}
 			}

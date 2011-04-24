@@ -25,8 +25,7 @@ class template extends base {
 	/**
 	 *	Set the value of a framework variable magically. If $var param is string, then a variable called $var will have the value of $value.
 	 * If $var is array, it should be a key-pair value like this array('var_name'=>'132','2ndvar'=>123).
-	 *		@param $var - string
-	 * 					- array 
+	 *		@param string|array $var 
 	 *		@param mixed $value 
 	 *		@public
 	**/
@@ -44,8 +43,7 @@ class template extends base {
 	/**
 	 *	Set the value of a framework variable. If $var param is string, then a variable called $var will have the value of $value.
 	 * If $var is array, it should be a key-pair value like this array('var_name'=>'132','2ndvar'=>123).
-	 *		@param $var - string
-	 * 					- array 
+	 *		@param string|array $var 
 	 *		@param mixed $value 
 	 *		@public
 	**/
@@ -98,28 +96,42 @@ class template extends base {
 	*/
 	public function getOutput($template) 	{
 		if (!is_file($template)) {
-			trigger_error("$template template can't be found");
+			throw new Exception("$template template can't be found");
 		}		
+		if (pathinfo($template,PATHINFO_EXTENSION)!='tpl' ) {
+			throw new Exception("$template template has wrong extension. It should be .tpl");
+		}
 		
 		if (!$this->checkCompile($template)) {
 			$this->compile($template);
 		}
+		$template = pathinfo($template,PATHINFO_FILENAME).md5($template).'.php';
 		// Buffer output so we can return it instead of displaying.
 		ob_start();
 		extract(self::$values);
-		include ('temp/'.md5($template));
+		include ('temp/'.$template);
 		$templateContents = ob_get_contents();
 		ob_end_clean();
 		return $templateContents;
 	}
 	
+	
 	/**
-	 *  Static wrapper for view() used when including other templates inside templates.
+	 *  Includes another template
 	 * 		@param string $template
 	 */
-	public static function viewS($template) {
-		$tpl = new template();
-		echo $tpl->getOutput($template);
+	public function includeSub($template) {
+		if (!is_file($template)) {
+			throw new Exception("$template template can't be found");
+		}		
+		if (pathinfo($template,PATHINFO_EXTENSION)!='tpl' ) {
+			throw new Exception("$template template has wrong extension. It should be .tpl");
+		}	
+		if (!$this->checkCompile($template)) {
+			$this->compile($template);
+		}
+		$template = pathinfo($template,PATHINFO_FILENAME).md5($template).'.php';
+		include ('temp/'.$template);
 	}
 	
 	/**
@@ -129,7 +141,8 @@ class template extends base {
 	 * 		@retval false
 	 */
 	private function checkCompile($template) {
-		if (file_exists('temp/'.md5($template)) && (filemtime($template)-filemtime('temp/'.md5($template)))<0 )
+		$compile = 'temp/'.pathinfo($template,PATHINFO_FILENAME).md5($template).'.php';
+		if (file_exists($compile) && (filemtime($template)-filemtime($compile))<0 )
 			return true;
 		return false;
 	}
@@ -164,12 +177,7 @@ class template extends base {
 		foreach ($matches[1] as $match) {
 			$this->compile($match);
 		}
-		$template_code = preg_replace_callback('/{include="(.+?)"}/',function($match) {
-			return '<?php if (class_exists(\'template\')) {
-				 $file'.md5($match[1]).' = new template();
-				 $file'.md5($match[1]).'->view(\''.$match[1].'\');
-				 } ?>';
-		},$template_code);
+		$template_code = preg_replace('/{include="(.+?)"}/','<?php $this->view(\'$1\'); ?>',$template_code);
 		
 		// Replace rule for variables. Allows for multiple functions to be called arround it , separated by |
 		$template_code = preg_replace_callback('/{{ (.+?)(\|(.+?))? }}/',function($match) {
@@ -193,7 +201,8 @@ class template extends base {
 		
 		if (!is_dir('temp'))
 			mkdir('temp');
-		file_put_contents('temp/'.md5($template),$template_code);
+		$compile = 'temp/'.pathinfo($template,PATHINFO_FILENAME).md5($template).'.php';
+		file_put_contents($compile,$template_code);
 	}
 	
 }
