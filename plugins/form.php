@@ -19,12 +19,12 @@ class form extends plugin {
 	private $model = FALSE;
 	/**
 	 *  Initializes a new form. 
-	 * 		@param array $form. 
-	 * 		@param array $model optional
+	 * 		@param array $form details about the form
+	 * 		@param array $model optional, a table class initialized with a database table
 	 */
 	public function __construct($form = array(),$model = FALSE) {
 		if (is_array($form)) {
-			$formDef = array('method'=>'GET','action'=>$_SERVER['PHP_SELF'],'button'=>'Send');
+			$formDef = array('method'=>'GET','action'=>$_SERVER['REQUEST_URI'],'button'=>'Send');
 			$allForm = array('accept-charset','action','autocomplete','enctype','method','name','novalidate','target',
 					'id','class','style','tabindex','title','acceskey','contenteditable','draggable','hidden');
 			if (count(array_diff(array_keys($form),$allForm))) {
@@ -41,7 +41,7 @@ class form extends plugin {
 			$key = array_keys($this->inputs);
 			$size = sizeOf($key);
 			for ($i=0; $i<$size; $i++) {
-				$this->inputs[$key[$i]] = array('type'=>$this->inputs[$key[$i]]);
+				$this->inputs[$key[$i]] = array('type'=>$this->inputs[$key[$i]],'label'=>ucwords($key[$i]).':');
 			}	
 			if ($model->isHydrated()) {
 				$data = $model->getData();
@@ -84,7 +84,7 @@ class form extends plugin {
 	}
 	
 	/**
-	 *  Adds an input element to the form
+	 *  Adds an input element to the form. For checkboxes that have multiple values, the name is automatically suffixed with []
 	 * 		@param string $type
 	 * 		@param array $options
 	 * 		@return $this
@@ -97,7 +97,12 @@ class form extends plugin {
 		$options['type'] = $type;
 		$name = $options['name'];
 		unset($options['name']);
-		$this->inputs [$name] = $options;
+		if (!isset($this->inputs[$name])) {
+			$this->inputs [$name] = $options;
+		}
+		else {
+			$this->inputs[$name] = array_merge($this->inputs[$name],$options);	
+		}
 
 		return $this;
 	 }
@@ -111,7 +116,7 @@ class form extends plugin {
 	public function __call($name, $options) {
 		if (in_array($name,array('text','password','select','textarea','checkbox','radio','file','email',
 						'url','number','range','date','time','month','week','datetime','search','color',
-						'keygen'))) {
+						'keygen','hidden'))) {
 			return $this->input($name,$options[0]);			
 		}	
 		else {
@@ -120,7 +125,20 @@ class form extends plugin {
 	}
 	
 	/**
+	 *  Remove an input from the form. Useful for the forms generated automatically from databases
+	 * 		@param string $name
+	 */
+	public function removeInput($name) {
+		if (!isset($this->inputs[$name])) {
+			throw new Error($name.' input element is not defined');
+		}	
+		unset($this->inputs[$name]);
+		return $this;
+	}
+	
+	/**
 	 *  Outputs the form
+	 * 		
 	 */
 	public function show() {
 		if ($this->string=='') {
@@ -156,13 +174,28 @@ class form extends plugin {
 		$size = sizeOf($key);
 		for ($i=0; $i<$size; $i++) {	
 			$this->string.= "<li>";	
-			if (isset($this->inputs[$key[$i]]['label'])) {
-					$this->string.= "<label for='{$key[$i]}'>{$this->inputs[$key[$i]][label]}</label>";
+			if (isset($this->inputs[$key[$i]]['label']) && $this->inputs[$key[$i]]['type'] != 'hidden') {
+					$this->string.= "<label for='{$key[$i]}'>{$this->inputs[$key[$i]]['label']}</label>";
 			}
-			if (!in_array($this->inputs[$key[$i]]['type'],array('textarea','select'))) {
+			if ($this->inputs[$key[$i]]['type']=='checkbox' && is_array($this->inputs[$key[$i]]['value'])) {
+				$size2 = sizeOf($this->inputs[$key[$i]]['value']);
+				for ($j=0; $j<$size2; $j++) {
+					$this->string.= '<input name=\''.$key[$i].'[]\'';
+					foreach ($this->inputs[$key[$i]] as $type=>$property) {
+						if (is_string($property)) {
+							$this->string.=" {$type}='{$property}'";
+						}
+					}
+					$this->string.= ' value=\''.$this->inputs[$key[$i]]['value'][$j].'\'';
+					$this->string.= " />".$this->inputs[$key[$i]]['value'][$j];
+				}
+			}
+			elseif (!in_array($this->inputs[$key[$i]]['type'],array('textarea','select'))) {
 				$this->string.= '<input name=\''.$key[$i].'\'';
 				foreach ($this->inputs[$key[$i]] as $type=>$property) {
-					$this->string.=" {$type}='{$property}'";
+					if (is_string($property)) {
+						$this->string.=" {$type}='{$property}'";
+					}
 				}
 				$this->string.= " />";
 			}	
@@ -170,14 +203,15 @@ class form extends plugin {
 				$this->string.= '<textarea name=\''.$key[$i].'\'';
 				unset($this->inputs[$key[$i]]['type']);
 				foreach ($this->inputs[$key[$i]] as $type=>$property) {
-					if ($type!='value')
+					if ($type!='value' && is_string($property)) {
 						$this->string.=" {$type}='{$property}'";
+					}
 				}
 				$this->inputs[$key[$i]]['value'] = isset($this->inputs[$key[$i]]['value']) ? $this->inputs[$key[$i]]['value']:'';
 				$this->string.=">{$this->inputs[$key[$i]]['value']}</textarea>".PHP_EOL;
 			}
 			elseif ($this->inputs[$key[$i]]['type']=='select') {
-				$this->string.= '<li><select name=\''.$key[$i].'\'';
+				$this->string.= '<select name=\''.$key[$i].'\'';
 				unset($this->inputs[$key[$i]]['type']);
 				foreach ($this->inputs[$key[$i]] as $type=>$property) {
 					if ($type!='options')
@@ -193,7 +227,7 @@ class form extends plugin {
 		}
 		
 		
-		$this->string.="<li><button name='".strtolower($button)."' id='".strtolower($button)."'>{$button}</button></li>".PHP_EOL;
+		$this->string.="<li><button name='".strtolower($button)."' id='".strtolower($button)."' value='".strtolower($button)."'>{$button}</button></li>".PHP_EOL;
 		$this->string.='</ul>'.PHP_EOL.'</form>'.PHP_EOL;	
 	}
 	/**
@@ -212,19 +246,22 @@ class form extends plugin {
 		if ($_SERVER['REQUEST_METHOD']=='POST') {
 			$inputs = $_POST;
 		}		
-		foreach ($this->inputs as $input) {
-			if (isset($inputs[$input['name']]) || isset($input['optional'])) {
-				if (isset($input['pattern'])) {
-					if (is_string ($input['pattern']) && !preg_match('/^'.$input['pattern'].'$/',$inputs[$input['name']])) {
-						throw new Exception ($input['name'].' did not validate, having this value: '.$inputs[$input['name']]);
+		$key = array_keys($this->inputs);
+		$size = sizeOf($key);
+		for ($i=0; $i<$size; $i++) {
+			if (isset($inputs[$key[$i]]) || isset($this->inputs[$key[$i]]['optional'])) {
+				if (isset($this->inputs[$key[$i]]['pattern'])) {
+					if (is_string ($this->inputs[$key[$i]]['pattern']) 
+					&& !preg_match('/^'.$this->inputs[$key[$i]]['pattern'].'$/',$inputs[$key[$i]])) {
+						throw new Exception ($this->inputs[$key[$i]]['name'].' did not validate, having this value: '.$inputs[$input['name']]);
 					}
-					elseif (is_callable($input['pattern']) && !$input['pattern']($inputs[$input['name']])) {
-						throw new Exception ($input['name'].' did not validate, having this value: '.$inputs[$input['name']]);
+					elseif (is_callable($this->inputs[$key[$i]]['pattern']) && !$this->inputs[$key[$i]]['pattern']($inputs[$key[$i]])) {
+						throw new Exception ($key[$i].' did not validate, having this value: '.$inputs[$key[$i]]);
 					}
 				}
 			}
 			else {
-				throw new Exception ($input['name'].' parameter not sent');
+				throw new Exception ($key[$i].' parameter not sent');
 			}
 		}
 		return true;

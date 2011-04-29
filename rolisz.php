@@ -98,14 +98,24 @@ class rolisz extends base {
         $file = dirname(__FILE__) . '/' . str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
         if ( file_exists($file) ) {
             require $file;
+			return true;
         }
-		else {
-			 $file = dirname(__FILE__) . '/plugins/' . str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
-			 if ( file_exists($file) ) {
-            	require $file;
-       		 }
+		$file = dirname(__FILE__) . '/plugins/' . str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+		if ( file_exists($file) ) {
+           	require $file;
+			return true;
+       	}
+		$file = './'.str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+		if (file_exists($file)) {
+			require $file;
+			return true;
 		}
-    }
+		$file = './plugins/'.str_replace('_', DIRECTORY_SEPARATOR, $class) . '.php';
+		if (file_exists($file)) {
+			require $file;
+			return true;
+		}
+	}
 
 	
 	/**
@@ -128,8 +138,7 @@ class rolisz extends base {
 	 *	Convert Windows double-backslashes to slashes
 	 *		@param string $str 
 	 *		@return string
-	 *		@public
-	**/
+	 *		@public	**/
 	public static function fixSlashes($str) {
 		return $str?strtr($str,'\\','/'):$str;
 	}
@@ -202,7 +211,7 @@ class rolisz extends base {
 	 */
 	 public static function table($table, $id=FALSE, $columns = FALSE, $connection = FALSE) {
 	 	if (!class_exists('table',FALSE))	{
-	 		include_once ('db.php');
+	 		include_once ('table.php');
 	 	}
 		return new table($table, $id, $columns, $connection);
 	 }
@@ -230,13 +239,15 @@ class rolisz extends base {
 			'SITEMAP'=>array(),
 			'TIME'=>time(),
 			'THROTTLE'=>0,
-			'VERSION'=>self::AppName.' '.self::Version
+			'VERSION'=>self::AppName.' '.self::Version,
+			'AJAX'=>(isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest'))
 		);
 		
 		self::$executionPoints = array( 
 			'beforeMatch' => array(),
 			'afterMatch' => array()
 		);
+		session_start();
 	}
 }
 

@@ -13,14 +13,23 @@ $form2->input('text',array('name'=>'user'))
 	  ->input('select',array('name'=>'selectname','options'=>array('o'=>'opt','n'=>'noopt')));
 //var_dump($form1->getString());		
 //var_dump($form2->getString());
-$form1->show();
-$form2->show();
+//$form1->show();
+//$form2->show();
 //$form1->validate();
 
 $posts = rolisz::connect('MySQLi','localhost','root','','rolisz');
 $posts = rolisz::table('posts',1);
 $form3 = new form(array('id'=>'test3'),$posts);
-//$form3->input('text',array('name'=>'author','value'=>'rolisz'));
+$form3->input('text',array('name'=>'author','pattern'=>function($arg) {
+	if ($arg=='rolisz')  {
+		return true;
+	}
+	return false;
+}));
+$form3->removeInput('title');
 var_dump($form3->getString());
 $form3->show();
+if (isset($_GET['send'])) {
+	$form3->validate();
+}
 ?>

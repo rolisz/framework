@@ -128,7 +128,7 @@
 			$this->queries[] = $query;
 			$this->result = $this->connection->query($query);
 			if (!$this->result) {
-				throw new Exception($this->getError());
+				throw new Exception('There was an error with the following query '.$query.' :'.$this->getError());
 				return false;
 			}
 			return $this->result;

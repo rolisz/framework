@@ -19,7 +19,7 @@ class template extends base {
 	 * 	pattern from base.
 	 */
 	public function __construct() {
-	
+		$this->assign('base',rolisz::get('BASE'));
 	}
 	
 	/**
@@ -95,6 +95,9 @@ class template extends base {
 	* 		@return mixed The template output string
 	*/
 	public function getOutput($template) 	{
+		if (rolisz::check('TEMPLATE')) {
+			$template = rolisz::get('TEMPLATE').'/'.$template;
+		}
 		if (!is_file($template)) {
 			throw new Exception("$template template can't be found");
 		}		
@@ -174,23 +177,43 @@ class template extends base {
 		// Each include directive found in the template is compiled and then replaced 
 		// with a static call to viewS 
 		preg_match_all('/{include="(.+?)"}/',$template_code,$matches);
+		if (rolisz::check('TEMPLATE')) {
+			$tplFolder = rolisz::get('TEMPLATE').'/';
+		}
 		foreach ($matches[1] as $match) {
-			$this->compile($match);
+			$this->compile($tplFolder.$match);
 		}
 		$template_code = preg_replace('/{include="(.+?)"}/','<?php $this->view(\'$1\'); ?>',$template_code);
 		
 		// Replace rule for variables. Allows for multiple functions to be called arround it , separated by |
-		$template_code = preg_replace_callback('/{{ (.+?)(\|(.+?))? }}/',function($match) {
+		$template_code = preg_replace_callback('/{{ (.*?)(\|(.+?))? }}/',function($match) {
 			$str = '<?php echo ';
 			if (isset ($match[3])) {
 				$functions = explode('|',$match[3]);
 				$nr = 0;
+				$additionalArgs= array();
 				foreach ($functions as $function) {
 					$nr++;
+					$matches;
+					if (preg_match('/\((.+)\)/',$function, $matches)) {
+						$function = preg_replace('/\(.+\)/','',$function);
+						$additionalArgs[$nr] = $matches[1];
+					}
 					$str.= $function.'(';
 				}
-				$str.= '$'.$match[1];
-				$str = str_pad($str,strlen($str) + $nr,')');
+				if ($match[1]!='')
+					$str.= '$'.$match[1];
+				if (!empty($additionalArgs)) {
+					foreach ($additionalArgs as $key=>$value) {
+						$str = str_pad($str,strlen($str) + $nr - $key,')');
+						if ($match[1]!='')
+							$str.= ',';
+						$str.= $value.')';
+					}
+				}
+				else {
+					$str = str_pad($str,strlen($str) + $nr,')');
+				}
 				$str.= '; ?>';
 			}
 			else {

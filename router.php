@@ -126,7 +126,7 @@ class router extends base {
 	
 	public static function run() {
 		$routes = array_keys(self::$global['ROUTES'][$_SERVER['REQUEST_METHOD']]);
-		if (isset($_SERVER['HTTP_X_REQUESTED_WITH']) && ($_SERVER['HTTP_X_REQUESTED_WITH'] == 'XMLHttpRequest')) {
+		if (self::$global['AJAX']) {
 			$routes = array_merge($routes, array_keys(self::$global['ROUTES']['A'.$_SERVER['REQUEST_METHOD']]));
 		}
 		// Process routes
@@ -151,7 +151,6 @@ class router extends base {
 		}
 		rsort($valid_routes);
 		self::$global['ARGS'] = array_unique(self::$global['ARGS']);
-
 		if (!empty($valid_routes)) {
 				$found=TRUE;
 		}
@@ -166,7 +165,7 @@ class router extends base {
 		}
 		self::$global['currentRoute'] = self::$global['ROUTES'][$_SERVER['REQUEST_METHOD']][$valid_routes[0]];
 		rolisz::runPlugins('afterMatch',self::$global['currentRoute']);
-		rolisz::call(self::$global['currentRoute'],self::$global['ROUTE'],self::$global['ARGS'][$valid_routes[0]]);
+		rolisz::call(self::$global['currentRoute'],self::$global['ARGS'][$valid_routes[0]]);
 		
 		// Delay output for throttling
 		$elapsed=time()-$time;

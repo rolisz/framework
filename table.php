@@ -41,7 +41,7 @@ class table extends base{
 	 *	Initializes the table.
 	 * 		@param string $table
 	 * 		@param int $id
-	 * 		@param array $columns
+	 * 		@param array $columns - primary key is defined like this: 'PRI'=>array('id'=>'int')
 	 * 		@param databaseAdapter $connection
 	**/
 	public function __construct($table, $id=FALSE, $columns = FALSE, $connection = FALSE) {
@@ -53,6 +53,11 @@ class table extends base{
 		}
 		$this->table = $table;
 		if ($columns && is_array($columns)) {
+			if (isset($columns['PRI']) && is_array($columns['PRI'])) {
+				self::$primaryKey[$table] = key($columns['PRI']);
+				$columns[key($columns['PRI'])] = current($columns['PRI']);
+				unset ($columns['PRI']);
+			}
 			self::$tables[$this->table] = $columns;
 		}
 		elseif (!isset(self::$tables[$table])) {
@@ -128,7 +133,7 @@ class table extends base{
 	 */
 	 public function __call($name,$args) {
 	 	if (!isset(self::$relations[$this->table][$name]))
-			return false;
+			throw new Exception ($name.' is not related to this table');
 	 	if (empty($args)) {
 	 		return $this->find($name);
 	 	}
@@ -166,6 +171,7 @@ class table extends base{
 				$aux = $aux->find($name,$args);
 				if ($aux == NULL && key($args)!=self::$primaryKey[$name]) {
 					$aux = new table($name);
+					echo 'nuuul';
 					foreach ($args as $key => $value) {
 						$aux->$key = $value;
 					}
@@ -282,11 +288,10 @@ class table extends base{
 		if ($this->connection->getError()) {
 			return false;
 		}
-		$this->originalData = array_merge($this->originalData,$this->modifiedData);
 		if (empty($this->originalData)) {
 			$this->originalData[self::$primaryKey[$this->table]] = $this->connection->getInsertID();
-			return $this->connection->getInsertID();
 		}
+		$this->originalData = array_merge($this->originalData,$this->modifiedData);
 		return true;
 	}
 	
@@ -555,6 +560,18 @@ class table extends base{
 	public static function findS($table, $filters = array(), $ordergroup = array(), $columns = array()) {
 		$Table = new table($table);
 		return $Table->find($table, $filters, $ordergroup, $columns);
+	}
+	
+	/** 
+	 * Static wrapper for countRows(). Arguments the same.
+	 * 		@param string $table Table in which to search
+	 *		@param array $filters Filters to apply. Can be name=>value pair, SQL statement, or recursive array relating to conditions on other tables
+	 *		@param array $ordergroup How to order, group and limit the search
+	 *		@return int
+	**/
+	public static function countRowsS($table, $filters = array(), $ordergroup = array()) {
+		$Table = new table($table);
+		return $Table->countRows($table, $filters, $ordergroup);
 	}
 }
 

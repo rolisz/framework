@@ -47,6 +47,7 @@ $acl = new acl('rolisz',array(
 			 	);
 $db = rolisz::connect('MySQLi','localhost','root','','rolisz');
 $acl2= new acl('rolisz','','default',$db);
+
 /*$acl2->editACL('action','test','test1');
 $acl2->editACL('resource','file','filer');
 $acl2->editACL('requester','pista','gyuri');
@@ -60,12 +61,6 @@ $acl2->deleteACL('requester',9);
 $acl2->deleteACL('resource','filer');
 $acl2->deleteACL('permission',13);*/
 //$acl->init('',$db);
-try {
-	rolisz::get('dbCon')->query('booyah');
-}
-catch (Exception $e) {
-	var_dump($e->getMessage());
-}
 
 rolisz::plugin()->registerPlugin($acl2,'afterMatch');
 $_SERVER['REQUEST_URI']='framework/test.php';

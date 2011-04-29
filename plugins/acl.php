@@ -58,6 +58,10 @@ class acl extends plugin {
 				trigger_error('The ACL list is inconsistent or faulty');
 			}
 			$currentUserGroups = $this->getPath($this->acl['requesters']);
+			if ($currentUserGroups == FALSE) {
+				reset($this->acl['requesters']);
+				$currentUserGroups = is_numeric(key($this->acl['requesters']))?$this->acl['requesters']:key($this->acl['requesters']); 
+			}
 			foreach ($this->acl['permissions'] as $key=> $value) {
 				if (is_numeric($key)) {
 					if (in_array($value[0],$currentUserGroups)) {
@@ -69,31 +73,34 @@ class acl extends plugin {
 					unset ($this->acl['permissions'][$key]);
 				}
 			}
+
 		}
 		elseif ($sourceType instanceof databaseAdapter) {
 			$this->prefix = $prefix;
-			$perms = rolisz::table($prefix.'_permissions')
-				->addRelation($prefix.'_actions','action','id')
-				->addRelation($prefix.'_resources','resource','id')
-				->addRelation($prefix.'_requesters','requester','id');
-			/*$tree = rolisz::get('dbCon')->fetchAll("SELECT {$prefix}_requesters.id, {$prefix}_requesters.requester FROM `{$prefix}_requesters` WHERE 
-							`left` <= (SELECT {$prefix}_requesters.left FROM {$prefix}_requesters WHERE {$prefix}_requesters.requester='{$requester}') AND 
-							`right` >= (SELECT {$prefix}_requesters.right FROM {$prefix}_requesters WHERE {$prefix}_requesters.requester='{$requester}') ORDER BY `left`");*/
-			
-			
 			$perms = rolisz::get('dbCon')->fetchAll("SELECT `{$prefix}_actions`.`action`, `{$prefix}_resources`.`resource` FROM `{$prefix}_permissions` 
 											LEFT JOIN `{$prefix}_actions` ON `{$prefix}_actions`.id = `{$prefix}_permissions`.action 
 											LEFT JOIN `{$prefix}_resources` ON `{$prefix}_resources`.id = `{$prefix}_permissions`.resource 
 											WHERE requester =  ANY (SELECT `{$prefix}_requesters`.id FROM `{$prefix}_requesters` WHERE 
-												`left` <= (SELECT `{$prefix}_requesters`.left FROM {$prefix}_requesters WHERE _requesters.requester='{$requester}') AND 
-												`right` >= (SELECT `{$prefix}_requesters`.right FROM {$prefix}_requesters WHERE _requesters.requester='{$requester}') ORDER BY `left`)");
+												`left` <= (SELECT `{$prefix}_requesters`.left FROM {$prefix}_requesters WHERE {$prefix}_requesters.requester='{$requester}') AND 
+												`right` >= (SELECT `{$prefix}_requesters`.right FROM {$prefix}_requesters WHERE {$prefix}_requesters.requester='{$requester}') ORDER BY `left`) 
+												OR requester = (SELECT `{$prefix}_requesters`.id FROM `{$prefix}_requesters` WHERE `left`=1)");
 			$this->acl = array('permissions'=>$perms);
-			foreach ($this->acl['permissions'] as $key => &$value) {
-				if (is_numeric($key)) {
-					$this->acl['permissions'][$value['resource']][] = $value['action'];
-					unset ($this->acl['permissions'][$key]);
-				} 
+			if (is_array($this->acl['permissions'])) {
+				foreach ($this->acl['permissions'] as $key => &$value) {
+					if (is_numeric($key)) {
+						if ($value['resource'] == '') {
+							unset($this->acl['permissions'][$key]);
+						}
+						else { 
+						$this->acl['permissions'][$value['resource']][] = $value['action'];
+						unset ($this->acl['permissions'][$key]);
+						}
+					} 
+				}
 			}
+			else {
+				$this->acl['permissions'] = array();
+			} 
 		}
 		elseif($sourceType == 'xml') {
 			//@todo implement
@@ -103,6 +110,13 @@ class acl extends plugin {
 		}
 	}
 	
+	/**
+	 *  Get name
+	 * 		@return string 
+	 */
+	public function getName() {
+		return 'ACL';
+	}
 	/**
 	 *  This checks for the consistency of the ACL list. 
 	 * 		@retval true
@@ -230,7 +244,7 @@ class acl extends plugin {
 	 * 		@param mixed $what For 'resource', 'action' and 'requester' it should be a string containing the name of the new 
 	 * 	element. For 'permission' it should be an associative array containing key-value pairs for each of the types. If no action
 	 * 	has to be defined then it action should be NULL. 
-	 * 		@param string $where Used only for 'requester', it should the name of the node after which to insert. If it is not found,
+	 * 		@param string $where Used only for 'requester', it should the name of the node below which to insert. If it is not found,
 	 * 	the new value is inserted as a new group.
 	 * 		@retval false It returns false if you are trying to use it without a database or XML file.
 	 * 		@retval true
@@ -240,7 +254,7 @@ class acl extends plugin {
 			return false;
 		//Check to make sure it doesn't already exist. Permissions are not checked
 		if ($type == 'resource' || $type == 'action' || $type == 'requester') {
-			$search = rolisz::table($this->prefix."_{$type}s",array($type=>$what));
+			$search = table::findS($this->prefix."_{$type}s",array($type=>$what));
 			if ($search){
 				trigger_error("$what $type already exists");
 				return false;
@@ -261,16 +275,19 @@ class acl extends plugin {
 				$orig = $req->find($this->prefix.'_requesters',array('requester'=>$where));
 			}
 			if ($orig) {
-				$right = $orig->right;
+				$left = $orig->left;
 			}
 			else {
-				$right = rolisz::get('dbCon')->fetchFirst("SELECT MAX(`right`) FROM `{$this->prefix}_requesters`");
+				$left = rolisz::get('dbCon')->fetchFirst("SELECT MAX(`left`) FROM `{$this->prefix}_requesters`");
 			}
-			rolisz::get('dbCon')->query("UPDATE `{$this->prefix}_requesters` SET left = left +2 WHERE left>{$right}");
-			rolisz::get('dbCon')->query("UPDATE `{$this->prefix}_requesters` SET right = right +2 WHERE right>{$right}");
+			if ($left == NULL) {
+				$left = 0;
+			}
+			rolisz::get('dbCon')->query("UPDATE `{$this->prefix}_requesters` SET `left` = `left` +2 WHERE `left`>{$left}");
+			rolisz::get('dbCon')->query("UPDATE `{$this->prefix}_requesters` SET `right` = `right` +2 WHERE `right`>{$left}");
 			$req->requester = $what;
-			$req->left = $right+1;
-			$req->right = $right+2;
+			$req->left = $left+1;
+			$req->right = $left+2;
 			$req->save();
 		}
 		if ($type == 'permission') {
@@ -402,6 +419,16 @@ class acl extends plugin {
 		}
 		$element = rolisz::table($this->prefix."_{$type}s",$what);
 		$element->delete();
+		if ($type!='permissions') {
+			$req = table::findS($this->prefix.'_permissions',array($type=>$what));
+			if (!is_array($req)) {
+				$req = array($req);
+			}
+			$size = sizeOf(req);
+			for ($i=0; $i<$size; $i++) {
+				$req[$i]->delete();
+			}
+		}
 	}
 		
 	/**

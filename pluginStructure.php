@@ -13,25 +13,27 @@
 		
 	}
 	/**
-	 *  Registers a plugin. First parameter can be either the name of a plugin, a plugin file or a plugin class itself.
-	 * 	Second parameter is optional and speciefies when to execute the plugin if it has to be executed sometime during the 
-	 *  execution of rolisz classes. For a list of events, see plugin class. 
+	 *  Registers a plugin.
 	 * 	If the plugin constructor requires parameters, you have to instantiate an object and pass that as a parameter to this function.
 	 * 		@param $name - string	- class
 	 * 								- file
 	 * 					 - plugin object
 	 * 					 - array with a class and the function to call from it
-	 * 		@param $execution Optional. See plugin class for values.		 
+	 * 		@param $execution  optional and speciefies when to execute the plugin if it has to be executed sometime during the 
+	 *  execution of rolisz classes. For a list of events, see plugin class. 	 
 	 */
 	public static function registerPlugin($name,$execution = FALSE) {
-		if (is_object($name) && !is_subclass_of($name,'plugin')) {
-			throw new Exception('You are trying to register a plugin, but you are giving the wrong object');
+		if (is_object($name)) {
+			if (!($name instanceof plugin))
+				throw new Exception('You are trying to register a plugin, but you are giving the wrong object');
+			self::$plugins [$name->getName()] = $name; 
 		} 
 		elseif (is_array($name) && count($name) == 2) {
-			if (!class_exists($name[0]) || !method_exists($name[0],$name[1])) {
-				throw new Exception('You are trying to register a plugin, but the arrays is wrong');
+			if (!class_exists($name[0]) || !($name[0] instanceof plugin) || !method_exists($name[0],$name[1])) {
+				throw new Exception('You are trying to register a plugin, but the array is wrong');
 				return false;
 			}
+			self::$plugins [] = $name;
 		}
 		elseif (is_string($name)) {
 			if (!class_exists($name) || !is_subclass_of($name,'plugin')) {
@@ -52,11 +54,11 @@
 					return false;
 				}
 			}
+			self::$plugins [$name] = new $name;
 		}
 		if (!is_array($name) && !is_string($name) && !is_object($name)) {
 			throw new Exception('You are trying to register an plugin with, but first parameter is the wrong type');
 		}
-		self::$plugins [] = $name;
 		
 		$name = end(self::$plugins);
 		$name = &self::$plugins[key(self::$plugins)];
@@ -90,7 +92,7 @@
 	 */
 	public static function unregisterPlugin($name) {
 		if (in_array($name,self::$plugins)) {
-			unset(self::$plugins[array_search($name,self::$plugins)]);
+			unset(self::$plugins[$name]);
 			//@todo remove from execution point lists too
 		}
 		else {
@@ -105,7 +107,7 @@
 	 * 		@retval false 
 	 */
 	 public static function checkPlugin($name) {
-	 	if (in_array($name,self::$plugins)) {
+	 	if (isset(self::$plugins[$name])) {
 	 		return true;
 		}
 		return false;
@@ -157,6 +159,7 @@
 	 * 		@param string $name
 	 */
 	 public static function runPlugins($name) {
+	 	
 	 	if (isset(self::$executionPoints[$name]) 
 			&& is_array(self::$executionPoints[$name]) 
 			&& !empty(self::$executionPoints[$name])) {
