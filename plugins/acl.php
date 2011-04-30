@@ -184,7 +184,7 @@ class acl extends plugin {
 	 */
 	public function isAllowed($function) {
 		if ((!is_array($function) && key_exists($function,$this->acl['permissions'])) ||  // case if only a function is given, so check only resource 
-			(is_array($function) && isset($this->acl['permissions'][$function[0]]) && $this->acl['permissions'][$function[0]]=$function[1])) { //case when object and function given, so check resource and action				
+			(is_array($function) && isset($this->acl['permissions'][$function[0]]) && $this->acl['permissions'][$function[0]]==$function[1])) { //case when object and function given, so check resource and action				
 			return true;
 		}
 		else {

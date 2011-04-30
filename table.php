@@ -145,7 +145,6 @@ class table extends base{
 			//Contains the link between our table and the other table, or if M2M relation, to connector table
 			$relation = self::$relations[$this->table][$name];
 			if ($relation->type == ONE_TO_MANY) {
-				echo $name;
 				$aux = new table($name);
 				$aux = $aux->find($name,$args);
 				if ($aux == NULL && key($args)!=self::$primaryKey[$name]) {
@@ -171,7 +170,6 @@ class table extends base{
 				$aux = $aux->find($name,$args);
 				if ($aux == NULL && key($args)!=self::$primaryKey[$name]) {
 					$aux = new table($name);
-					echo 'nuuul';
 					foreach ($args as $key => $value) {
 						$aux->$key = $value;
 					}
@@ -192,6 +190,9 @@ class table extends base{
 					$connector->save();
 				}
 			}
+		}
+		elseif (is_object($args)) {
+			//@todo
 		}
 		else {
 			throw new Exception('Invalid argument called');
@@ -278,6 +279,7 @@ class table extends base{
 		}
 		$query.=$this->table.' SET ';
 		foreach ($this->modifiedData as $key=>$value) {
+			$value = mysqli_real_escape_string($this->connection->connection,$value);
 			$query.= '`'.$key ."`='".$value.'\',';
 		}
 		$query = substr($query,0,-1);

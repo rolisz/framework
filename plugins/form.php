@@ -253,7 +253,7 @@ class form extends plugin {
 				if (isset($this->inputs[$key[$i]]['pattern'])) {
 					if (is_string ($this->inputs[$key[$i]]['pattern']) 
 					&& !preg_match('/^'.$this->inputs[$key[$i]]['pattern'].'$/',$inputs[$key[$i]])) {
-						throw new Exception ($this->inputs[$key[$i]]['name'].' did not validate, having this value: '.$inputs[$input['name']]);
+						throw new Exception ($key[$i].' did not validate, having this value: '.$inputs[$input['name']]);
 					}
 					elseif (is_callable($this->inputs[$key[$i]]['pattern']) && !$this->inputs[$key[$i]]['pattern']($inputs[$key[$i]])) {
 						throw new Exception ($key[$i].' did not validate, having this value: '.$inputs[$key[$i]]);
