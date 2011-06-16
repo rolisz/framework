@@ -1,0 +1,281 @@
+\section{acl Class Reference}
+\label{classacl}\index{acl@{acl}}
+Inheritance diagram for acl:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classacl}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf \_\-\_\-construct} (\$requester, \$prefix= '', \$deny= 'default', \$sourceType= 'db')
+\item 
+{\bf getName} ()
+\item 
+{\bf run} ()
+\item 
+{\bf isAllowed} (\$function)
+\item 
+{\bf init} (\$prefix= '', \$dbCon=FALSE)
+\item 
+{\bf addNew} (\$type, \$what, \$where=FALSE)
+\item 
+{\bf editACL} (\$type, \$what, \$towhat, \$where=FALSE)
+\item 
+{\bf deleteACL} (\$type, \$what)
+\item 
+{\bf getACL} (\$type)
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf checkConsistency} ()
+\item 
+{\bf getPath} (\$array)
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+{\bf \$acl}
+\item 
+{\bf \$source}
+\item 
+{\bf \$sourceType}
+\item 
+{\bf \$requester}
+\item 
+{\bf \$prefix} = NULL
+\item 
+{\bf \$denyFunction}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This plugin allows you to easily work with Access Control Lists. It integrates with the router class, automatically checking if the current requester has permission to run the functions associated with the URL. \begin{DoxyAuthor}{Author}
+\doxyref{Roland}{p.}{namespace_roland} Szabo 
+\end{DoxyAuthor}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\index{acl@{acl}!\_\-\_\-construct@{\_\-\_\-construct}}
+\index{\_\-\_\-construct@{\_\-\_\-construct}!acl@{acl}}
+\subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{\$}]{requester, }
+\item[{\$}]{prefix = {\ttfamily ''}, }
+\item[{\$}]{deny = {\ttfamily 'default'}, }
+\item[{\$}]{sourceType = {\ttfamily 'db'}}
+\end{DoxyParamCaption}
+)}\label{classacl_a331245d726a8e9c32f12482d3c117573}
+Constructor for ACL lists. Initializes internal list. The third parameter Fourth parameter is 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$requester} & the requester that will be used for ACL. \\
+\hline
+function & {\em \$deny} & indicates a function that will be called instead of those that the requester can't acces. \\
+\hline
+array | string & {\em \$prefix} & is either the prefix for the tables, if database based ACL's are used or it can be an array, passed like this: {\ttfamily array( 'requesters' =$>$ array( 'users' =$>$ array( 'test' , 'rolisz' ), 'mods' =$>$ array( 'bad\_\-mod' ), 'admins' ), 'resources' =$>$ array( 'posts' , 'stats' , 'comments' , 'users' ), 'actions' =$>$ array( 'view' , 'edit' , 'delete' , 'ban' ), 'permissions' =$>$ array( array( 'users' , 'posts' , 'view' ), array( 'users' , 'comments' , 'view' ), array( 'users' , 'comments' , 'add' ) )) }. It can be a database table, in which case the plugin will use the default database connection through the table class. Or it can be an XML file. \\
+\hline
+ & {\em \$sourceType} & optional, defaults to 'db'. It must be 'xml' if you use an XML file, or a \doxyref{databaseAdapter}{p.}{interfacedatabase_adapter} object if you want to get the ACL table from a different database. \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{acl@{acl}!addNew@{addNew}}
+\index{addNew@{addNew}!acl@{acl}}
+\subsubsection[{addNew}]{\setlength{\rightskip}{0pt plus 5cm}addNew (
+\begin{DoxyParamCaption}
+\item[{\$}]{type, }
+\item[{\$}]{what, }
+\item[{\$}]{where = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}\label{classacl_ad1a1766f5fa6d599b134cb3015548ecb}
+Adds a new type of resource, action, requester or permission. Works only with database and XML based ACLs. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$type} & It can be 'resource', 'action', 'requester' or 'permission' \\
+\hline
+mixed & {\em \$what} & For 'resource', 'action' and 'requester' it should be a string containing the name of the new element. For 'permission' it should be an associative array containing key-\/value pairs for each of the types. If no action has to be defined then it action should be NULL. \\
+\hline
+string & {\em \$where} & Used only for 'requester', it should the name of the node below which to insert. If it is not found, the new value is inserted as a new group. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em false} & It returns false if you are trying to use it without a database or XML file. \\
+\hline
+{\em true} & \\
+\hline
+\end{DoxyRetVals}
+\index{acl@{acl}!checkConsistency@{checkConsistency}}
+\index{checkConsistency@{checkConsistency}!acl@{acl}}
+\subsubsection[{checkConsistency}]{\setlength{\rightskip}{0pt plus 5cm}checkConsistency (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [private]}}\label{classacl_a1d8b2fd8e20b5de8a936eea3a088a1bc}
+This checks for the consistency of the ACL list. 
+\begin{DoxyRetVals}{Return values}
+{\em true} & \\
+\hline
+{\em false} & \\
+\hline
+\end{DoxyRetVals}
+\index{acl@{acl}!deleteACL@{deleteACL}}
+\index{deleteACL@{deleteACL}!acl@{acl}}
+\subsubsection[{deleteACL}]{\setlength{\rightskip}{0pt plus 5cm}deleteACL (
+\begin{DoxyParamCaption}
+\item[{\$}]{type, }
+\item[{\$}]{what}
+\end{DoxyParamCaption}
+)}\label{classacl_a1a5603dd5cc79ecb184b166201e36a74}
+Delete something from the ACL. Parameters the same as for \doxyref{addNew()}{p.}{classacl_ad1a1766f5fa6d599b134cb3015548ecb}, except the last parameter is not used again 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$type} & It can be 'resource', 'action', 'requester' or 'permission' \\
+\hline
+mixed & {\em \$what} & For 'resource', 'action' and 'requester' it should be a string containing the name of the new element. For 'permission' it should be an associative array containing key-\/value pairs for each of the types. If no action has to be defined then it action should be NULL. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em false} & It returns false if you are trying to use it without a database or XML file or if an element can't be found. \\
+\hline
+{\em true} & \\
+\hline
+\end{DoxyRetVals}
+\index{acl@{acl}!editACL@{editACL}}
+\index{editACL@{editACL}!acl@{acl}}
+\subsubsection[{editACL}]{\setlength{\rightskip}{0pt plus 5cm}editACL (
+\begin{DoxyParamCaption}
+\item[{\$}]{type, }
+\item[{\$}]{what, }
+\item[{\$}]{towhat, }
+\item[{\$}]{where = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}\label{classacl_a3d69f0e954e4ea063d327ca6b2a6894f}
+Edit the ACL. Parameters the same as for \doxyref{addNew()}{p.}{classacl_ad1a1766f5fa6d599b134cb3015548ecb}, except an extra parameter. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$type} & It can be 'resource', 'action', 'requester' or 'permission' \\
+\hline
+mixed & {\em \$what} & For 'resource', 'action' and 'requester' it should be a string containing the name of the new element. For 'permission' it should be an associative array containing key-\/value pairs for each of the types. If no action has to be defined then it action should be NULL. \\
+\hline
+string & {\em \$towhat} & What to change this to \\
+\hline
+string & {\em \$where} & Used only for 'requester', it should the name of the node after which to insert. If it is not found, the new value is inserted as a new group. \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em false} & It returns false if you are trying to use it without a database or XML file or if an element can't be found. \\
+\hline
+{\em true} & \\
+\hline
+\end{DoxyRetVals}
+\index{acl@{acl}!getACL@{getACL}}
+\index{getACL@{getACL}!acl@{acl}}
+\subsubsection[{getACL}]{\setlength{\rightskip}{0pt plus 5cm}getACL (
+\begin{DoxyParamCaption}
+\item[{\$}]{type}
+\end{DoxyParamCaption}
+)}\label{classacl_adb0599d89edd89184ea34bbf5bbba324}
+Retrieves all requesters, resources, actions or permissions from the database or XML file. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$type} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+\index{acl@{acl}!getName@{getName}}
+\index{getName@{getName}!acl@{acl}}
+\subsubsection[{getName}]{\setlength{\rightskip}{0pt plus 5cm}getName (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classacl_a3d0963e68bb313b163a73f2803c64600}
+Get name. \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+
+
+Reimplemented from {\bf plugin} \doxyref{}{p.}{classplugin_a3d0963e68bb313b163a73f2803c64600}.
+
+\index{acl@{acl}!getPath@{getPath}}
+\index{getPath@{getPath}!acl@{acl}}
+\subsubsection[{getPath}]{\setlength{\rightskip}{0pt plus 5cm}getPath (
+\begin{DoxyParamCaption}
+\item[{\$}]{array}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [private]}}\label{classacl_a34aec08bd63b89366f4a5b19c6d7c0b7}
+Recursively search for requester in acl list 
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$array} & \\
+\hline
+\end{DoxyParams}
+\index{acl@{acl}!init@{init}}
+\index{init@{init}!acl@{acl}}
+\subsubsection[{init}]{\setlength{\rightskip}{0pt plus 5cm}init (
+\begin{DoxyParamCaption}
+\item[{\$}]{prefix = {\ttfamily ''}, }
+\item[{\$}]{dbCon = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}\label{classacl_af84957ae2bb333b542ac6b85f4ff8f33}
+This creates the necessary tables for ACL. It creates a few default elements for everything. You may specify a prefix for the tables. You may optionally pass it a database connection. Else it will use the framework connection to the database. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$prefix} & defaults to empty string '' \\
+\hline
+\doxyref{databaseAdapter}{p.}{interfacedatabase_adapter} & {\em \$dbCon} & \\
+\hline
+\end{DoxyParams}
+\index{acl@{acl}!isAllowed@{isAllowed}}
+\index{isAllowed@{isAllowed}!acl@{acl}}
+\subsubsection[{isAllowed}]{\setlength{\rightskip}{0pt plus 5cm}isAllowed (
+\begin{DoxyParamCaption}
+\item[{\$}]{function}
+\end{DoxyParamCaption}
+)}\label{classacl_a85a087a8ccbb89a5df718b90d01ff1e9}
+Verifies if requester has clearance for this. 
+\begin{DoxyParams}[1]{Parameters}
+function & {\em \$function} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em true} & \\
+\hline
+{\em false} & \\
+\hline
+\end{DoxyRetVals}
+\index{acl@{acl}!run@{run}}
+\index{run@{run}!acl@{acl}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}run (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classacl_afb0fafe7e02a3ae1993c01c19fad2bae}
+Executes the plugin at an execution point. It takes the current Route from the router class. 
+
+\subsection{Field Documentation}
+\index{acl@{acl}!\$acl@{\$acl}}
+\index{\$acl@{\$acl}!acl@{acl}}
+\subsubsection[{\$acl}]{\setlength{\rightskip}{0pt plus 5cm}\${\bf acl}\hspace{0.3cm}{\ttfamily  [private]}}\label{classacl_a896b3f6f6b6fea4856526607cf007d3e}
+\index{acl@{acl}!\$denyFunction@{\$denyFunction}}
+\index{\$denyFunction@{\$denyFunction}!acl@{acl}}
+\subsubsection[{\$denyFunction}]{\setlength{\rightskip}{0pt plus 5cm}\$denyFunction\hspace{0.3cm}{\ttfamily  [private]}}\label{classacl_a71e033db1c837c18248a14644d836c94}
+\index{acl@{acl}!\$prefix@{\$prefix}}
+\index{\$prefix@{\$prefix}!acl@{acl}}
+\subsubsection[{\$prefix}]{\setlength{\rightskip}{0pt plus 5cm}\$prefix = NULL\hspace{0.3cm}{\ttfamily  [private]}}\label{classacl_a09e8cf95b9d29955a0bfabca9b420edc}
+\index{acl@{acl}!\$requester@{\$requester}}
+\index{\$requester@{\$requester}!acl@{acl}}
+\subsubsection[{\$requester}]{\setlength{\rightskip}{0pt plus 5cm}\$requester\hspace{0.3cm}{\ttfamily  [private]}}\label{classacl_ae3fbe538393375a3e05c1eccf0141d3c}
+\index{acl@{acl}!\$source@{\$source}}
+\index{\$source@{\$source}!acl@{acl}}
+\subsubsection[{\$source}]{\setlength{\rightskip}{0pt plus 5cm}\$source\hspace{0.3cm}{\ttfamily  [private]}}\label{classacl_a99a2b085f0a29bd5d799fdcbb63d261b}
+\index{acl@{acl}!\$sourceType@{\$sourceType}}
+\index{\$sourceType@{\$sourceType}!acl@{acl}}
+\subsubsection[{\$sourceType}]{\setlength{\rightskip}{0pt plus 5cm}\$sourceType\hspace{0.3cm}{\ttfamily  [private]}}\label{classacl_acbc93fe247d77f278d5ce6b147475c72}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+C:/wamp/www/framework/plugins/{\bf acl.php}\end{DoxyCompactItemize}

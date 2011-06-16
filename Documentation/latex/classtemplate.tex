@@ -1,7 +1,5 @@
-\hypertarget{classtemplate}{
 \section{template Class Reference}
 \label{classtemplate}\index{template@{template}}
-}
 Inheritance diagram for template:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -11,36 +9,33 @@ Inheritance diagram for template:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classtemplate_a095c5d389db211932136b53f25f39685}{\_\-\_\-construct} ()
+{\bf \_\-\_\-construct} ()
 \item 
-\hyperlink{classtemplate_a8ba8e88dc2035039ed49e5d7a9c43093}{\_\-\_\-set} (\$var, \$value=FALSE)
+{\bf \_\-\_\-set} (\$var, \$value=FALSE)
 \item 
-\hyperlink{classtemplate_aad89b99f86fc0d4fd6a0d0f3f7a15867}{assign} (\$var, \$value=FALSE)
+{\bf assign} (\$var, \$value=FALSE)
 \item 
-\hyperlink{classtemplate_abc8e9e31bb15c8a44c3210ec551407c8}{\_\-\_\-get} (\$name)
+{\bf \_\-\_\-get} (\$name)
 \item 
-\hyperlink{classtemplate_a7516ca30af0db3cdbf9a7739b48ce91d}{\_\-\_\-toString} ()
+{\bf \_\-\_\-toString} ()
 \item 
-\hyperlink{classtemplate_ada2685086f0dc2eb8099c94f7d074885}{view} (\$tpl)
+{\bf view} (\$tpl)
 \item 
-\hyperlink{classtemplate_abcdc5267dc378cabc6d0d5de589b358b}{getOutput} (\$\hyperlink{classtemplate}{template})
-\end{DoxyCompactItemize}
-\subsection*{Static Public Member Functions}
-\begin{DoxyCompactItemize}
+{\bf getOutput} (\${\bf template})
 \item 
-static \hyperlink{classtemplate_a177589d5a40b626113b51f2e2b1a7eb5}{viewS} (\$\hyperlink{classtemplate}{template})
+{\bf includeSub} (\${\bf template})
 \end{DoxyCompactItemize}
 \subsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classtemplate_a57fe1e92cfb84c13658d12becd326984}{checkCompile} (\$\hyperlink{classtemplate}{template})
+{\bf checkCompile} (\${\bf template})
 \item 
-\hyperlink{classtemplate_ab0a641d23ff3291dc8a94085f06b5dee}{compile} (\$\hyperlink{classtemplate}{template})
+{\bf compile} (\${\bf template})
 \end{DoxyCompactItemize}
 \subsection*{Static Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{classtemplate_affc45c6ace2eeb3f300b054dbf9592b6}{\$values}
+static {\bf \$values}
 \end{DoxyCompactItemize}
 
 
@@ -48,32 +43,28 @@ static \hyperlink{classtemplate_affc45c6ace2eeb3f300b054dbf9592b6}{\$values}
 Provides basic templating capabilites 
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{classtemplate_a095c5d389db211932136b53f25f39685}{
 \index{template@{template}!\_\-\_\-construct@{\_\-\_\-construct}}
 \index{\_\-\_\-construct@{\_\-\_\-construct}!template@{template}}
 \subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-construct (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}
-\label{classtemplate_a095c5d389db211932136b53f25f39685}
+)}\label{classtemplate_a095c5d389db211932136b53f25f39685}
 Empty constructor. It's created separately to prevent inheriting the singleton pattern from base. 
 
-Reimplemented from \hyperlink{classbase_a095c5d389db211932136b53f25f39685}{base}.
+Reimplemented from {\bf base} \doxyref{}{p.}{classbase_a095c5d389db211932136b53f25f39685}.
 
 
 
 \subsection{Member Function Documentation}
-\hypertarget{classtemplate_abc8e9e31bb15c8a44c3210ec551407c8}{
 \index{template@{template}!\_\-\_\-get@{\_\-\_\-get}}
 \index{\_\-\_\-get@{\_\-\_\-get}!template@{template}}
 \subsubsection[{\_\-\_\-get}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-get (
 \begin{DoxyParamCaption}
 \item[{\$}]{name}
 \end{DoxyParamCaption}
-)}}
-\label{classtemplate_abc8e9e31bb15c8a44c3210ec551407c8}
-Return value of framework variable, false if not found 
+)}\label{classtemplate_abc8e9e31bb15c8a44c3210ec551407c8}
+Return value of template variable, false if not found. This is separate from the rolisz global variables. 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$name} & \\
 \hline
@@ -85,7 +76,6 @@ string & {\em \$name} & \\
 {\em false} & \\
 \hline
 \end{DoxyRetVals}
-\hypertarget{classtemplate_a8ba8e88dc2035039ed49e5d7a9c43093}{
 \index{template@{template}!\_\-\_\-set@{\_\-\_\-set}}
 \index{\_\-\_\-set@{\_\-\_\-set}!template@{template}}
 \subsubsection[{\_\-\_\-set}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-set (
@@ -93,31 +83,24 @@ string & {\em \$name} & \\
 \item[{\$}]{var, }
 \item[{\$}]{value = {\ttfamily FALSE}}
 \end{DoxyParamCaption}
-)}}
-\label{classtemplate_a8ba8e88dc2035039ed49e5d7a9c43093}
-Set the value of a framework variable magically. If \$var param is string, then a variable called \$var will have the value of \$value. If \$var is array, it should be a key-\/pair value like this array('var\_\-name'=$>$'132','2ndvar'=$>$123). 
+)}\label{classtemplate_a8ba8e88dc2035039ed49e5d7a9c43093}
+Set the value of a template variable magically. If \$var param is string, then a variable called \$var will have the value of \$value. If \$var is array, it should be a key-\/pair value like this array('var\_\-name'=$>$'132','2ndvar'=$>$123). This is separate from the rolisz global variables. 
 \begin{DoxyParams}[1]{Parameters}
- & {\em \$var} & -\/ string
-\begin{DoxyItemize}
-\item array 
-\end{DoxyItemize}\\
+string | array & {\em \$var} & \\
 \hline
 mixed & {\em \$value} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{classtemplate_a7516ca30af0db3cdbf9a7739b48ce91d}{
 \index{template@{template}!\_\-\_\-toString@{\_\-\_\-toString}}
 \index{\_\-\_\-toString@{\_\-\_\-toString}!template@{template}}
 \subsubsection[{\_\-\_\-toString}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-toString (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}
-\label{classtemplate_a7516ca30af0db3cdbf9a7739b48ce91d}
+)}\label{classtemplate_a7516ca30af0db3cdbf9a7739b48ce91d}
 Magic method for the serialization of the template object. \begin{DoxyReturn}{Returns}
 string containing the template 
 \end{DoxyReturn}
-\hypertarget{classtemplate_aad89b99f86fc0d4fd6a0d0f3f7a15867}{
 \index{template@{template}!assign@{assign}}
 \index{assign@{assign}!template@{template}}
 \subsubsection[{assign}]{\setlength{\rightskip}{0pt plus 5cm}assign (
@@ -125,27 +108,21 @@ string containing the template
 \item[{\$}]{var, }
 \item[{\$}]{value = {\ttfamily FALSE}}
 \end{DoxyParamCaption}
-)}}
-\label{classtemplate_aad89b99f86fc0d4fd6a0d0f3f7a15867}
-Set the value of a framework variable. If \$var param is string, then a variable called \$var will have the value of \$value. If \$var is array, it should be a key-\/pair value like this array('var\_\-name'=$>$'132','2ndvar'=$>$123). 
+)}\label{classtemplate_aad89b99f86fc0d4fd6a0d0f3f7a15867}
+Set the value of a template variable. If \$var param is string, then a variable called \$var will have the value of \$value. If \$var is array, it should be a key-\/pair value like this array('var\_\-name'=$>$'132','2ndvar'=$>$123). This is separate from the rolisz global variables. 
 \begin{DoxyParams}[1]{Parameters}
- & {\em \$var} & -\/ string
-\begin{DoxyItemize}
-\item array 
-\end{DoxyItemize}\\
+string | array & {\em \$var} & \\
 \hline
 mixed & {\em \$value} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{classtemplate_a57fe1e92cfb84c13658d12becd326984}{
 \index{template@{template}!checkCompile@{checkCompile}}
 \index{checkCompile@{checkCompile}!template@{template}}
 \subsubsection[{checkCompile}]{\setlength{\rightskip}{0pt plus 5cm}checkCompile (
 \begin{DoxyParamCaption}
 \item[{\$}]{template}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
-\label{classtemplate_a57fe1e92cfb84c13658d12becd326984}
+)\hspace{0.3cm}{\ttfamily  [private]}}\label{classtemplate_a57fe1e92cfb84c13658d12becd326984}
 Checks if the file has been compiled to the temp folder and if it is more recent than the last change to the template 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$template} & \\
@@ -158,29 +135,25 @@ string & {\em \$template} & \\
 {\em false} & \\
 \hline
 \end{DoxyRetVals}
-\hypertarget{classtemplate_ab0a641d23ff3291dc8a94085f06b5dee}{
 \index{template@{template}!compile@{compile}}
 \index{compile@{compile}!template@{template}}
 \subsubsection[{compile}]{\setlength{\rightskip}{0pt plus 5cm}compile (
 \begin{DoxyParamCaption}
 \item[{\$}]{template}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
-\label{classtemplate_ab0a641d23ff3291dc8a94085f06b5dee}
+)\hspace{0.3cm}{\ttfamily  [private]}}\label{classtemplate_ab0a641d23ff3291dc8a94085f06b5dee}
 Performs the replacing of the shorthand tags to full PHP tags in the \$template file. Places the results in a temp folder, in a file called the md5 value of \$template, to prevent collisions. 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$template} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{classtemplate_abcdc5267dc378cabc6d0d5de589b358b}{
 \index{template@{template}!getOutput@{getOutput}}
 \index{getOutput@{getOutput}!template@{template}}
 \subsubsection[{getOutput}]{\setlength{\rightskip}{0pt plus 5cm}getOutput (
 \begin{DoxyParamCaption}
 \item[{\$}]{template}
 \end{DoxyParamCaption}
-)}}
-\label{classtemplate_abcdc5267dc378cabc6d0d5de589b358b}
+)}\label{classtemplate_abcdc5267dc378cabc6d0d5de589b358b}
 Compiles, executes, and filters a template source. 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$template} & The template to process; \\
@@ -189,44 +162,38 @@ string & {\em \$template} & The template to process; \\
 \begin{DoxyReturn}{Returns}
 mixed The template output string 
 \end{DoxyReturn}
-\hypertarget{classtemplate_ada2685086f0dc2eb8099c94f7d074885}{
+\index{template@{template}!includeSub@{includeSub}}
+\index{includeSub@{includeSub}!template@{template}}
+\subsubsection[{includeSub}]{\setlength{\rightskip}{0pt plus 5cm}includeSub (
+\begin{DoxyParamCaption}
+\item[{\$}]{template}
+\end{DoxyParamCaption}
+)}\label{classtemplate_aa7c77841a9121548a339b7f93bddb506}
+Includes another template 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$template} & \\
+\hline
+\end{DoxyParams}
 \index{template@{template}!view@{view}}
 \index{view@{view}!template@{template}}
 \subsubsection[{view}]{\setlength{\rightskip}{0pt plus 5cm}view (
 \begin{DoxyParamCaption}
 \item[{\$}]{tpl}
 \end{DoxyParamCaption}
-)}}
-\label{classtemplate_ada2685086f0dc2eb8099c94f7d074885}
+)}\label{classtemplate_ada2685086f0dc2eb8099c94f7d074885}
 Prints the \$tpl template after compiling 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$tpl} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{classtemplate_a177589d5a40b626113b51f2e2b1a7eb5}{
-\index{template@{template}!viewS@{viewS}}
-\index{viewS@{viewS}!template@{template}}
-\subsubsection[{viewS}]{\setlength{\rightskip}{0pt plus 5cm}static viewS (
-\begin{DoxyParamCaption}
-\item[{\$}]{template}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classtemplate_a177589d5a40b626113b51f2e2b1a7eb5}
-Static wrapper for \hyperlink{classtemplate_ada2685086f0dc2eb8099c94f7d074885}{view()} used when including other templates inside templates. 
-\begin{DoxyParams}[1]{Parameters}
-string & {\em \$template} & \\
-\hline
-\end{DoxyParams}
 
 
 \subsection{Field Documentation}
-\hypertarget{classtemplate_affc45c6ace2eeb3f300b054dbf9592b6}{
 \index{template@{template}!\$values@{\$values}}
 \index{\$values@{\$values}!template@{template}}
-\subsubsection[{\$values}]{\setlength{\rightskip}{0pt plus 5cm}\$values\hspace{0.3cm}{\ttfamily  \mbox{[}static, private\mbox{]}}}}
-\label{classtemplate_affc45c6ace2eeb3f300b054dbf9592b6}
+\subsubsection[{\$values}]{\setlength{\rightskip}{0pt plus 5cm}\$values\hspace{0.3cm}{\ttfamily  [static, private]}}\label{classtemplate_affc45c6ace2eeb3f300b054dbf9592b6}
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-C:/wamp/www/framework/\hyperlink{template_8php}{template.php}\end{DoxyCompactItemize}
+C:/wamp/www/framework/{\bf template.php}\end{DoxyCompactItemize}

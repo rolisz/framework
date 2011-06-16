@@ -27,7 +27,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="rolisz.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">rolisz&#160;<span id="projectnumber">0.0.1</span></div>
+   <div id="projectname">rolisz&#160;<span id="projectnumber">0.0.3</span></div>
    <div id="projectbrief">Lightweight PHP framework</div>
   </td>
  </tr>
@@ -178,13 +178,13 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Set a new route pattern. First parameter defines the route. It can contain variables like /:var/ and catch-alls at the end: url/*. If it's an array of routes (that all lead to the same thing), the $name parameter will be ignored. Second parameter defines the functions that can be passed as arguments. The functions can given as a list names separated by |, an array consisting of things that return true to is_callable. If the array contains things that return false, it will trigger an error and the element will be unset. Also, you can just pass an anonymous function. If you give it as a string, you can also pass files. The third parameter is optional, defaults to GET, and is the HTTP method for which this route is valid. It can be GET or POST. The fourth parameter is optional, defaults to FALSE and gives the name of the route, to be used with <a class="el" href="classrouter.html#a2c24b81993e81c6401edd6c4caff0336">urlFor()</a>. </p>
+<p>Set a new route pattern. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$pattern</td><td></td></tr>
-    <tr><td class="paramtype">mixed</td><td class="paramname">$funcs</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$http</td><td></td></tr>
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;array</td><td class="paramname">$pattern</td><td>defines the route. It can contain variables like /:var/ and catch-alls at the end: url/*. If it's an array of routes (that all lead to the same thing), the $name parameter will be ignored. </td></tr>
+    <tr><td class="paramtype">mixed</td><td class="paramname">$funcs</td><td>defines the functions that can be passed as arguments. The functions can given as a list names separated by |, an array consisting of things that return true to is_callable(). If the array contains things that return false, it will trigger an error and the element will be unset. Also, you can just pass an anonymous function. If you give it as a string, you can also pass files. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$http</td><td>optional, defaults to GET, and is the HTTP method for which this route is valid. It can be GET or POST. If you want the route to be valid for AJAX calls only, use AGET or APOST. </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>optional, defaults to FALSE and gives the name of the route, to be used with <a class="el" href="classrouter.html#a2c24b81993e81c6401edd6c4caff0336">urlFor()</a>. </td></tr>
   </table>
   </dd>
 </dl>
@@ -204,7 +204,7 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Process routes based on incoming URI. URL that is not matched will be passed as arguments to the functions that are called </p>
+<p>Process routes based on the incoming URI. If no match is found, a 404 error is trigerred. beforeMatch and afterMatch plugins are called here. Throttles outputting the script until <a class="el" href="classbase.html#a0e8f3e2708d9f0c6ee7b54599f57ea34">rolisz::get</a>('THROTTLE') time has passed. </p>
 
 </div>
 </div>
@@ -232,11 +232,11 @@ Static Private Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Returns a URL with values for a given routing pattern </p>
+<p>Returns a URL with values filled in for a given routing pattern. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
-    <tr><td class="paramtype">array</td><td class="paramname">$params</td><td></td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>name of the URL pattern, as given in <a class="el" href="classrouter.html#aafd29366ef6399da1dd079fc131d8858">route()</a> function </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$params</td><td>has to be key-value pairs for each parameter in the URL pattern. </td></tr>
   </table>
   </dd>
 </dl>
@@ -252,7 +252,7 @@ Static Private Member Functions</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="classrouter.html">router</a>      </li>
-      <li class="footer">Generated on Wed Apr 20 2011 21:46:59 for rolisz by&#160;
+      <li class="footer">Generated on Wed May 4 2011 12:18:40 for rolisz by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

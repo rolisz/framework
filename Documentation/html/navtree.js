@@ -5,8 +5,10 @@ var NAVTREE =
       [ "Todo List", "todo.html", null ]
     ] ],
     [ "Data Structures", "annotated.html", [
+      [ "acl", "classacl.html", null ],
       [ "base", "classbase.html", null ],
       [ "databaseAdapter", "interfacedatabase_adapter.html", null ],
+      [ "form", "classform.html", null ],
       [ "MySQLiDatabase", "class_my_s_q_li_database.html", null ],
       [ "plugin", "classplugin.html", null ],
       [ "pluginStructure", "classplugin_structure.html", null ],
@@ -19,7 +21,10 @@ var NAVTREE =
     [ "Data Structure Index", "classes.html", null ],
     [ "Class Hierarchy", "hierarchy.html", [
       [ "base", "classbase.html", [
-        [ "plugin", "classplugin.html", null ],
+        [ "plugin", "classplugin.html", [
+          [ "acl", "classacl.html", null ],
+          [ "form", "classform.html", null ]
+        ] ],
         [ "pluginStructure", "classplugin_structure.html", null ],
         [ "Query", "class_query.html", null ],
         [ "rolisz", "classrolisz.html", null ],
@@ -39,13 +44,15 @@ var NAVTREE =
     [ "File List", "files.html", [
       [ "C:/wamp/www/framework/base.php", "base_8php.html", null ],
       [ "C:/wamp/www/framework/databaseAdapter.php", "database_adapter_8php.html", null ],
-      [ "C:/wamp/www/framework/db.php", "db_8php.html", null ],
       [ "C:/wamp/www/framework/misc_functions.php", "misc__functions_8php.html", null ],
       [ "C:/wamp/www/framework/plugin.php", "plugin_8php.html", null ],
       [ "C:/wamp/www/framework/pluginStructure.php", "plugin_structure_8php.html", null ],
       [ "C:/wamp/www/framework/rolisz.php", "rolisz_8php.html", null ],
       [ "C:/wamp/www/framework/router.php", "router_8php.html", null ],
-      [ "C:/wamp/www/framework/template.php", "template_8php.html", null ]
+      [ "C:/wamp/www/framework/table.php", "table_8php.html", null ],
+      [ "C:/wamp/www/framework/template.php", "template_8php.html", null ],
+      [ "C:/wamp/www/framework/plugins/acl.php", "acl_8php.html", null ],
+      [ "C:/wamp/www/framework/plugins/form.php", "form_8php.html", null ]
     ] ],
     [ "Globals", "globals.html", null ]
   ] ]

@@ -1,7 +1,5 @@
-\hypertarget{interfacedatabase_adapter}{
 \section{databaseAdapter Class Reference}
 \label{interfacedatabase_adapter}\index{databaseAdapter@{databaseAdapter}}
-}
 Inheritance diagram for databaseAdapter:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -11,45 +9,48 @@ Inheritance diagram for databaseAdapter:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{interfacedatabase_adapter_a81fcddb424f13e0862ee3f7e1ea57ce9}{\_\-\_\-construct} (\$host, \$username, \$password, \$db)
+{\bf \_\-\_\-construct} (\$host, \$username, \$password, \$db)
 \item 
-\hyperlink{interfacedatabase_adapter_a4c4f3316747e665b9e02f6ddcba4117c}{connect} (\$host, \$username, \$password)
+{\bf disconnect} ()
 \item 
-\hyperlink{interfacedatabase_adapter_abe175fcf658475bc56e9d6fa02bc88ec}{disconnect} ()
+{\bf escapeValue} (\$value)
 \item 
-\hyperlink{interfacedatabase_adapter_a039ae2e8f2bf579fd75d9df8df87eee3}{escapeValue} (\$value)
+{\bf fetchRow} (\$query=false, \$type='assoc')
 \item 
-\hyperlink{interfacedatabase_adapter_a529385852efa66f19288496930ee5394}{fetchRow} (\$query=false, \$type='assoc')
+{\bf fetchAll} (\$query=false, \$type='assoc')
 \item 
-\hyperlink{interfacedatabase_adapter_a861f65695740a1d866ce1001f0ae706d}{fetchAll} (\$query=false, \$type='assoc')
+{\bf getError} ()
 \item 
-\hyperlink{interfacedatabase_adapter_a24ada5decce3d1b79cd82f5a90ccf404}{getError} ()
+{\bf getInsertID} ()
 \item 
-\hyperlink{interfacedatabase_adapter_ac73f1d8cddbdfc35ca442189378a073c}{getInsertID} ()
+{\bf numRows} ()
 \item 
-\hyperlink{interfacedatabase_adapter_af37433a300db1f607ee789d22828a0a0}{numRows} ()
+{\bf numAffected} ()
 \item 
-\hyperlink{interfacedatabase_adapter_acac8dfe61e7840f9a1e672ebede0be21}{numAffected} ()
+{\bf query} (\$query)
 \item 
-\hyperlink{interfacedatabase_adapter_ac9fddec3f6bd1db128887a1b211d90f0}{query} (\$query)
+{\bf selectDatabase} (\$db)
 \item 
-\hyperlink{interfacedatabase_adapter_ab624b0b234f9db9dbc6dc4180f566b1f}{selectDatabase} (\$db)
+{\bf startTransaction} ()
 \item 
-\hyperlink{interfacedatabase_adapter_ae7cdaa744d52a1eb0103e377023ca528}{tableExists} (\$\hyperlink{classtable}{table})
+{\bf commit} ()
 \item 
-\hyperlink{interfacedatabase_adapter_a4b06dfe3bf7dd552f828a80fece817d8}{createTable} (\$name, \$params)
+{\bf rollback} ()
 \item 
-\hyperlink{interfacedatabase_adapter_a3471d37afdd3d76f5379dfe7364db0b6}{dropTable} (\$name)
+{\bf tableExists} (\${\bf table})
 \item 
-\hyperlink{interfacedatabase_adapter_aa8cf3e2be109e548bed6980622fffb41}{alterTable} (\$name, \$params)
+{\bf createTable} (\$name, \$params)
+\item 
+{\bf dropTable} (\$name)
+\item 
+{\bf alterTable} (\$name, \$params)
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Defines all the functions a database adapter should have to be working with rolisz 
+Defines all the functions a database adapter class should have to be working with rolisz 
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{interfacedatabase_adapter_a81fcddb424f13e0862ee3f7e1ea57ce9}{
 \index{databaseAdapter@{databaseAdapter}!\_\-\_\-construct@{\_\-\_\-construct}}
 \index{\_\-\_\-construct@{\_\-\_\-construct}!databaseAdapter@{databaseAdapter}}
 \subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-construct (
@@ -59,16 +60,14 @@ Defines all the functions a database adapter should have to be working with roli
 \item[{\$}]{password, }
 \item[{\$}]{db}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_a81fcddb424f13e0862ee3f7e1ea57ce9}
+)}\label{interfacedatabase_adapter_a81fcddb424f13e0862ee3f7e1ea57ce9}
 
 
-Reimplemented in \hyperlink{class_my_s_q_li_database_a81fcddb424f13e0862ee3f7e1ea57ce9}{MySQLiDatabase}.
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_a81fcddb424f13e0862ee3f7e1ea57ce9}.
 
 
 
 \subsection{Member Function Documentation}
-\hypertarget{interfacedatabase_adapter_aa8cf3e2be109e548bed6980622fffb41}{
 \index{databaseAdapter@{databaseAdapter}!alterTable@{alterTable}}
 \index{alterTable@{alterTable}!databaseAdapter@{databaseAdapter}}
 \subsubsection[{alterTable}]{\setlength{\rightskip}{0pt plus 5cm}alterTable (
@@ -76,28 +75,22 @@ Reimplemented in \hyperlink{class_my_s_q_li_database_a81fcddb424f13e0862ee3f7e1e
 \item[{\$}]{name, }
 \item[{\$}]{params}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_aa8cf3e2be109e548bed6980622fffb41}
+)}\label{interfacedatabase_adapter_aa8cf3e2be109e548bed6980622fffb41}
 
 
-Reimplemented in \hyperlink{class_my_s_q_li_database_aa8cf3e2be109e548bed6980622fffb41}{MySQLiDatabase}.
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_aa8cf3e2be109e548bed6980622fffb41}.
 
-\hypertarget{interfacedatabase_adapter_a4c4f3316747e665b9e02f6ddcba4117c}{
-\index{databaseAdapter@{databaseAdapter}!connect@{connect}}
-\index{connect@{connect}!databaseAdapter@{databaseAdapter}}
-\subsubsection[{connect}]{\setlength{\rightskip}{0pt plus 5cm}connect (
+\index{databaseAdapter@{databaseAdapter}!commit@{commit}}
+\index{commit@{commit}!databaseAdapter@{databaseAdapter}}
+\subsubsection[{commit}]{\setlength{\rightskip}{0pt plus 5cm}commit (
 \begin{DoxyParamCaption}
-\item[{\$}]{host, }
-\item[{\$}]{username, }
-\item[{\$}]{password}
+{}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_a4c4f3316747e665b9e02f6ddcba4117c}
+)}\label{interfacedatabase_adapter_af5674c27d4a92f6228565010eacbb9cb}
 
 
-Reimplemented in \hyperlink{class_my_s_q_li_database_a4c4f3316747e665b9e02f6ddcba4117c}{MySQLiDatabase}.
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_af5674c27d4a92f6228565010eacbb9cb}.
 
-\hypertarget{interfacedatabase_adapter_a4b06dfe3bf7dd552f828a80fece817d8}{
 \index{databaseAdapter@{databaseAdapter}!createTable@{createTable}}
 \index{createTable@{createTable}!databaseAdapter@{databaseAdapter}}
 \subsubsection[{createTable}]{\setlength{\rightskip}{0pt plus 5cm}createTable (
@@ -105,52 +98,44 @@ Reimplemented in \hyperlink{class_my_s_q_li_database_a4c4f3316747e665b9e02f6ddcb
 \item[{\$}]{name, }
 \item[{\$}]{params}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_a4b06dfe3bf7dd552f828a80fece817d8}
+)}\label{interfacedatabase_adapter_a4b06dfe3bf7dd552f828a80fece817d8}
 
 
-Reimplemented in \hyperlink{class_my_s_q_li_database_a4b06dfe3bf7dd552f828a80fece817d8}{MySQLiDatabase}.
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_a4b06dfe3bf7dd552f828a80fece817d8}.
 
-\hypertarget{interfacedatabase_adapter_abe175fcf658475bc56e9d6fa02bc88ec}{
 \index{databaseAdapter@{databaseAdapter}!disconnect@{disconnect}}
 \index{disconnect@{disconnect}!databaseAdapter@{databaseAdapter}}
 \subsubsection[{disconnect}]{\setlength{\rightskip}{0pt plus 5cm}disconnect (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_abe175fcf658475bc56e9d6fa02bc88ec}
+)}\label{interfacedatabase_adapter_abe175fcf658475bc56e9d6fa02bc88ec}
 
 
-Reimplemented in \hyperlink{class_my_s_q_li_database_abe175fcf658475bc56e9d6fa02bc88ec}{MySQLiDatabase}.
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_abe175fcf658475bc56e9d6fa02bc88ec}.
 
-\hypertarget{interfacedatabase_adapter_a3471d37afdd3d76f5379dfe7364db0b6}{
 \index{databaseAdapter@{databaseAdapter}!dropTable@{dropTable}}
 \index{dropTable@{dropTable}!databaseAdapter@{databaseAdapter}}
 \subsubsection[{dropTable}]{\setlength{\rightskip}{0pt plus 5cm}dropTable (
 \begin{DoxyParamCaption}
 \item[{\$}]{name}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_a3471d37afdd3d76f5379dfe7364db0b6}
+)}\label{interfacedatabase_adapter_a3471d37afdd3d76f5379dfe7364db0b6}
 
 
-Reimplemented in \hyperlink{class_my_s_q_li_database_a3471d37afdd3d76f5379dfe7364db0b6}{MySQLiDatabase}.
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_a3471d37afdd3d76f5379dfe7364db0b6}.
 
-\hypertarget{interfacedatabase_adapter_a039ae2e8f2bf579fd75d9df8df87eee3}{
 \index{databaseAdapter@{databaseAdapter}!escapeValue@{escapeValue}}
 \index{escapeValue@{escapeValue}!databaseAdapter@{databaseAdapter}}
 \subsubsection[{escapeValue}]{\setlength{\rightskip}{0pt plus 5cm}escapeValue (
 \begin{DoxyParamCaption}
 \item[{\$}]{value}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_a039ae2e8f2bf579fd75d9df8df87eee3}
+)}\label{interfacedatabase_adapter_a039ae2e8f2bf579fd75d9df8df87eee3}
 
 
-Reimplemented in \hyperlink{class_my_s_q_li_database_a039ae2e8f2bf579fd75d9df8df87eee3}{MySQLiDatabase}.
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_a039ae2e8f2bf579fd75d9df8df87eee3}.
 
-\hypertarget{interfacedatabase_adapter_a861f65695740a1d866ce1001f0ae706d}{
 \index{databaseAdapter@{databaseAdapter}!fetchAll@{fetchAll}}
 \index{fetchAll@{fetchAll}!databaseAdapter@{databaseAdapter}}
 \subsubsection[{fetchAll}]{\setlength{\rightskip}{0pt plus 5cm}fetchAll (
@@ -158,13 +143,11 @@ Reimplemented in \hyperlink{class_my_s_q_li_database_a039ae2e8f2bf579fd75d9df8df
 \item[{\$}]{query = {\ttfamily false}, }
 \item[{\$}]{type = {\ttfamily 'assoc'}}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_a861f65695740a1d866ce1001f0ae706d}
+)}\label{interfacedatabase_adapter_a861f65695740a1d866ce1001f0ae706d}
 
 
-Reimplemented in \hyperlink{class_my_s_q_li_database_a1750ab2493620de034b80a77577f3e8b}{MySQLiDatabase}.
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_a1750ab2493620de034b80a77577f3e8b}.
 
-\hypertarget{interfacedatabase_adapter_a529385852efa66f19288496930ee5394}{
 \index{databaseAdapter@{databaseAdapter}!fetchRow@{fetchRow}}
 \index{fetchRow@{fetchRow}!databaseAdapter@{databaseAdapter}}
 \subsubsection[{fetchRow}]{\setlength{\rightskip}{0pt plus 5cm}fetchRow (
@@ -172,101 +155,108 @@ Reimplemented in \hyperlink{class_my_s_q_li_database_a1750ab2493620de034b80a7757
 \item[{\$}]{query = {\ttfamily false}, }
 \item[{\$}]{type = {\ttfamily 'assoc'}}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_a529385852efa66f19288496930ee5394}
+)}\label{interfacedatabase_adapter_a529385852efa66f19288496930ee5394}
 
 
-Reimplemented in \hyperlink{class_my_s_q_li_database_acdee1c4e55c3792b3dbfeedfac35912f}{MySQLiDatabase}.
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_acdee1c4e55c3792b3dbfeedfac35912f}.
 
-\hypertarget{interfacedatabase_adapter_a24ada5decce3d1b79cd82f5a90ccf404}{
 \index{databaseAdapter@{databaseAdapter}!getError@{getError}}
 \index{getError@{getError}!databaseAdapter@{databaseAdapter}}
 \subsubsection[{getError}]{\setlength{\rightskip}{0pt plus 5cm}getError (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_a24ada5decce3d1b79cd82f5a90ccf404}
+)}\label{interfacedatabase_adapter_a24ada5decce3d1b79cd82f5a90ccf404}
 
 
-Reimplemented in \hyperlink{class_my_s_q_li_database_a24ada5decce3d1b79cd82f5a90ccf404}{MySQLiDatabase}.
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_a24ada5decce3d1b79cd82f5a90ccf404}.
 
-\hypertarget{interfacedatabase_adapter_ac73f1d8cddbdfc35ca442189378a073c}{
 \index{databaseAdapter@{databaseAdapter}!getInsertID@{getInsertID}}
 \index{getInsertID@{getInsertID}!databaseAdapter@{databaseAdapter}}
 \subsubsection[{getInsertID}]{\setlength{\rightskip}{0pt plus 5cm}getInsertID (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_ac73f1d8cddbdfc35ca442189378a073c}
+)}\label{interfacedatabase_adapter_ac73f1d8cddbdfc35ca442189378a073c}
 
 
-Reimplemented in \hyperlink{class_my_s_q_li_database_ac73f1d8cddbdfc35ca442189378a073c}{MySQLiDatabase}.
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_ac73f1d8cddbdfc35ca442189378a073c}.
 
-\hypertarget{interfacedatabase_adapter_acac8dfe61e7840f9a1e672ebede0be21}{
 \index{databaseAdapter@{databaseAdapter}!numAffected@{numAffected}}
 \index{numAffected@{numAffected}!databaseAdapter@{databaseAdapter}}
 \subsubsection[{numAffected}]{\setlength{\rightskip}{0pt plus 5cm}numAffected (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_acac8dfe61e7840f9a1e672ebede0be21}
+)}\label{interfacedatabase_adapter_acac8dfe61e7840f9a1e672ebede0be21}
 
 
-Reimplemented in \hyperlink{class_my_s_q_li_database_acac8dfe61e7840f9a1e672ebede0be21}{MySQLiDatabase}.
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_acac8dfe61e7840f9a1e672ebede0be21}.
 
-\hypertarget{interfacedatabase_adapter_af37433a300db1f607ee789d22828a0a0}{
 \index{databaseAdapter@{databaseAdapter}!numRows@{numRows}}
 \index{numRows@{numRows}!databaseAdapter@{databaseAdapter}}
 \subsubsection[{numRows}]{\setlength{\rightskip}{0pt plus 5cm}numRows (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_af37433a300db1f607ee789d22828a0a0}
+)}\label{interfacedatabase_adapter_af37433a300db1f607ee789d22828a0a0}
 
 
-Reimplemented in \hyperlink{class_my_s_q_li_database_af37433a300db1f607ee789d22828a0a0}{MySQLiDatabase}.
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_af37433a300db1f607ee789d22828a0a0}.
 
-\hypertarget{interfacedatabase_adapter_ac9fddec3f6bd1db128887a1b211d90f0}{
 \index{databaseAdapter@{databaseAdapter}!query@{query}}
 \index{query@{query}!databaseAdapter@{databaseAdapter}}
 \subsubsection[{query}]{\setlength{\rightskip}{0pt plus 5cm}query (
 \begin{DoxyParamCaption}
 \item[{\$}]{query}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_ac9fddec3f6bd1db128887a1b211d90f0}
-\hypertarget{interfacedatabase_adapter_ab624b0b234f9db9dbc6dc4180f566b1f}{
+)}\label{interfacedatabase_adapter_ac9fddec3f6bd1db128887a1b211d90f0}
+\index{databaseAdapter@{databaseAdapter}!rollback@{rollback}}
+\index{rollback@{rollback}!databaseAdapter@{databaseAdapter}}
+\subsubsection[{rollback}]{\setlength{\rightskip}{0pt plus 5cm}rollback (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{interfacedatabase_adapter_afa549adf79e3f8c09fe8f903dd5fbfa7}
+
+
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_afa549adf79e3f8c09fe8f903dd5fbfa7}.
+
 \index{databaseAdapter@{databaseAdapter}!selectDatabase@{selectDatabase}}
 \index{selectDatabase@{selectDatabase}!databaseAdapter@{databaseAdapter}}
 \subsubsection[{selectDatabase}]{\setlength{\rightskip}{0pt plus 5cm}selectDatabase (
 \begin{DoxyParamCaption}
 \item[{\$}]{db}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_ab624b0b234f9db9dbc6dc4180f566b1f}
+)}\label{interfacedatabase_adapter_ab624b0b234f9db9dbc6dc4180f566b1f}
 
 
-Reimplemented in \hyperlink{class_my_s_q_li_database_ab624b0b234f9db9dbc6dc4180f566b1f}{MySQLiDatabase}.
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_ab624b0b234f9db9dbc6dc4180f566b1f}.
 
-\hypertarget{interfacedatabase_adapter_ae7cdaa744d52a1eb0103e377023ca528}{
+\index{databaseAdapter@{databaseAdapter}!startTransaction@{startTransaction}}
+\index{startTransaction@{startTransaction}!databaseAdapter@{databaseAdapter}}
+\subsubsection[{startTransaction}]{\setlength{\rightskip}{0pt plus 5cm}startTransaction (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{interfacedatabase_adapter_a09aabfaecf95a335063d4e237a2c2126}
+
+
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_a09aabfaecf95a335063d4e237a2c2126}.
+
 \index{databaseAdapter@{databaseAdapter}!tableExists@{tableExists}}
 \index{tableExists@{tableExists}!databaseAdapter@{databaseAdapter}}
 \subsubsection[{tableExists}]{\setlength{\rightskip}{0pt plus 5cm}tableExists (
 \begin{DoxyParamCaption}
 \item[{\$}]{table}
 \end{DoxyParamCaption}
-)}}
-\label{interfacedatabase_adapter_ae7cdaa744d52a1eb0103e377023ca528}
+)}\label{interfacedatabase_adapter_ae7cdaa744d52a1eb0103e377023ca528}
 
 
-Reimplemented in \hyperlink{class_my_s_q_li_database_ae7cdaa744d52a1eb0103e377023ca528}{MySQLiDatabase}.
+Reimplemented in {\bf MySQLiDatabase} \doxyref{}{p.}{class_my_s_q_li_database_ae7cdaa744d52a1eb0103e377023ca528}.
 
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-C:/wamp/www/framework/\hyperlink{database_adapter_8php}{databaseAdapter.php}\end{DoxyCompactItemize}
+C:/wamp/www/framework/{\bf databaseAdapter.php}\end{DoxyCompactItemize}

@@ -23,8 +23,9 @@ class template extends base {
 	}
 	
 	/**
-	 *	Set the value of a framework variable magically. If $var param is string, then a variable called $var will have the value of $value.
-	 * If $var is array, it should be a key-pair value like this array('var_name'=>'132','2ndvar'=>123).
+	 *	Set the value of a template variable magically. If $var param is string, then a variable called $var will have the value of $value.
+	 * If $var is array, it should be a key-pair value like this array('var_name'=>'132','2ndvar'=>123). This is separate from the 
+	 * rolisz global variables.
 	 *		@param string|array $var 
 	 *		@param mixed $value 
 	 *		@public
@@ -41,8 +42,9 @@ class template extends base {
 	}
 	
 	/**
-	 *	Set the value of a framework variable. If $var param is string, then a variable called $var will have the value of $value.
-	 * If $var is array, it should be a key-pair value like this array('var_name'=>'132','2ndvar'=>123).
+	 *	Set the value of a template variable. If $var param is string, then a variable called $var will have the value of $value.
+	 * If $var is array, it should be a key-pair value like this array('var_name'=>'132','2ndvar'=>123). This is separate from the 
+	 * rolisz global variables.
 	 *		@param string|array $var 
 	 *		@param mixed $value 
 	 *		@public
@@ -59,7 +61,8 @@ class template extends base {
 	}
 
 	/**
-	 * 	Return value of framework variable, false if not found
+	 * 	Return value of template variable, false if not found. This is separate from the 
+	 * rolisz global variables.
 	 *		@param string $name 
 	 * 		@retval true
 	 * 		@retval false

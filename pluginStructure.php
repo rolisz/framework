@@ -2,7 +2,7 @@
 
 /**
  * \class pluginStructure
- * 	Class that handles plugin registering, execution points. 
+ * 	Class that handles registering plugins and execution points. 
  * 		@package rolisz
  * 		@package Roland Szabo
  */
@@ -15,12 +15,13 @@
 	/**
 	 *  Registers a plugin.
 	 * 	If the plugin constructor requires parameters, you have to instantiate an object and pass that as a parameter to this function.
-	 * 		@param $name - string	- class
-	 * 								- file
+	 * 		@param $name - string	
+	 * 						- class
+	 * 						- file
 	 * 					 - plugin object
 	 * 					 - array with a class and the function to call from it
 	 * 		@param $execution  optional and speciefies when to execute the plugin if it has to be executed sometime during the 
-	 *  execution of rolisz classes. For a list of events, see plugin class. 	 
+	 *  execution of rolisz classes. For a list of events, see plugin() class. 	 
 	 */
 	public static function registerPlugin($name,$execution = FALSE) {
 		if (is_object($name)) {
@@ -87,8 +88,8 @@
 	} 
 	
 	/**
-	 * 	Unregisters a plugin. First parameter is the name of the plugin, as returned by the plugin::getName() method.
-	 * 		@param string $name
+	 * 	Unregisters a plugin.
+	 * 		@param string $name name of the plugin, as returned by the plugin::getName() method.
 	 */
 	public static function unregisterPlugin($name) {
 		if (in_array($name,self::$plugins)) {
@@ -155,7 +156,7 @@
 	
 	/**
 	 *  Runs plugins and functions that are associated with the $name execution point. Any additional parameters will be passed 
-	 * 	to the function in the same order. 
+	 * 	to the function in the same order as they are received. 
 	 * 		@param string $name
 	 */
 	 public static function runPlugins($name) {

@@ -1,0 +1,554 @@
+\begin{theindex}
+
+  \item {\$acl}
+    \subitem {acl}, 18
+  \item {\$connection}
+    \subitem {MySQLiDatabase}, 32
+    \subitem {table}, 53
+  \item {\$database}
+    \subitem {MySQLiDatabase}, 32
+  \item {\$denyFunction}
+    \subitem {acl}, 18
+  \item {\$executionPoints}
+    \subitem {base}, 20
+  \item {\$form}
+    \subitem {form}, 26
+  \item {\$global}
+    \subitem {base}, 20
+  \item {\$inputs}
+    \subitem {form}, 26
+  \item {\$model}
+    \subitem {form}, 26
+  \item {\$modifiedData}
+    \subitem {table}, 53
+  \item {\$originalData}
+    \subitem {table}, 53
+  \item {\$plugins}
+    \subitem {base}, 20
+  \item {\$prefix}
+    \subitem {acl}, 18
+  \item {\$primaryKey}
+    \subitem {table}, 53
+  \item {\$queries}
+    \subitem {MySQLiDatabase}, 32
+  \item {\$relations}
+    \subitem {table}, 53
+  \item {\$requester}
+    \subitem {acl}, 18
+  \item {\$result}
+    \subitem {MySQLiDatabase}, 32
+  \item {\$source}
+    \subitem {acl}, 18
+  \item {\$sourceType}
+    \subitem {acl}, 18
+  \item {\$string}
+    \subitem {form}, 26
+  \item {\$table}
+    \subitem {table}, 53
+  \item {\$tables}
+    \subitem {table}, 54
+  \item {\$values}
+    \subitem {template}, 57
+  \item {\_\-\_\-call}
+    \subitem {form}, 24
+    \subitem {table}, 47
+  \item {\_\-\_\-construct}
+    \subitem {acl}, 14
+    \subitem {base}, 19
+    \subitem {databaseAdapter}, 21
+    \subitem {form}, 24
+    \subitem {MySQLiDatabase}, 27
+    \subitem {plugin}, 33
+    \subitem {pluginStructure}, 35
+    \subitem {Query}, 38
+    \subitem {table}, 47
+    \subitem {template}, 55
+  \item {\_\-\_\-destruct}
+    \subitem {MySQLiDatabase}, 27
+  \item {\_\-\_\-get}
+    \subitem {table}, 47
+    \subitem {template}, 55
+  \item {\_\-\_\-isset}
+    \subitem {table}, 47
+  \item {\_\-\_\-set}
+    \subitem {table}, 48
+    \subitem {template}, 55
+  \item {\_\-\_\-sleep}
+    \subitem {table}, 48
+  \item {\_\-\_\-toString}
+    \subitem {template}, 55
+
+  \indexspace
+
+  \item {acl}, 13
+    \subitem {\$acl}, 18
+    \subitem {\$denyFunction}, 18
+    \subitem {\$prefix}, 18
+    \subitem {\$requester}, 18
+    \subitem {\$source}, 18
+    \subitem {\$sourceType}, 18
+    \subitem {\_\-\_\-construct}, 14
+    \subitem {addNew}, 15
+    \subitem {checkConsistency}, 15
+    \subitem {deleteACL}, 15
+    \subitem {editACL}, 16
+    \subitem {getACL}, 16
+    \subitem {getName}, 16
+    \subitem {getPath}, 17
+    \subitem {init}, 17
+    \subitem {isAllowed}, 17
+    \subitem {run}, 17
+  \item {addNew}
+    \subitem {acl}, 15
+  \item {addRelation}
+    \subitem {table}, 48
+  \item {addRelationM2M}
+    \subitem {table}, 48
+  \item {addRelationM2MS}
+    \subitem {table}, 49
+  \item {addRelationS}
+    \subitem {table}, 49
+  \item {alterTable}
+    \subitem {databaseAdapter}, 21
+    \subitem {MySQLiDatabase}, 28
+  \item {analyzeRelations}
+    \subitem {table}, 49
+  \item {AppName}
+    \subitem {base}, 20
+  \item {array\_\-filter\_\-key}
+    \subitem {misc\_\-functions.php}, 60
+  \item {assign}
+    \subitem {template}, 56
+  \item {autoload}
+    \subitem {rolisz}, 40
+
+  \indexspace
+
+  \item {base}, 18
+    \subitem {\$executionPoints}, 20
+    \subitem {\$global}, 20
+    \subitem {\$plugins}, 20
+    \subitem {\_\-\_\-construct}, 19
+    \subitem {AppName}, 20
+    \subitem {check}, 19
+    \subitem {get}, 19
+    \subitem {Module}, 20
+    \subitem {set}, 19
+    \subitem {Version}, 20
+  \item {buildFilters}
+    \subitem {Query}, 38
+  \item {buildJoins}
+    \subitem {Query}, 39
+  \item {buildOrderBy}
+    \subitem {Query}, 39
+  \item {buildQuery}
+    \subitem {Query}, 39
+  \item {buildString}
+    \subitem {form}, 24
+
+  \indexspace
+
+  \item {C:/wamp/www/framework/base.php}, 59
+  \item {C:/wamp/www/framework/databaseAdapter.php}, 59
+  \item {C:/wamp/www/framework/misc\_\-functions.php}, 59
+  \item {C:/wamp/www/framework/plugin.php}, 60
+  \item {C:/wamp/www/framework/plugins/acl.php}, 60
+  \item {C:/wamp/www/framework/plugins/form.php}, 61
+  \item {C:/wamp/www/framework/pluginStructure.php}, 61
+  \item {C:/wamp/www/framework/rolisz.php}, 61
+  \item {C:/wamp/www/framework/router.php}, 61
+  \item {C:/wamp/www/framework/table.php}, 62
+  \item {C:/wamp/www/framework/template.php}, 62
+  \item {call}
+    \subitem {rolisz}, 40
+  \item {check}
+    \subitem {base}, 19
+  \item {checkCompile}
+    \subitem {template}, 56
+  \item {checkConsistency}
+    \subitem {acl}, 15
+  \item {checkExecutionPoint}
+    \subitem {pluginStructure}, 36
+  \item {checkPlugin}
+    \subitem {pluginStructure}, 36
+  \item {commit}
+    \subitem {databaseAdapter}, 21
+    \subitem {MySQLiDatabase}, 28
+  \item {compile}
+    \subitem {template}, 56
+  \item {connect}
+    \subitem {MySQLiDatabase}, 28
+    \subitem {rolisz}, 41
+  \item {countRows}
+    \subitem {table}, 49
+  \item {countRowsS}
+    \subitem {table}, 50
+  \item {createTable}
+    \subitem {databaseAdapter}, 21
+    \subitem {MySQLiDatabase}, 28
+
+  \indexspace
+
+  \item {databaseAdapter}, 20
+    \subitem {\_\-\_\-construct}, 21
+    \subitem {alterTable}, 21
+    \subitem {commit}, 21
+    \subitem {createTable}, 21
+    \subitem {disconnect}, 21
+    \subitem {dropTable}, 21
+    \subitem {escapeValue}, 22
+    \subitem {fetchAll}, 22
+    \subitem {fetchRow}, 22
+    \subitem {getError}, 22
+    \subitem {getInsertID}, 22
+    \subitem {numAffected}, 22
+    \subitem {numRows}, 22
+    \subitem {query}, 22
+    \subitem {rollback}, 22
+    \subitem {selectDatabase}, 22
+    \subitem {startTransaction}, 22
+    \subitem {tableExists}, 23
+  \item {delete}
+    \subitem {table}, 50
+  \item {deleteACL}
+    \subitem {acl}, 15
+  \item {disconnect}
+    \subitem {databaseAdapter}, 21
+    \subitem {MySQLiDatabase}, 29
+  \item {dropTable}
+    \subitem {databaseAdapter}, 21
+    \subitem {MySQLiDatabase}, 29
+
+  \indexspace
+
+  \item {editACL}
+    \subitem {acl}, 16
+  \item {escapeValue}
+    \subitem {databaseAdapter}, 22
+    \subitem {MySQLiDatabase}, 29
+
+  \indexspace
+
+  \item {fetchAll}
+    \subitem {databaseAdapter}, 22
+    \subitem {MySQLiDatabase}, 29
+  \item {fetchFirst}
+    \subitem {MySQLiDatabase}, 30
+  \item {fetchRow}
+    \subitem {databaseAdapter}, 22
+    \subitem {MySQLiDatabase}, 30
+  \item {find}
+    \subitem {table}, 50
+  \item {findS}
+    \subitem {table}, 51
+  \item {fixBraces}
+    \subitem {rolisz}, 41
+  \item {fixSlashes}
+    \subitem {rolisz}, 41
+  \item {form}, 23
+    \subitem {\$form}, 26
+    \subitem {\$inputs}, 26
+    \subitem {\$model}, 26
+    \subitem {\$string}, 26
+    \subitem {\_\-\_\-call}, 24
+    \subitem {\_\-\_\-construct}, 24
+    \subitem {buildString}, 24
+    \subitem {getDefaultMethod}, 24
+    \subitem {getName}, 24
+    \subitem {getString}, 25
+    \subitem {input}, 25
+    \subitem {removeInput}, 25
+    \subitem {show}, 25
+    \subitem {validate}, 25
+
+  \indexspace
+
+  \item {get}
+    \subitem {base}, 19
+  \item {getACL}
+    \subitem {acl}, 16
+  \item {getColumns}
+    \subitem {table}, 51
+  \item {getCount}
+    \subitem {Query}, 39
+  \item {getData}
+    \subitem {table}, 51
+  \item {getDefaultExecutionPoints}
+    \subitem {plugin}, 34
+  \item {getDefaultMethod}
+    \subitem {form}, 24
+    \subitem {plugin}, 34
+  \item {getError}
+    \subitem {databaseAdapter}, 22
+    \subitem {MySQLiDatabase}, 30
+  \item {getInsertID}
+    \subitem {databaseAdapter}, 22
+    \subitem {MySQLiDatabase}, 30
+  \item {getName}
+    \subitem {acl}, 16
+    \subitem {form}, 24
+    \subitem {plugin}, 34
+  \item {getOutput}
+    \subitem {template}, 56
+  \item {getPath}
+    \subitem {acl}, 17
+  \item {getPrimaryKey}
+    \subitem {table}, 51
+  \item {getString}
+    \subitem {form}, 25
+
+  \indexspace
+
+  \item {http404}
+    \subitem {rolisz}, 41
+  \item {hydrate}
+    \subitem {table}, 52
+
+  \indexspace
+
+  \item {importRows}
+    \subitem {table}, 52
+  \item {includeSub}
+    \subitem {template}, 57
+  \item {init}
+    \subitem {acl}, 17
+  \item {input}
+    \subitem {form}, 25
+  \item {isAllowed}
+    \subitem {acl}, 17
+  \item {isHydrated}
+    \subitem {table}, 52
+
+  \indexspace
+
+  \item {MANY}
+    \subitem {table.php}, 62
+  \item {matches}
+    \subitem {router}, 44
+  \item {misc\_\-functions.php}
+    \subitem {array\_\-filter\_\-key}, 60
+    \subitem {recursify}, 60
+  \item {Module}
+    \subitem {base}, 20
+  \item {MySQLiDatabase}, 26
+    \subitem {\$connection}, 32
+    \subitem {\$database}, 32
+    \subitem {\$queries}, 32
+    \subitem {\$result}, 32
+    \subitem {\_\-\_\-construct}, 27
+    \subitem {\_\-\_\-destruct}, 27
+    \subitem {alterTable}, 28
+    \subitem {commit}, 28
+    \subitem {connect}, 28
+    \subitem {createTable}, 28
+    \subitem {disconnect}, 29
+    \subitem {dropTable}, 29
+    \subitem {escapeValue}, 29
+    \subitem {fetchAll}, 29
+    \subitem {fetchFirst}, 30
+    \subitem {fetchRow}, 30
+    \subitem {getError}, 30
+    \subitem {getInsertID}, 30
+    \subitem {numAffected}, 31
+    \subitem {numRows}, 31
+    \subitem {Query}, 31
+    \subitem {rollback}, 31
+    \subitem {selectDatabase}, 31
+    \subitem {startTransaction}, 32
+    \subitem {tableExists}, 32
+
+  \indexspace
+
+  \item {NOT\_\-ANALYZED}
+    \subitem {table.php}, 62
+  \item {NOT\_\-RECOGNIZED}
+    \subitem {table.php}, 62
+  \item {numAffected}
+    \subitem {databaseAdapter}, 22
+    \subitem {MySQLiDatabase}, 31
+  \item {numRows}
+    \subitem {databaseAdapter}, 22
+    \subitem {MySQLiDatabase}, 31
+
+  \indexspace
+
+  \item {ONE\_\-TO\_\-MANY}
+    \subitem {table.php}, 62
+
+  \indexspace
+
+  \item {plugin}, 33
+    \subitem {\_\-\_\-construct}, 33
+    \subitem {getDefaultExecutionPoints}, 34
+    \subitem {getDefaultMethod}, 34
+    \subitem {getName}, 34
+    \subitem {rolisz}, 42
+    \subitem {run}, 34
+  \item {pluginStructure}, 35
+    \subitem {\_\-\_\-construct}, 35
+    \subitem {checkExecutionPoint}, 36
+    \subitem {checkPlugin}, 36
+    \subitem {registerExecutionPoint}, 36
+    \subitem {registerPlugin}, 36
+    \subitem {runPlugins}, 37
+    \subitem {unregisterExecutionPoint}, 37
+    \subitem {unregisterPlugin}, 37
+
+  \indexspace
+
+  \item {Query}, 37
+    \subitem {\_\-\_\-construct}, 38
+    \subitem {buildFilters}, 38
+    \subitem {buildJoins}, 39
+    \subitem {buildOrderBy}, 39
+    \subitem {buildQuery}, 39
+    \subitem {getCount}, 39
+    \subitem {MySQLiDatabase}, 31
+  \item {query}
+    \subitem {databaseAdapter}, 22
+
+  \indexspace
+
+  \item {recursify}
+    \subitem {misc\_\-functions.php}, 60
+  \item {registerExecutionPoint}
+    \subitem {pluginStructure}, 36
+  \item {registerPlugin}
+    \subitem {pluginStructure}, 36
+  \item {removeInput}
+    \subitem {form}, 25
+  \item {Roland}, 11
+  \item {rolisz}, 11, 39
+    \subitem {autoload}, 40
+    \subitem {call}, 40
+    \subitem {connect}, 41
+    \subitem {fixBraces}, 41
+    \subitem {fixSlashes}, 41
+    \subitem {http404}, 41
+    \subitem {plugin}, 42
+    \subitem {route}, 42
+    \subitem {run}, 42
+    \subitem {runPlugins}, 42
+    \subitem {start}, 42
+    \subitem {table}, 42
+    \subitem {urlFor}, 43
+  \item {rollback}
+    \subitem {databaseAdapter}, 22
+    \subitem {MySQLiDatabase}, 31
+  \item {route}
+    \subitem {rolisz}, 42
+    \subitem {router}, 44
+  \item {router}, 43
+    \subitem {matches}, 44
+    \subitem {route}, 44
+    \subitem {run}, 44
+    \subitem {urlFor}, 44
+  \item {run}
+    \subitem {acl}, 17
+    \subitem {plugin}, 34
+    \subitem {rolisz}, 42
+    \subitem {router}, 44
+  \item {runPlugins}
+    \subitem {pluginStructure}, 37
+    \subitem {rolisz}, 42
+
+  \indexspace
+
+  \item {save}
+    \subitem {table}, 53
+  \item {selectDatabase}
+    \subitem {databaseAdapter}, 22
+    \subitem {MySQLiDatabase}, 31
+  \item {set}
+    \subitem {base}, 19
+    \subitem {table}, 53
+  \item {setAll}
+    \subitem {table}, 53
+  \item {show}
+    \subitem {form}, 25
+  \item {SINGLE}
+    \subitem {table.php}, 62
+  \item {start}
+    \subitem {rolisz}, 42
+  \item {startTransaction}
+    \subitem {databaseAdapter}, 22
+    \subitem {MySQLiDatabase}, 32
+
+  \indexspace
+
+  \item {table}, 45
+    \subitem {\$connection}, 53
+    \subitem {\$modifiedData}, 53
+    \subitem {\$originalData}, 53
+    \subitem {\$primaryKey}, 53
+    \subitem {\$relations}, 53
+    \subitem {\$table}, 53
+    \subitem {\$tables}, 54
+    \subitem {\_\-\_\-call}, 47
+    \subitem {\_\-\_\-construct}, 47
+    \subitem {\_\-\_\-get}, 47
+    \subitem {\_\-\_\-isset}, 47
+    \subitem {\_\-\_\-set}, 48
+    \subitem {\_\-\_\-sleep}, 48
+    \subitem {addRelation}, 48
+    \subitem {addRelationM2M}, 48
+    \subitem {addRelationM2MS}, 49
+    \subitem {addRelationS}, 49
+    \subitem {analyzeRelations}, 49
+    \subitem {countRows}, 49
+    \subitem {countRowsS}, 50
+    \subitem {delete}, 50
+    \subitem {find}, 50
+    \subitem {findS}, 51
+    \subitem {getColumns}, 51
+    \subitem {getData}, 51
+    \subitem {getPrimaryKey}, 51
+    \subitem {hydrate}, 52
+    \subitem {importRows}, 52
+    \subitem {isHydrated}, 52
+    \subitem {rolisz}, 42
+    \subitem {save}, 53
+    \subitem {set}, 53
+    \subitem {setAll}, 53
+  \item {table.php}
+    \subitem {MANY}, 62
+    \subitem {NOT\_\-ANALYZED}, 62
+    \subitem {NOT\_\-RECOGNIZED}, 62
+    \subitem {ONE\_\-TO\_\-MANY}, 62
+    \subitem {SINGLE}, 62
+  \item {tableExists}
+    \subitem {databaseAdapter}, 23
+    \subitem {MySQLiDatabase}, 32
+  \item {template}, 54
+    \subitem {\$values}, 57
+    \subitem {\_\-\_\-construct}, 55
+    \subitem {\_\-\_\-get}, 55
+    \subitem {\_\-\_\-set}, 55
+    \subitem {\_\-\_\-toString}, 55
+    \subitem {assign}, 56
+    \subitem {checkCompile}, 56
+    \subitem {compile}, 56
+    \subitem {getOutput}, 56
+    \subitem {includeSub}, 57
+    \subitem {view}, 57
+
+  \indexspace
+
+  \item {unregisterExecutionPoint}
+    \subitem {pluginStructure}, 37
+  \item {unregisterPlugin}
+    \subitem {pluginStructure}, 37
+  \item {urlFor}
+    \subitem {rolisz}, 43
+    \subitem {router}, 44
+
+  \indexspace
+
+  \item {validate}
+    \subitem {form}, 25
+  \item {Version}
+    \subitem {base}, 20
+  \item {view}
+    \subitem {template}, 57
+
+\end{theindex}

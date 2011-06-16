@@ -2,7 +2,7 @@
 include_once ('base.php');
 /** 
  *	\class rolisz
- *	Central class, contains only general useful functions or wrappers for the other classes
+ *	Central class, contains only the most common functions or wrappers for the other classes
  * 		@package rolisz
  *		@author Roland Szabo
 **/
@@ -10,8 +10,7 @@ class rolisz extends base {
 
 
 	/**
-	 *	Provide sandbox for functions and import files to prevent direct
-	 *	access to framework internals and other scripts
+	 *	Calls functions and includes files and passes them $args as argument
 	 *		@param mixed $funcs 
 	 *		@param array $args 
 	 *		@public
@@ -37,13 +36,29 @@ class rolisz extends base {
 								throw new Exception($function.' is not a valid function');
 								return;
 							}
-							call_user_func_array($function,$args);
+							switch(count($args)) { 
+				        case 0: $function(); break; 
+				        case 1: $function($args[0]); break; 
+				        case 2: $function($args[0], $args[1]); break; 
+				        case 3: $function($args[0], $args[1], $args[2]); break; 
+				        case 4: $function($args[0], $args[1], $args[2], $args[3]); break; 
+				        case 5: $function($args[0], $args[1], $args[2], $args[3], $args[4]); break; 
+				        default: call_user_func_array(array($class, $method), $args);  break; 
+				    } 
 						}
 					}
 				} 
 				else {
 					// Call lambda function
-					call_user_func_array($func,$args);
+					switch(count($args)) { 
+				        case 0: $func(); break; 
+				        case 1: $func($args[0]); break; 
+				        case 2: $func($args[0], $args[1]); break; 
+				        case 3: $func($args[0], $args[1], $args[2]); break; 
+				        case 4: $func($args[0], $args[1], $args[2], $args[3]); break; 
+				        case 5: $func($args[0], $args[1], $args[2], $args[3], $args[4]); break; 
+				        default: call_user_func_array(array($class, $method), $args);  break; 
+				    } 
 				}
 			}
 		}
@@ -54,19 +69,35 @@ class rolisz extends base {
 					include $func;
 				} 
 				else {
-					call_user_func_array($func,$args);
+					switch(count($args)) { 
+				        case 0: $func(); break; 
+				        case 1: $func($args[0]); break; 
+				        case 2: $func($args[0], $args[1]); break; 
+				        case 3: $func($args[0], $args[1], $args[2]); break; 
+				        case 4: $func($args[0], $args[1], $args[2], $args[3]); break; 
+				        case 5: $func($args[0], $args[1], $args[2], $args[3], $args[4]); break; 
+				        default: call_user_func_array(array($class, $method), $args);  break; 
+				    } 
 				}
 			}
 		}
 		else 
 			// Call lambda function
-			call_user_func_array($funcs,$args);
+			switch(count($args)) { 
+				        case 0: $funcs(); break; 
+				        case 1: $funcs($args[0]); break; 
+				        case 2: $funcs($args[0], $args[1]); break; 
+				        case 3: $funcs($args[0], $args[1], $args[2]); break; 
+				        case 4: $funcs($args[0], $args[1], $args[2], $args[3]); break; 
+				        case 5: $funcs($args[0], $args[1], $args[2], $args[3], $args[4]); break; 
+				        default: call_user_func_array(array($class, $method), $args);  break; 
+		 } 
 
 	}
 	
 	/**
 	 *	Connects to a database adapter that implements the interface defined in databaseAdapter.php
-	 * 	Checks for the existence of the class in databaseAdapter.php and a file called $dbtype.DatabaseAdapter.php
+	 * 	Checks for the existence of the class in databaseAdapter.php and then in a file called $dbtype.DatabaseAdapter.php
 	 *		@param string $dbtype Database type. For now there is support for MySQL 
 	 *		@param string $host 
 	 *		@param string $username
@@ -82,7 +113,7 @@ class rolisz extends base {
 				include ($adapterClass.'Adapter.php');
 			}
 			else {
-				trigger_error('$adapterClass class was not found');
+				throw new Exception("$adapterClass class was not found");
 				return false;
 			} 
 		}
@@ -91,7 +122,8 @@ class rolisz extends base {
 	}
 	
 	/**
-	 *	Autoloader function. Lazy-loads classes from files in the same directory as current one. Files must be named the same the classes
+	 *	Autoloader function. Lazy-loads classes from files first from the framework directory, then the framework plugin directory,
+	 * 	then the current one and finally a plugins folder situated in the current folder. Files must be named the same the classes
 	 *		@param string $class
 	**/
 	 public static function autoload( $class ) {
@@ -138,7 +170,7 @@ class rolisz extends base {
 	 *	Convert Windows double-backslashes to slashes
 	 *		@param string $str 
 	 *		@return string
-	 *		@public	**/
+	**/
 	public static function fixSlashes($str) {
 		return $str?strtr($str,'\\','/'):$str;
 	}
@@ -159,12 +191,20 @@ class rolisz extends base {
 	/**
 	 * Plugin functions
 	 */
-	 
+	
+	/**
+	 *  Return an instance of pluginStructure
+	 * 		@return pluginStructure
+	 */ 
 	public static function plugin () {
 		include_once 'pluginStructure.php';
 		return new pluginStructure();
 	} 
 	
+	/**
+	 *  Runs plugins associated with $name execution point. Additional parameters will be passed to plugin as parameters
+	 * 		@param string $name
+	 */
 	public static function runPlugins($name) {
 		if (class_exists('pluginStructure',FALSE)) {
 			call_user_func_array(array('pluginStructure','runPlugins'),func_get_args());
@@ -207,7 +247,8 @@ class rolisz extends base {
 	 */
 	 
 	/**
-	 * @see table
+	 *  Returns a new instance of table class. For parameters @see table
+	 * 		@return table
 	 */
 	 public static function table($table, $id=FALSE, $columns = FALSE, $connection = FALSE) {
 	 	if (!class_exists('table',FALSE))	{
@@ -217,9 +258,8 @@ class rolisz extends base {
 	 }
 	 
 	/**
-	 *	Sets up autoload, initializes some constants.
+	 *	Sets up autoload, initializes some constants and starts session. 
 	 *		@public
-	 *
 	**/
 	public static function start() {
 		//	Use the rolisz autoload function
@@ -245,7 +285,11 @@ class rolisz extends base {
 		
 		self::$executionPoints = array( 
 			'beforeMatch' => array(),
-			'afterMatch' => array()
+			'afterMatch' => array(),
+			'hydrateTable' =>array(),
+			'saveTable' =>array(),
+			'deleteTable' =>array(),
+			'compileTemplate' =>array()
 		);
 		session_start();
 	}

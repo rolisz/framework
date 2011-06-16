@@ -108,7 +108,7 @@ class form extends plugin {
 	 }
 	 
 	 /**
-	  *  Magic method for adding new inputs by calling their type directly
+	  *  Magic method for adding new inputs by calling their type directly. Throws an errors if trying to call an inexistent input type.
 	  * 	@param string $name
 	 * 		@param array $options
 	 * 		@return $this
@@ -159,7 +159,7 @@ class form extends plugin {
 	}
 	 
 	/**
-	 *  Builds the HTML string
+	 *  Builds the HTML string with the inputs wrapped in unordered list items. 
 	 */
 	private function buildString() {
 		$this->string = '<form';
@@ -267,12 +267,18 @@ class form extends plugin {
 		return true;
 	}
 	
+	/**
+	 *  Return the plugin name
+	 */
 	public function getName() {
 		return get_class($this);
 	}
 	
+	/**
+	 *  Default method is getString()
+	 */
 	public static function getDefaultMethod() {
-		return 'get';
+		return 'getString';
 	}
 }
 ?>

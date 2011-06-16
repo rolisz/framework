@@ -27,7 +27,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="rolisz.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">rolisz&#160;<span id="projectnumber">0.0.1</span></div>
+   <div id="projectname">rolisz&#160;<span id="projectnumber">0.0.3</span></div>
    <div id="projectbrief">Lightweight PHP framework</div>
   </td>
  </tr>
@@ -95,7 +95,9 @@ Inheritance diagram for plugin:</div>
  <div class="center">
   <img src="classplugin.png" usemap="#plugin_map" alt=""/>
   <map id="plugin_map" name="plugin_map">
-<area href="classbase.html" alt="base" shape="rect" coords="0,0,46,24"/>
+<area href="classbase.html" alt="base" shape="rect" coords="28,0,74,24"/>
+<area href="classacl.html" alt="acl" shape="rect" coords="0,112,46,136"/>
+<area href="classform.html" alt="form" shape="rect" coords="56,112,102,136"/>
 </map>
  </div></div>
 <table class="memberdecls">
@@ -110,7 +112,7 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classplugin.html#af3a9cc592a9767905c942de62ed46361">getDefaultMethod</a> ()</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Plugin class. This is inherited for all the other plugins. </p>
+<div class="textblock"><p>Plugin class. This is inherited for all the other plugins. Not an interface in case you don't want to redeclare some of the functions in other plugins </p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a095c5d389db211932136b53f25f39685"></a><!-- doxytag: member="plugin::__construct" ref="a095c5d389db211932136b53f25f39685" args="()" -->
 <div class="memitem">
@@ -125,7 +127,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Base constructor is private to disable creation of objects and to reinforce the usage of singleton pattern </p>
+<p>Constructor </p>
 
 <p>Reimplemented from <a class="el" href="classbase.html#a095c5d389db211932136b53f25f39685">base</a>.</p>
 
@@ -145,6 +147,23 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns the default excution points. By default it doesn't have any. The following execution points are available inside the rolisz framework:</p>
+<ul>
+<li>beforeMatch fires in the router module before trying to match the current URL.</li>
+<li>afterMatch fires in the router module after it has succesfully matched a URL. If no URL has been matched, it won't fire.</li>
+<li>hydrateTable fires in the table class if an object has been hydrated from the database.</li>
+<li>saveTable fires in the table class if an object has been successfully saved to the database.</li>
+<li>deleteTable fires in the table class if an object has been successfully deleted from the database.</li>
+<li>compileTemplate fires in the template engine after compiling a template. <dl><dt><b>Return values:</b></dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">false</td><td></td></tr>
+    <tr><td class="paramname">string</td><td></td></tr>
+    <tr><td class="paramname">array</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+</li>
+</ul>
 
 </div>
 </div>
@@ -161,6 +180,10 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns name of the the default function to run at an execution point. Default is 'run' </p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>string </dd></dl>
+
+<p>Reimplemented in <a class="el" href="classform.html#af3a9cc592a9767905c942de62ed46361">form</a>.</p>
 
 </div>
 </div>
@@ -177,6 +200,15 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Returns the name of the plugin </p>
+<dl><dt><b>Return values:</b></dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">string</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p>Reimplemented in <a class="el" href="classacl.html#a3d0963e68bb313b163a73f2803c64600">acl</a>, and <a class="el" href="classform.html#a3d0963e68bb313b163a73f2803c64600">form</a>.</p>
 
 </div>
 </div>
@@ -194,6 +226,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
+<p>Default function run at an execution point </p>
 
 </div>
 </div>
@@ -205,7 +238,7 @@ Static Public Member Functions</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="classplugin.html">plugin</a>      </li>
-      <li class="footer">Generated on Wed Apr 20 2011 21:46:59 for rolisz by&#160;
+      <li class="footer">Generated on Wed May 4 2011 12:18:39 for rolisz by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

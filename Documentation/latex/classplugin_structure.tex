@@ -1,7 +1,5 @@
-\hypertarget{classplugin_structure}{
 \section{pluginStructure Class Reference}
 \label{classplugin_structure}\index{pluginStructure@{pluginStructure}}
-}
 Inheritance diagram for pluginStructure:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -11,56 +9,52 @@ Inheritance diagram for pluginStructure:\begin{figure}[H]
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classplugin_structure_a095c5d389db211932136b53f25f39685}{\_\-\_\-construct} ()
+{\bf \_\-\_\-construct} ()
 \item 
-\hyperlink{classplugin_structure_af373171b813a66ca3212b5b8445667b4}{registerExecutionPoint} (\$name)
+{\bf registerExecutionPoint} (\$name)
 \item 
-\hyperlink{classplugin_structure_aececb4940a9e4e77b26cd5c21426b336}{unregisterExecutionPoint} (\$name)
+{\bf unregisterExecutionPoint} (\$name)
 \end{DoxyCompactItemize}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{classplugin_structure_a71565da9a4f7b79556318e1c239d806d}{registerPlugin} (\$name, \$execution=FALSE)
+static {\bf registerPlugin} (\$name, \$execution=FALSE)
 \item 
-static \hyperlink{classplugin_structure_af6f30561b09fd0fd0e2a37ccdbb052cc}{unregisterPlugin} (\$name)
+static {\bf unregisterPlugin} (\$name)
 \item 
-static \hyperlink{classplugin_structure_a3c152f2d9509388d1b23fd9b838da7ee}{checkPlugin} (\$name)
+static {\bf checkPlugin} (\$name)
 \item 
-static \hyperlink{classplugin_structure_aeec65b154bc2668be48a94ea3c85a071}{checkExecutionPoint} (\$name)
+static {\bf checkExecutionPoint} (\$name)
 \item 
-static \hyperlink{classplugin_structure_a8dd32bd8570aaba99ee7b4e34e5f17f9}{runPlugins} (\$name)
+static {\bf runPlugins} (\$name)
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Class that handles plugin registering, execution points. 
+Class that handles registering plugins and execution points. 
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{classplugin_structure_a095c5d389db211932136b53f25f39685}{
 \index{pluginStructure@{pluginStructure}!\_\-\_\-construct@{\_\-\_\-construct}}
 \index{\_\-\_\-construct@{\_\-\_\-construct}!pluginStructure@{pluginStructure}}
 \subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-construct (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)}}
-\label{classplugin_structure_a095c5d389db211932136b53f25f39685}
-Base constructor is private to disable creation of objects and to reinforce the usage of singleton pattern 
+)}\label{classplugin_structure_a095c5d389db211932136b53f25f39685}
+Base constructor is private to disable creation of objects and to reinforce the usage of the singleton pattern. 
 
-Reimplemented from \hyperlink{classbase_a095c5d389db211932136b53f25f39685}{base}.
+Reimplemented from {\bf base} \doxyref{}{p.}{classbase_a095c5d389db211932136b53f25f39685}.
 
 
 
 \subsection{Member Function Documentation}
-\hypertarget{classplugin_structure_aeec65b154bc2668be48a94ea3c85a071}{
 \index{pluginStructure@{pluginStructure}!checkExecutionPoint@{checkExecutionPoint}}
 \index{checkExecutionPoint@{checkExecutionPoint}!pluginStructure@{pluginStructure}}
 \subsubsection[{checkExecutionPoint}]{\setlength{\rightskip}{0pt plus 5cm}static checkExecutionPoint (
 \begin{DoxyParamCaption}
 \item[{\$}]{name}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classplugin_structure_aeec65b154bc2668be48a94ea3c85a071}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classplugin_structure_aeec65b154bc2668be48a94ea3c85a071}
 Checks if an execution point exists. 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$name} & \\
@@ -73,15 +67,13 @@ string & {\em \$name} & \\
 {\em false} & \\
 \hline
 \end{DoxyRetVals}
-\hypertarget{classplugin_structure_a3c152f2d9509388d1b23fd9b838da7ee}{
 \index{pluginStructure@{pluginStructure}!checkPlugin@{checkPlugin}}
 \index{checkPlugin@{checkPlugin}!pluginStructure@{pluginStructure}}
 \subsubsection[{checkPlugin}]{\setlength{\rightskip}{0pt plus 5cm}static checkPlugin (
 \begin{DoxyParamCaption}
 \item[{\$}]{name}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classplugin_structure_a3c152f2d9509388d1b23fd9b838da7ee}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classplugin_structure_a3c152f2d9509388d1b23fd9b838da7ee}
 Checks if a plugin called \$name exists. 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$name} & \\
@@ -94,21 +86,18 @@ string & {\em \$name} & \\
 {\em false} & \\
 \hline
 \end{DoxyRetVals}
-\hypertarget{classplugin_structure_af373171b813a66ca3212b5b8445667b4}{
 \index{pluginStructure@{pluginStructure}!registerExecutionPoint@{registerExecutionPoint}}
 \index{registerExecutionPoint@{registerExecutionPoint}!pluginStructure@{pluginStructure}}
 \subsubsection[{registerExecutionPoint}]{\setlength{\rightskip}{0pt plus 5cm}registerExecutionPoint (
 \begin{DoxyParamCaption}
 \item[{\$}]{name}
 \end{DoxyParamCaption}
-)}}
-\label{classplugin_structure_af373171b813a66ca3212b5b8445667b4}
+)}\label{classplugin_structure_af373171b813a66ca3212b5b8445667b4}
 Adds a new execution point to the internal execution point list. 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$name} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{classplugin_structure_a71565da9a4f7b79556318e1c239d806d}{
 \index{pluginStructure@{pluginStructure}!registerPlugin@{registerPlugin}}
 \index{registerPlugin@{registerPlugin}!pluginStructure@{pluginStructure}}
 \subsubsection[{registerPlugin}]{\setlength{\rightskip}{0pt plus 5cm}static registerPlugin (
@@ -116,12 +105,12 @@ string & {\em \$name} & \\
 \item[{\$}]{name, }
 \item[{\$}]{execution = {\ttfamily FALSE}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classplugin_structure_a71565da9a4f7b79556318e1c239d806d}
-Registers a plugin. First parameter can be either the name of a plugin, a plugin file or a plugin class itself. Second parameter is optional and speciefies when to execute the plugin if it has to be executed sometime during the execution of rolisz classes. For a list of events, see plugin class. If the plugin constructor requires parameters, you have to instantiate an object and pass that as a parameter to this function. 
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classplugin_structure_a71565da9a4f7b79556318e1c239d806d}
+Registers a plugin. If the plugin constructor requires parameters, you have to instantiate an object and pass that as a parameter to this function. 
 \begin{DoxyParams}{Parameters}
-{\em \$name} & -\/ string -\/ class
+{\em \$name} & -\/ string
 \begin{DoxyItemize}
+\item class
 \item file
 \end{DoxyItemize}\\
 \hline
@@ -131,54 +120,48 @@ Registers a plugin. First parameter can be either the name of a plugin, a plugin
 \item plugin object
 \item array with a class and the function to call from it 
 \begin{DoxyParams}{Parameters}
-{\em \$execution} & Optional. See plugin class for values. \\
+{\em \$execution} & optional and speciefies when to execute the plugin if it has to be executed sometime during the execution of rolisz classes. For a list of events, see plugin() class. \\
 \hline
 \end{DoxyParams}
 
-\end{DoxyItemize}\hypertarget{classplugin_structure_a8dd32bd8570aaba99ee7b4e34e5f17f9}{
-\index{pluginStructure@{pluginStructure}!runPlugins@{runPlugins}}
+\end{DoxyItemize}\index{pluginStructure@{pluginStructure}!runPlugins@{runPlugins}}
 \index{runPlugins@{runPlugins}!pluginStructure@{pluginStructure}}
 \subsubsection[{runPlugins}]{\setlength{\rightskip}{0pt plus 5cm}static runPlugins (
 \begin{DoxyParamCaption}
 \item[{\$}]{name}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classplugin_structure_a8dd32bd8570aaba99ee7b4e34e5f17f9}
-Runs plugins and functions that are associated with the \$name execution point. Any additional parameters will be passed to the function in the same order. 
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classplugin_structure_a8dd32bd8570aaba99ee7b4e34e5f17f9}
+Runs plugins and functions that are associated with the \$name execution point. Any additional parameters will be passed to the function in the same order as they are received. 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$name} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{classplugin_structure_aececb4940a9e4e77b26cd5c21426b336}{
 \index{pluginStructure@{pluginStructure}!unregisterExecutionPoint@{unregisterExecutionPoint}}
 \index{unregisterExecutionPoint@{unregisterExecutionPoint}!pluginStructure@{pluginStructure}}
 \subsubsection[{unregisterExecutionPoint}]{\setlength{\rightskip}{0pt plus 5cm}unregisterExecutionPoint (
 \begin{DoxyParamCaption}
 \item[{\$}]{name}
 \end{DoxyParamCaption}
-)}}
-\label{classplugin_structure_aececb4940a9e4e77b26cd5c21426b336}
+)}\label{classplugin_structure_aececb4940a9e4e77b26cd5c21426b336}
 Removes an execution point from the internal execution point list. Attention, you can remove rolisz's own execution points, after which it may no longer work as expected. 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$name} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{classplugin_structure_af6f30561b09fd0fd0e2a37ccdbb052cc}{
 \index{pluginStructure@{pluginStructure}!unregisterPlugin@{unregisterPlugin}}
 \index{unregisterPlugin@{unregisterPlugin}!pluginStructure@{pluginStructure}}
 \subsubsection[{unregisterPlugin}]{\setlength{\rightskip}{0pt plus 5cm}static unregisterPlugin (
 \begin{DoxyParamCaption}
 \item[{\$}]{name}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classplugin_structure_af6f30561b09fd0fd0e2a37ccdbb052cc}
-Unregisters a plugin. First parameter is the name of the plugin, as returned by the \hyperlink{classplugin_a3d0963e68bb313b163a73f2803c64600}{plugin::getName()} method. 
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classplugin_structure_af6f30561b09fd0fd0e2a37ccdbb052cc}
+Unregisters a plugin. 
 \begin{DoxyParams}[1]{Parameters}
-string & {\em \$name} & \\
+string & {\em \$name} & name of the plugin, as returned by the \doxyref{plugin::getName()}{p.}{classplugin_a3d0963e68bb313b163a73f2803c64600} method. \\
 \hline
 \end{DoxyParams}
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-C:/wamp/www/framework/\hyperlink{plugin_structure_8php}{pluginStructure.php}\end{DoxyCompactItemize}
+C:/wamp/www/framework/{\bf pluginStructure.php}\end{DoxyCompactItemize}

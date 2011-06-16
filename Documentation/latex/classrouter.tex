@@ -1,7 +1,5 @@
-\hypertarget{classrouter}{
 \section{router Class Reference}
 \label{classrouter}\index{router@{router}}
-}
 Inheritance diagram for router:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -11,16 +9,16 @@ Inheritance diagram for router:\begin{figure}[H]
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{classrouter_aafd29366ef6399da1dd079fc131d8858}{route} (\$pattern, \$funcs, \$http= 'GET', \$name=FALSE)
+static {\bf route} (\$pattern, \$funcs, \$http= 'GET', \$name=FALSE)
 \item 
-static \hyperlink{classrouter_ad3a572002fd350672b531756f7306e8f}{run} ()
+static {\bf run} ()
 \item 
-static \hyperlink{classrouter_a2c24b81993e81c6401edd6c4caff0336}{urlFor} (\$name, \$params=array())
+static {\bf urlFor} (\$name, \$params=array())
 \end{DoxyCompactItemize}
 \subsection*{Static Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{classrouter_a78ab5fc58d307458ac8767f50178fc7a}{matches} (\$route)
+static {\bf matches} (\$route)
 \end{DoxyCompactItemize}
 
 
@@ -28,15 +26,13 @@ static \hyperlink{classrouter_a78ab5fc58d307458ac8767f50178fc7a}{matches} (\$rou
 This class provides URL routing, pretty URLs and named URLs functionality. 
 
 \subsection{Member Function Documentation}
-\hypertarget{classrouter_a78ab5fc58d307458ac8767f50178fc7a}{
 \index{router@{router}!matches@{matches}}
 \index{matches@{matches}!router@{router}}
 \subsubsection[{matches}]{\setlength{\rightskip}{0pt plus 5cm}static matches (
 \begin{DoxyParamCaption}
 \item[{\$}]{route}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static, private\mbox{]}}}}
-\label{classrouter_a78ab5fc58d307458ac8767f50178fc7a}
+)\hspace{0.3cm}{\ttfamily  [static, private]}}\label{classrouter_a78ab5fc58d307458ac8767f50178fc7a}
 Checks if \$route matches the current URL 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$route} & \\
@@ -49,7 +45,6 @@ string & {\em \$route} & \\
 {\em false} & \\
 \hline
 \end{DoxyRetVals}
-\hypertarget{classrouter_aafd29366ef6399da1dd079fc131d8858}{
 \index{router@{router}!route@{route}}
 \index{route@{route}!router@{router}}
 \subsubsection[{route}]{\setlength{\rightskip}{0pt plus 5cm}static route (
@@ -59,43 +54,38 @@ string & {\em \$route} & \\
 \item[{\$}]{http = {\ttfamily 'GET'}, }
 \item[{\$}]{name = {\ttfamily FALSE}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrouter_aafd29366ef6399da1dd079fc131d8858}
-Set a new route pattern. First parameter defines the route. It can contain variables like /:var/ and catch-\/alls at the end: url/$\ast$. If it's an array of routes (that all lead to the same thing), the \$name parameter will be ignored. Second parameter defines the functions that can be passed as arguments. The functions can given as a list names separated by $|$, an array consisting of things that return true to is\_\-callable. If the array contains things that return false, it will trigger an error and the element will be unset. Also, you can just pass an anonymous function. If you give it as a string, you can also pass files. The third parameter is optional, defaults to GET, and is the HTTP method for which this route is valid. It can be GET or POST. The fourth parameter is optional, defaults to FALSE and gives the name of the route, to be used with \hyperlink{classrouter_a2c24b81993e81c6401edd6c4caff0336}{urlFor()}. 
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrouter_aafd29366ef6399da1dd079fc131d8858}
+Set a new route pattern. 
 \begin{DoxyParams}[1]{Parameters}
-string & {\em \$pattern} & \\
+string | array & {\em \$pattern} & defines the route. It can contain variables like /:var/ and catch-\/alls at the end: url/$\ast$. If it's an array of routes (that all lead to the same thing), the \$name parameter will be ignored. \\
 \hline
-mixed & {\em \$funcs} & \\
+mixed & {\em \$funcs} & defines the functions that can be passed as arguments. The functions can given as a list names separated by $|$, an array consisting of things that return true to is\_\-callable(). If the array contains things that return false, it will trigger an error and the element will be unset. Also, you can just pass an anonymous function. If you give it as a string, you can also pass files. \\
 \hline
-string & {\em \$http} & \\
+string & {\em \$http} & optional, defaults to GET, and is the HTTP method for which this route is valid. It can be GET or POST. If you want the route to be valid for AJAX calls only, use AGET or APOST. \\
 \hline
-string & {\em \$name} & \\
+string & {\em \$name} & optional, defaults to FALSE and gives the name of the route, to be used with \doxyref{urlFor()}{p.}{classrouter_a2c24b81993e81c6401edd6c4caff0336}. \\
 \hline
 \end{DoxyParams}
-\hypertarget{classrouter_ad3a572002fd350672b531756f7306e8f}{
 \index{router@{router}!run@{run}}
 \index{run@{run}!router@{router}}
 \subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}static run (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrouter_ad3a572002fd350672b531756f7306e8f}
-Process routes based on incoming URI. URL that is not matched will be passed as arguments to the functions that are called \hypertarget{classrouter_a2c24b81993e81c6401edd6c4caff0336}{
-\index{router@{router}!urlFor@{urlFor}}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrouter_ad3a572002fd350672b531756f7306e8f}
+Process routes based on the incoming URI. If no match is found, a 404 error is trigerred. beforeMatch and afterMatch plugins are called here. Throttles outputting the script until \doxyref{rolisz::get}{p.}{classbase_a0e8f3e2708d9f0c6ee7b54599f57ea34}('THROTTLE') time has passed. \index{router@{router}!urlFor@{urlFor}}
 \index{urlFor@{urlFor}!router@{router}}
 \subsubsection[{urlFor}]{\setlength{\rightskip}{0pt plus 5cm}static urlFor (
 \begin{DoxyParamCaption}
 \item[{\$}]{name, }
 \item[{\$}]{params = {\ttfamily array()}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrouter_a2c24b81993e81c6401edd6c4caff0336}
-Returns a URL with values for a given routing pattern 
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrouter_a2c24b81993e81c6401edd6c4caff0336}
+Returns a URL with values filled in for a given routing pattern. 
 \begin{DoxyParams}[1]{Parameters}
-string & {\em \$name} & \\
+string & {\em \$name} & name of the URL pattern, as given in \doxyref{route()}{p.}{classrouter_aafd29366ef6399da1dd079fc131d8858} function \\
 \hline
-array & {\em \$params} & \\
+array & {\em \$params} & has to be key-\/value pairs for each parameter in the URL pattern. \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
@@ -105,4 +95,4 @@ string
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-C:/wamp/www/framework/\hyperlink{router_8php}{router.php}\end{DoxyCompactItemize}
+C:/wamp/www/framework/{\bf router.php}\end{DoxyCompactItemize}

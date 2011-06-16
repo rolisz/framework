@@ -27,7 +27,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="rolisz.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">rolisz&#160;<span id="projectnumber">0.0.1</span></div>
+   <div id="projectname">rolisz&#160;<span id="projectnumber">0.0.3</span></div>
    <div id="projectbrief">Lightweight PHP framework</div>
   </td>
  </tr>
@@ -84,7 +84,6 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pri-methods">Private Member Functions</a> &#124;
 <a href="#pri-static-attribs">Static Private Attributes</a>  </div>
   <div class="headertitle">
@@ -110,9 +109,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtemplate.html#a7516ca30af0db3cdbf9a7739b48ce91d">__toString</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtemplate.html#ada2685086f0dc2eb8099c94f7d074885">view</a> ($tpl)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtemplate.html#abcdc5267dc378cabc6d0d5de589b358b">getOutput</a> ($<a class="el" href="classtemplate.html">template</a>)</td></tr>
-<tr><td colspan="2"><h2><a name="pub-static-methods"></a>
-Static Public Member Functions</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtemplate.html#a177589d5a40b626113b51f2e2b1a7eb5">viewS</a> ($<a class="el" href="classtemplate.html">template</a>)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtemplate.html#aa7c77841a9121548a339b7f93bddb506">includeSub</a> ($<a class="el" href="classtemplate.html">template</a>)</td></tr>
 <tr><td colspan="2"><h2><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtemplate.html#a57fe1e92cfb84c13658d12becd326984">checkCompile</a> ($<a class="el" href="classtemplate.html">template</a>)</td></tr>
@@ -158,7 +155,7 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Return value of framework variable, false if not found </p>
+<p>Return value of template variable, false if not found. This is separate from the rolisz global variables. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
@@ -199,14 +196,10 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Set the value of a framework variable magically. If $var param is string, then a variable called $var will have the value of $value. If $var is array, it should be a key-pair value like this array('var_name'=&gt;'132','2ndvar'=&gt;123). </p>
+<p>Set the value of a template variable magically. If $var param is string, then a variable called $var will have the value of $value. If $var is array, it should be a key-pair value like this array('var_name'=&gt;'132','2ndvar'=&gt;123). This is separate from the rolisz global variables. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramtype"></td><td class="paramname">$var</td><td>- string</p>
-<ul>
-<li>array </li>
-</ul>
-</td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;array</td><td class="paramname">$var</td><td></td></tr>
     <tr><td class="paramtype">mixed</td><td class="paramname">$value</td><td></td></tr>
   </table>
   </dd>
@@ -256,14 +249,10 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Set the value of a framework variable. If $var param is string, then a variable called $var will have the value of $value. If $var is array, it should be a key-pair value like this array('var_name'=&gt;'132','2ndvar'=&gt;123). </p>
+<p>Set the value of a template variable. If $var param is string, then a variable called $var will have the value of $value. If $var is array, it should be a key-pair value like this array('var_name'=&gt;'132','2ndvar'=&gt;123). This is separate from the rolisz global variables. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramtype"></td><td class="paramname">$var</td><td>- string</p>
-<ul>
-<li>array </li>
-</ul>
-</td></tr>
+    <tr><td class="paramtype">string&#160;|&#160;array</td><td class="paramname">$var</td><td></td></tr>
     <tr><td class="paramtype">mixed</td><td class="paramname">$value</td><td></td></tr>
   </table>
   </dd>
@@ -351,6 +340,30 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa7c77841a9121548a339b7f93bddb506"></a><!-- doxytag: member="template::includeSub" ref="aa7c77841a9121548a339b7f93bddb506" args="($template)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">includeSub </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>template</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Includes another template </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$template</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a class="anchor" id="ada2685086f0dc2eb8099c94f7d074885"></a><!-- doxytag: member="template::view" ref="ada2685086f0dc2eb8099c94f7d074885" args="($tpl)" -->
 <div class="memitem">
 <div class="memproto">
@@ -369,30 +382,6 @@ Static Private Attributes</h2></td></tr>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$tpl</td><td></td></tr>
-  </table>
-  </dd>
-</dl>
-
-</div>
-</div>
-<a class="anchor" id="a177589d5a40b626113b51f2e2b1a7eb5"></a><!-- doxytag: member="template::viewS" ref="a177589d5a40b626113b51f2e2b1a7eb5" args="($template)" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">static viewS </td>
-          <td>(</td>
-          <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>template</em></td><td>)</td>
-          <td><code> [static]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>Static wrapper for <a class="el" href="classtemplate.html#ada2685086f0dc2eb8099c94f7d074885">view()</a> used when including other templates inside templates. </p>
-<dl><dt><b>Parameters:</b></dt><dd>
-  <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$template</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -421,7 +410,7 @@ Static Private Attributes</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="classtemplate.html">template</a>      </li>
-      <li class="footer">Generated on Wed Apr 20 2011 21:47:00 for rolisz by&#160;
+      <li class="footer">Generated on Wed May 4 2011 12:18:41 for rolisz by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

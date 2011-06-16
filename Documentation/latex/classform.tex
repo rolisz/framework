@@ -1,0 +1,200 @@
+\section{form Class Reference}
+\label{classform}\index{form@{form}}
+Inheritance diagram for form:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classform}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf \_\-\_\-construct} (\${\bf form}=array(), \$model=FALSE)
+\item 
+{\bf input} (\$type, \$options)
+\item 
+{\bf \_\-\_\-call} (\$name, \$options)
+\item 
+{\bf removeInput} (\$name)
+\item 
+{\bf show} ()
+\item 
+{\bf getString} ()
+\item 
+{\bf validate} ()
+\item 
+{\bf getName} ()
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static {\bf getDefaultMethod} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\bf buildString} ()
+\end{DoxyCompactItemize}
+\subsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+{\bf \$inputs}
+\item 
+{\bf \$form}
+\item 
+{\bf \$string}
+\item 
+{\bf \$model} = FALSE
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Helper plugin to generate and validate forms. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{form@{form}!\_\-\_\-construct@{\_\-\_\-construct}}
+\index{\_\-\_\-construct@{\_\-\_\-construct}!form@{form}}
+\subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{\$}]{form = {\ttfamily array()}, }
+\item[{\$}]{model = {\ttfamily FALSE}}
+\end{DoxyParamCaption}
+)}\label{classform_aee32b59cc82c1031df163691562dd27b}
+Initializes a new form. 
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$form} & details about the form \\
+\hline
+array & {\em \$model} & optional, a table class initialized with a database table \\
+\hline
+\end{DoxyParams}
+
+
+\subsection{Member Function Documentation}
+\index{form@{form}!\_\-\_\-call@{\_\-\_\-call}}
+\index{\_\-\_\-call@{\_\-\_\-call}!form@{form}}
+\subsubsection[{\_\-\_\-call}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-call (
+\begin{DoxyParamCaption}
+\item[{\$}]{name, }
+\item[{\$}]{options}
+\end{DoxyParamCaption}
+)}\label{classform_ad2d1c941d9db0ec03096988f60c40537}
+Magic method for adding new inputs by calling their type directly. Throws an errors if trying to call an inexistent input type. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & \\
+\hline
+array & {\em \$options} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\$this 
+\end{DoxyReturn}
+\index{form@{form}!buildString@{buildString}}
+\index{buildString@{buildString}!form@{form}}
+\subsubsection[{buildString}]{\setlength{\rightskip}{0pt plus 5cm}buildString (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [private]}}\label{classform_a6162696233b36efd30e0617c0e51a691}
+Builds the HTML string with the inputs wrapped in unordered list items. \index{form@{form}!getDefaultMethod@{getDefaultMethod}}
+\index{getDefaultMethod@{getDefaultMethod}!form@{form}}
+\subsubsection[{getDefaultMethod}]{\setlength{\rightskip}{0pt plus 5cm}static getDefaultMethod (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classform_af3a9cc592a9767905c942de62ed46361}
+Default method is \doxyref{getString()}{p.}{classform_afde980915cc78c408e6ac75b662e631c} 
+
+Reimplemented from {\bf plugin} \doxyref{}{p.}{classplugin_af3a9cc592a9767905c942de62ed46361}.
+
+\index{form@{form}!getName@{getName}}
+\index{getName@{getName}!form@{form}}
+\subsubsection[{getName}]{\setlength{\rightskip}{0pt plus 5cm}getName (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classform_a3d0963e68bb313b163a73f2803c64600}
+Return the plugin name 
+
+Reimplemented from {\bf plugin} \doxyref{}{p.}{classplugin_a3d0963e68bb313b163a73f2803c64600}.
+
+\index{form@{form}!getString@{getString}}
+\index{getString@{getString}!form@{form}}
+\subsubsection[{getString}]{\setlength{\rightskip}{0pt plus 5cm}getString (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classform_afde980915cc78c408e6ac75b662e631c}
+Returns a string containing the form. \begin{DoxyReturn}{Returns}
+string 
+\end{DoxyReturn}
+\index{form@{form}!input@{input}}
+\index{input@{input}!form@{form}}
+\subsubsection[{input}]{\setlength{\rightskip}{0pt plus 5cm}input (
+\begin{DoxyParamCaption}
+\item[{\$}]{type, }
+\item[{\$}]{options}
+\end{DoxyParamCaption}
+)}\label{classform_aadd7831e2029ade2d8f9b76f9d000049}
+Adds an input element to the form. For checkboxes that have multiple values, the name is automatically suffixed with [] 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$type} & \\
+\hline
+array & {\em \$options} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\$this 
+\end{DoxyReturn}
+\index{form@{form}!removeInput@{removeInput}}
+\index{removeInput@{removeInput}!form@{form}}
+\subsubsection[{removeInput}]{\setlength{\rightskip}{0pt plus 5cm}removeInput (
+\begin{DoxyParamCaption}
+\item[{\$}]{name}
+\end{DoxyParamCaption}
+)}\label{classform_a5b9a9f37c7baeb5331008235927b261a}
+Remove an input from the form. Useful for the forms generated automatically from databases 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & \\
+\hline
+\end{DoxyParams}
+\index{form@{form}!show@{show}}
+\index{show@{show}!form@{form}}
+\subsubsection[{show}]{\setlength{\rightskip}{0pt plus 5cm}show (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classform_a2b8e3779f5bd8c38f70307574859bd36}
+Outputs the form \index{form@{form}!validate@{validate}}
+\index{validate@{validate}!form@{form}}
+\subsubsection[{validate}]{\setlength{\rightskip}{0pt plus 5cm}validate (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\label{classform_a184909dab34698899937d810a9f5d393}
+Validates this form 
+\begin{DoxyRetVals}{Return values}
+{\em true} & \\
+\hline
+{\em false} & \\
+\hline
+\end{DoxyRetVals}
+
+
+\subsection{Field Documentation}
+\index{form@{form}!\$form@{\$form}}
+\index{\$form@{\$form}!form@{form}}
+\subsubsection[{\$form}]{\setlength{\rightskip}{0pt plus 5cm}\${\bf form}\hspace{0.3cm}{\ttfamily  [private]}}\label{classform_a1a4fda4c28a9ee5f91102c023b9501f4}
+\index{form@{form}!\$inputs@{\$inputs}}
+\index{\$inputs@{\$inputs}!form@{form}}
+\subsubsection[{\$inputs}]{\setlength{\rightskip}{0pt plus 5cm}\$inputs\hspace{0.3cm}{\ttfamily  [private]}}\label{classform_a542cabf5d2a04f4b07a120eb382d3681}
+\index{form@{form}!\$model@{\$model}}
+\index{\$model@{\$model}!form@{form}}
+\subsubsection[{\$model}]{\setlength{\rightskip}{0pt plus 5cm}\$model = FALSE\hspace{0.3cm}{\ttfamily  [private]}}\label{classform_a08fdd91bde255dbe3e2d15a22d9663e8}
+\index{form@{form}!\$string@{\$string}}
+\index{\$string@{\$string}!form@{form}}
+\subsubsection[{\$string}]{\setlength{\rightskip}{0pt plus 5cm}\$string\hspace{0.3cm}{\ttfamily  [private]}}\label{classform_a05bc82187ba145848edd864852f4bd37}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+C:/wamp/www/framework/plugins/{\bf form.php}\end{DoxyCompactItemize}

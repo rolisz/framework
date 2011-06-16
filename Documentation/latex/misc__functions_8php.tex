@@ -1,4 +1,49 @@
-\hypertarget{misc__functions_8php}{
 \section{C:/wamp/www/framework/misc\_\-functions.php File Reference}
 \label{misc__functions_8php}\index{C:/wamp/www/framework/misc\_\-functions.php@{C:/wamp/www/framework/misc\_\-functions.php}}
-}
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static {\bf recursify} (\$array, \$end= '')
+\item 
+static {\bf array\_\-filter\_\-key} (\$input, \$callback)
+\end{DoxyCompactItemize}
+
+
+\subsection{Function Documentation}
+\index{misc\_\-functions.php@{misc\_\-functions.php}!array\_\-filter\_\-key@{array\_\-filter\_\-key}}
+\index{array\_\-filter\_\-key@{array\_\-filter\_\-key}!misc_functions.php@{misc\_\-functions.php}}
+\subsubsection[{array\_\-filter\_\-key}]{\setlength{\rightskip}{0pt plus 5cm}static array\_\-filter\_\-key (
+\begin{DoxyParamCaption}
+\item[{\$}]{input, }
+\item[{\$}]{callback}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{misc__functions_8php_a4e3140efc0d16bf5a55ee6c2f3c129e2}
+Filter an array by keys. Arguments similar to array\_\-filter. 
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$input} & \\
+\hline
+function & {\em \$callback} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+\index{misc\_\-functions.php@{misc\_\-functions.php}!recursify@{recursify}}
+\index{recursify@{recursify}!misc_functions.php@{misc\_\-functions.php}}
+\subsubsection[{recursify}]{\setlength{\rightskip}{0pt plus 5cm}static recursify (
+\begin{DoxyParamCaption}
+\item[{\$}]{array, }
+\item[{\$}]{end = {\ttfamily ''}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{misc__functions_8php_ad1b6efe27562cb6620a179f5688417bb}
+Turn linear array into a recursively nested array, with optional argument to be the the value at the end \par
+ ex: array('1','2','3') turns into array('1'=$>$array('2'=$>$array('3'=$>$''))) 
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$array} & \\
+\hline
+mixed & {\em \$end} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}

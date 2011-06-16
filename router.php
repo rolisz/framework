@@ -9,10 +9,10 @@ include_once ('rolisz.php');
 class router extends base {
 	/**
 	 *  Set a new route pattern.  
-	 * 		@param string $pattern defines the route. It can contain variables like /:var/ and catch-alls at the end: url/*. If
+	 * 		@param string|array $pattern defines the route. It can contain variables like /:var/ and catch-alls at the end: url/*. If
 	 * 	it's an array of routes (that all lead to the same thing), the $name parameter will be ignored.
 	 * 		@param mixed $funcs defines the functions that can be passed as arguments. The functions can given as a list names separated by |, an array
-	 *  consisting of things that return true to is_callable. If the array contains things that return false, it will trigger an error and
+	 *  consisting of things that return true to is_callable(). If the array contains things that return false, it will trigger an error and
 	 * 	the element will be unset. Also, you can just pass an anonymous function. If you give it as a string, you can also pass files.
 	 * 		@param string $http optional, defaults to GET, and is the HTTP method for which this route is valid. It can be GET or POST.
 	 * 	If you want the route to be valid for AJAX calls only, use AGET or APOST.
@@ -120,8 +120,8 @@ class router extends base {
 	}
 
 	/** 
-	 * 		Process routes based on incoming URI. URL that is not matched will be passed
-	 * 	as arguments to the functions that are called
+	 * 	Process routes based on the incoming URI. If no match is found, a 404 error is trigerred. beforeMatch and afterMatch plugins
+	 * 	are called here. Throttles outputting the script until rolisz::get('THROTTLE') time has passed.
 	**/
 	
 	public static function run() {
@@ -176,9 +176,9 @@ class router extends base {
 	}
 	
 	/** 
-	 * Returns a URL with values for a given routing pattern
-	 * 		@param string $name
-	 * 		@param array $params
+	 * Returns a URL with values filled in for a given routing pattern.
+	 * 		@param string $name name of the URL pattern, as given in route() function
+	 * 		@param array $params has to be key-value pairs for each parameter in the URL pattern.
 	 * 		@return string
 	**/
 	public static function urlFor($name, $params = array()) {

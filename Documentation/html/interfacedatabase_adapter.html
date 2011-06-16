@@ -27,7 +27,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="rolisz.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">rolisz&#160;<span id="projectnumber">0.0.1</span></div>
+   <div id="projectname">rolisz&#160;<span id="projectnumber">0.0.3</span></div>
    <div id="projectbrief">Lightweight PHP framework</div>
   </td>
  </tr>
@@ -101,7 +101,6 @@ Inheritance diagram for databaseAdapter:</div>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacedatabase_adapter.html#a81fcddb424f13e0862ee3f7e1ea57ce9">__construct</a> ($host, $username, $password, $db)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacedatabase_adapter.html#a4c4f3316747e665b9e02f6ddcba4117c">connect</a> ($host, $username, $password)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacedatabase_adapter.html#abe175fcf658475bc56e9d6fa02bc88ec">disconnect</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacedatabase_adapter.html#a039ae2e8f2bf579fd75d9df8df87eee3">escapeValue</a> ($value)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacedatabase_adapter.html#a529385852efa66f19288496930ee5394">fetchRow</a> ($query=false, $type='assoc')</td></tr>
@@ -112,13 +111,16 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacedatabase_adapter.html#acac8dfe61e7840f9a1e672ebede0be21">numAffected</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacedatabase_adapter.html#ac9fddec3f6bd1db128887a1b211d90f0">query</a> ($query)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacedatabase_adapter.html#ab624b0b234f9db9dbc6dc4180f566b1f">selectDatabase</a> ($db)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacedatabase_adapter.html#a09aabfaecf95a335063d4e237a2c2126">startTransaction</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacedatabase_adapter.html#af5674c27d4a92f6228565010eacbb9cb">commit</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacedatabase_adapter.html#afa549adf79e3f8c09fe8f903dd5fbfa7">rollback</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacedatabase_adapter.html#ae7cdaa744d52a1eb0103e377023ca528">tableExists</a> ($<a class="el" href="classtable.html">table</a>)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacedatabase_adapter.html#a4b06dfe3bf7dd552f828a80fece817d8">createTable</a> ($name, $params)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacedatabase_adapter.html#a3471d37afdd3d76f5379dfe7364db0b6">dropTable</a> ($name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="interfacedatabase_adapter.html#aa8cf3e2be109e548bed6980622fffb41">alterTable</a> ($name, $params)</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Defines all the functions a database adapter should have to be working with rolisz </p>
+<div class="textblock"><p>Defines all the functions a database adapter class should have to be working with rolisz </p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a81fcddb424f13e0862ee3f7e1ea57ce9"></a><!-- doxytag: member="databaseAdapter::__construct" ref="a81fcddb424f13e0862ee3f7e1ea57ce9" args="($host, $username, $password, $db)" -->
 <div class="memitem">
@@ -191,38 +193,21 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a4c4f3316747e665b9e02f6ddcba4117c"></a><!-- doxytag: member="databaseAdapter::connect" ref="a4c4f3316747e665b9e02f6ddcba4117c" args="($host, $username, $password)" -->
+<a class="anchor" id="af5674c27d4a92f6228565010eacbb9cb"></a><!-- doxytag: member="databaseAdapter::commit" ref="af5674c27d4a92f6228565010eacbb9cb" args="()" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">connect </td>
+          <td class="memname">commit </td>
           <td>(</td>
-          <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>host</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"></td><td>)</td>
           <td></td>
-          <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>username</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">$&#160;</td>
-          <td class="paramname"><em>password</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
 
-<p>Reimplemented in <a class="el" href="class_my_s_q_li_database.html#a4c4f3316747e665b9e02f6ddcba4117c">MySQLiDatabase</a>.</p>
+<p>Reimplemented in <a class="el" href="class_my_s_q_li_database.html#af5674c27d4a92f6228565010eacbb9cb">MySQLiDatabase</a>.</p>
 
 </div>
 </div>
@@ -458,6 +443,24 @@ Public Member Functions</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="afa549adf79e3f8c09fe8f903dd5fbfa7"></a><!-- doxytag: member="databaseAdapter::rollback" ref="afa549adf79e3f8c09fe8f903dd5fbfa7" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">rollback </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="class_my_s_q_li_database.html#afa549adf79e3f8c09fe8f903dd5fbfa7">MySQLiDatabase</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ab624b0b234f9db9dbc6dc4180f566b1f"></a><!-- doxytag: member="databaseAdapter::selectDatabase" ref="ab624b0b234f9db9dbc6dc4180f566b1f" args="($db)" -->
 <div class="memitem">
 <div class="memproto">
@@ -474,6 +477,24 @@ Public Member Functions</h2></td></tr>
 <div class="memdoc">
 
 <p>Reimplemented in <a class="el" href="class_my_s_q_li_database.html#ab624b0b234f9db9dbc6dc4180f566b1f">MySQLiDatabase</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="a09aabfaecf95a335063d4e237a2c2126"></a><!-- doxytag: member="databaseAdapter::startTransaction" ref="a09aabfaecf95a335063d4e237a2c2126" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">startTransaction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+
+<p>Reimplemented in <a class="el" href="class_my_s_q_li_database.html#a09aabfaecf95a335063d4e237a2c2126">MySQLiDatabase</a>.</p>
 
 </div>
 </div>
@@ -504,7 +525,7 @@ Public Member Functions</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="interfacedatabase_adapter.html">databaseAdapter</a>      </li>
-      <li class="footer">Generated on Wed Apr 20 2011 21:46:59 for rolisz by&#160;
+      <li class="footer">Generated on Wed May 4 2011 12:18:37 for rolisz by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

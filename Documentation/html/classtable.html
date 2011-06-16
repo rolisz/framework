@@ -27,7 +27,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="rolisz.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">rolisz&#160;<span id="projectnumber">0.0.1</span></div>
+   <div id="projectname">rolisz&#160;<span id="projectnumber">0.0.3</span></div>
    <div id="projectbrief">Lightweight PHP framework</div>
   </td>
  </tr>
@@ -114,6 +114,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#af231e86ad32039b9573ae228db5a29fa">__call</a> ($name, $args)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#ae671e339cdf6b77d4f8a9f6288000502">getPrimaryKey</a> ($value=FALSE)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#ac1eeb13dfaefd70b4c778080e5330525">getData</a> ($object=FALSE)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a61e5c6edbb0bf483ed7372d147e5c91a">isHydrated</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#afc8a3c62679cf00ade9f15fb2a6d6132">save</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a13bdffdd926f26b825ea57066334ff01">delete</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a54c67ef7f9e768176aedf92e3856abaa">find</a> ($<a class="el" href="classtable.html">table</a>, $filters=array(), $ordergroup=array(), $columns=array(), $import=TRUE)</td></tr>
@@ -128,6 +129,7 @@ Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a9b398e8dfd316739e74a7d19f2d988f0">addRelationM2MS</a> ($<a class="el" href="classtable.html">table</a>, $connectortable, $thisid, $mappedid, $connectedtable, $thatid, $cmappedid)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#aa3af4eeabe0a499ae25ef80fc93abbbd">addRelationS</a> ($<a class="el" href="classtable.html">table</a>, $tablename, $arg1, $arg2=FALSE)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#ae5daa73e570561db01a6198d85c50a1d">findS</a> ($<a class="el" href="classtable.html">table</a>, $filters=array(), $ordergroup=array(), $columns=array())</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a261361d7ef119731fbef0f122a530705">countRowsS</a> ($<a class="el" href="classtable.html">table</a>, $filters=array(), $ordergroup=array())</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#ae8876a14058f368335baccf35af4a22b">$table</a></td></tr>
@@ -150,7 +152,7 @@ Static Private Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtable.html#a927b0256b942a3ee89485f2649af7981">$primaryKey</a> = array()</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
-<div class="textblock"><p>Provides CRUD and ORM functionality. Detects automatically all the columns of a table. </p>
+<div class="textblock"><p>Provides CRUD and ORM functionality. Detects automatically all the columns of a table. If you have a table that gets called a lot you should extend this table and set the tables columns in your code, to save a database query that gets the columns of this table. </p>
 </div><hr/><h2>Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="adb8d24f1376e0b2c5f31deb281c76385"></a><!-- doxytag: member="table::__construct" ref="adb8d24f1376e0b2c5f31deb281c76385" args="($table, $id=FALSE, $columns=FALSE, $connection=FALSE)" -->
 <div class="memitem">
@@ -192,9 +194,9 @@ Static Private Attributes</h2></td></tr>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$table</td><td></td></tr>
-    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td></td></tr>
-    <tr><td class="paramtype">array</td><td class="paramname">$columns</td><td></td></tr>
-    <tr><td class="paramtype"><a class="el" href="interfacedatabase_adapter.html">databaseAdapter</a></td><td class="paramname">$connection</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td>optional </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$columns</td><td>- primary key is defined like this: 'PRI'=&gt;array('id'=&gt;'int'). Optional. Defaults to all columns </td></tr>
+    <tr><td class="paramtype"><a class="el" href="interfacedatabase_adapter.html">databaseAdapter</a></td><td class="paramname">$connection,.</td><td>Optional. Defaults to global connection in rolisz. </td></tr>
   </table>
   </dd>
 </dl>
@@ -226,8 +228,7 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Magic method for setting or getting related tables. If function is called without argument, it will find the related tables. It will automatically save the connectin! </p>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>If function is called with a related table as an argument, it will be connected to it. </dd></dl>
+<p>Magic method for setting or getting related tables. If function is called without argument, it will find the related tables. It will automatically save the connection! </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
@@ -235,7 +236,7 @@ Static Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>$args could be a table of $name </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000006">Todo:</a></b></dt><dd>$args could be a table of $name </dd></dl>
 
 </div>
 </div>
@@ -377,7 +378,7 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Adds a relation to another table. This is not for many to many tables. Use addRelationM2M for that. If third argument isn't passed, it defaults to the table primary key. Returns the table we are working on, to allow chaining of methods. </p>
+<p>Adds a relation to another table. This is for many-to-one or one-to-one relations. If third argument isn't passed, it defaults to the table primary key. Returns the table we are working on, to allow chaining of methods. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$tablename</td><td></td></tr>
@@ -438,7 +439,7 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Adds a many-to-many relation between tables. Takes a crapload of arguments. Returns the table we are working on, to allow chaining of methods. </p>
+<p>Adds a many-to-many relation between tables. Returns the table we are working on, to allow chaining of methods. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$connectortable</td><td></td></tr>
@@ -450,7 +451,7 @@ Static Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000008">Todo:</a></b></dt><dd>find a way to reduce arguments </dd></dl>
+<dl class="todo"><dt><b><a class="el" href="todo.html#_todo000007">Todo:</a></b></dt><dd>find a way to reduce arguments </dd></dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>$this </dd></dl>
 
 </div>
@@ -587,7 +588,7 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Analyzes the relation between tables and marks them accordingly. So far only ONE TO MANY and MANY TO MANY ones. Haven't seen a case of single </p>
+<p>Analyzes the relation between tables and marks them accordingly. So far only ONE TO MANY and MANY TO MANY ones. </p>
 
 </div>
 </div>
@@ -634,6 +635,49 @@ Static Private Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a261361d7ef119731fbef0f122a530705"></a><!-- doxytag: member="table::countRowsS" ref="a261361d7ef119731fbef0f122a530705" args="($table, $filters=array(), $ordergroup=array())" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static countRowsS </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>table</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>filters</em> = <code>array()</code>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"><em>ordergroup</em> = <code>array()</code>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Static wrapper for <a class="el" href="classtable.html#a456b3964c514406cc9498fc49e8c0317">countRows()</a>. Arguments the same. </p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$table</td><td>Table in which to search </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$filters</td><td>Filters to apply. Can be name=&gt;value pair, SQL statement, or recursive array relating to conditions on other tables </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$ordergroup</td><td>How to order, group and limit the search </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>int </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a13bdffdd926f26b825ea57066334ff01"></a><!-- doxytag: member="table::delete" ref="a13bdffdd926f26b825ea57066334ff01" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -647,7 +691,7 @@ Static Private Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Delete the corresponding record from the database </p>
+<p>Delete the current record from the database </p>
 
 </div>
 </div>
@@ -700,7 +744,7 @@ Static Private Attributes</h2></td></tr>
     <tr><td class="paramtype">array</td><td class="paramname">$filters</td><td>Filters to apply. Can be name=&gt;value pair, SQL statement, or recursive array relating to conditions on other tables </td></tr>
     <tr><td class="paramtype">array</td><td class="paramname">$ordergroup</td><td>How to order, group and limit the search </td></tr>
     <tr><td class="paramtype">array</td><td class="paramname">$columns</td><td>What columns to return in search. You can pass key value pairs to retrieve values from other tables such as 'relatedTable'=&gt;'column' </td></tr>
-    <tr><td class="paramtype">bool</td><td class="paramname">$import</td><td>- whether to import the resulting stuff into tables or not. Default is true. Useful if you use the $columns parameter to retrieve values from other tables. </td></tr>
+    <tr><td class="paramtype">bool</td><td class="paramname">$import</td><td>- whether to import the resulting stuff into tables or not. Default is true. Set to false if you use the $columns parameter to retrieve values from other tables. </td></tr>
   </table>
   </dd>
 </dl>
@@ -792,7 +836,7 @@ Static Private Attributes</h2></td></tr>
 <p>Returns the values of the current row as a key=&gt;value array. If the $object parameter is set to true, it returns an object with it's properties having the role of key-value pairs. If it hasn't been hydrated, it returns false. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramtype">boolena</td><td class="paramname">$object</td><td></td></tr>
+    <tr><td class="paramtype">boolean</td><td class="paramname">$object</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -848,7 +892,7 @@ Static Private Attributes</h2></td></tr>
 <p>Populate the object with data from the table, selected according to primary key value </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramtype">number</td><td class="paramname">$id</td><td></td></tr>
+    <tr><td class="paramtype">int</td><td class="paramname">$id</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -888,7 +932,31 @@ Static Private Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-<dl class="return"><dt><b>Returns:</b></dt><dd>array </dd></dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>array|object </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a61e5c6edbb0bf483ed7372d147e5c91a"></a><!-- doxytag: member="table::isHydrated" ref="a61e5c6edbb0bf483ed7372d147e5c91a" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">isHydrated </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Returns whether or not this object has been hydrated (did it load data from a table). It also returns true if it has already been saved to the database. </p>
+<dl><dt><b>Return values:</b></dt><dd>
+  <table class="retval">
+    <tr><td class="paramname">true</td><td></td></tr>
+    <tr><td class="paramname">false</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1087,14 +1155,14 @@ Static Private Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this class was generated from the following file:<ul>
-<li>C:/wamp/www/framework/<a class="el" href="db_8php.html">db.php</a></li>
+<li>C:/wamp/www/framework/<a class="el" href="table_8php.html">table.php</a></li>
 </ul>
 </div>
 </div>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="classtable.html">table</a>      </li>
-      <li class="footer">Generated on Wed Apr 20 2011 21:47:00 for rolisz by&#160;
+      <li class="footer">Generated on Wed May 4 2011 12:18:40 for rolisz by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

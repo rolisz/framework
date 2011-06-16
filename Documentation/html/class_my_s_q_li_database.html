@@ -27,7 +27,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
  <tr style="height: 56px;">
   <td id="projectlogo"><img alt="Logo" src="rolisz.png"></td>
   <td style="padding-left: 0.5em;">
-   <div id="projectname">rolisz&#160;<span id="projectnumber">0.0.1</span></div>
+   <div id="projectname">rolisz&#160;<span id="projectnumber">0.0.3</span></div>
    <div id="projectbrief">Lightweight PHP framework</div>
   </td>
  </tr>
@@ -84,7 +84,8 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
-<a href="#pub-attribs">Data Fields</a>  </div>
+<a href="#pub-attribs">Data Fields</a> &#124;
+<a href="#pri-methods">Private Member Functions</a>  </div>
   <div class="headertitle">
 <h1>MySQLiDatabase Class Reference</h1>  </div>
 </div>
@@ -102,10 +103,12 @@ Inheritance diagram for MySQLiDatabase:</div>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a81fcddb424f13e0862ee3f7e1ea57ce9">__construct</a> ($host, $username, $password, $db)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a4c4f3316747e665b9e02f6ddcba4117c">connect</a> ($host, $username, $password)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#abe175fcf658475bc56e9d6fa02bc88ec">disconnect</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a421831a265621325e1fdd19aace0c758">__destruct</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#ab624b0b234f9db9dbc6dc4180f566b1f">selectDatabase</a> ($db)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a09aabfaecf95a335063d4e237a2c2126">startTransaction</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#af5674c27d4a92f6228565010eacbb9cb">commit</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#afa549adf79e3f8c09fe8f903dd5fbfa7">rollback</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a039ae2e8f2bf579fd75d9df8df87eee3">escapeValue</a> ($value)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#aebc962126fd37fd3478c4689156d5f83">Query</a> ($query)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a3e35f6f5604ebbf57a86508c708bd33c">fetchFirst</a> ($query=false)</td></tr>
@@ -121,10 +124,13 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#aa8cf3e2be109e548bed6980622fffb41">alterTable</a> ($name, $params)</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a0d9c79b9b86b3f5891c6d3892f12c6a0">$connection</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a112ef069ddc0454086e3d1e6d8d55d07">$result</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a7691c0162d89de0b6ba47edcd8ba8878">$database</a></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a576b05de2f452e4cce4e3de12667ba0f">$queries</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a09a7c6d64b653047fc6178f4b2a8d6f2">$connection</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a32ada4a86bdb61a5949a40964987c213">$result</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#ae9e9bfe9472fbb797496dd93640cde9a">$database</a></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#abab5d9249e157026eb5f89e00f1dbca6">$queries</a></td></tr>
+<tr><td colspan="2"><h2><a name="pri-methods"></a>
+Private Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_my_s_q_li_database.html#a4c4f3316747e665b9e02f6ddcba4117c">connect</a> ($host, $username, $password)</td></tr>
 </table>
 <hr/><a name="_details"></a><h2>Detailed Description</h2>
 <div class="textblock"><p>MySQLi specific implementation of <a class="el" href="interfacedatabase_adapter.html">databaseAdapter</a> </p>
@@ -165,7 +171,7 @@ Data Fields</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Class constructor, initializes connection to MySQL database. Not implemented as singleton pattern because you can have connections to different databases. </p>
+<p>Class constructor, initializes connection to MySQL database. Not implemented as singleton pattern because you can have multiple objects, each with a connection to a different database. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$host</td><td></td></tr>
@@ -193,7 +199,7 @@ Data Fields</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Destructor of class. Disconnects from database. </p>
+<p>Cleass destructor. Disconnects from the database. </p>
 
 </div>
 </div>
@@ -222,7 +228,7 @@ Data Fields</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Alters $name table. To change it's name by $params must containt an element with key 'name' and value the new name of the table in params. To add a column, $paramas must contain an element with key 'add' and value an array of columns you wish to add (specified as at createTable. To modify a column, $params must contain an element with key 'edit' and value an array of columns you wish to edit (specified as at createTable. To drop a column, $params must contain an $element with key 'delete' and value the name of the column you want to delete. </p>
+<p>Alters $name table. To change it's name by $params must containt an element with key 'name' and value the new name of the table in params. To add a column, $params must contain an element with key 'add' and value an array of columns you wish to add (specified as at createTable). To modify a column, $params must contain an element with key 'edit' and value an array of columns you wish to edit (specified as at createTable). To drop a column, $params must contain an $element with key 'delete' and value the name of the column you want to delete. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$name</td><td></td></tr>
@@ -240,6 +246,25 @@ Data Fields</h2></td></tr>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000004">Todo:</a></b></dt><dd>some checks for valid column names and parameters </dd></dl>
 
 <p>Reimplemented from <a class="el" href="interfacedatabase_adapter.html#aa8cf3e2be109e548bed6980622fffb41">databaseAdapter</a>.</p>
+
+</div>
+</div>
+<a class="anchor" id="af5674c27d4a92f6228565010eacbb9cb"></a><!-- doxytag: member="MySQLiDatabase::commit" ref="af5674c27d4a92f6228565010eacbb9cb" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">commit </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Commits the last transaction </p>
+
+<p>Reimplemented from <a class="el" href="interfacedatabase_adapter.html#af5674c27d4a92f6228565010eacbb9cb">databaseAdapter</a>.</p>
 
 </div>
 </div>
@@ -268,13 +293,11 @@ Data Fields</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td><code> [private]</code></td>
         </tr>
       </table>
 </div>
 <div class="memdoc">
-
-<p>Reimplemented from <a class="el" href="interfacedatabase_adapter.html#a4c4f3316747e665b9e02f6ddcba4117c">databaseAdapter</a>.</p>
 
 </div>
 </div>
@@ -305,8 +328,8 @@ Data Fields</h2></td></tr>
 <p>Creates a table. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
-    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>Has to match this regex [A-Za-z0-9_]* </td></tr>
-    <tr><td class="paramtype">array</td><td class="paramname">$params</td><td>Example: array('id'=&gt;array('INT','NOT NULL','AUTO_INCREMENT','PRIMARY KEY'),'text'=&gt;array('TEXT','NOT NULL')) </td></tr>
+    <tr><td class="paramtype">string</td><td class="paramname">$name</td><td>Has to match this regex [A-Za-z0-9_.-]* </td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$params</td><td>Example: <code> array('id'=&gt;array('INT','NOT NULL','AUTO_INCREMENT','PRIMARY KEY'),'text'=&gt;array('TEXT','NOT NULL'))</code> </td></tr>
   </table>
   </dd>
 </dl>
@@ -453,7 +476,7 @@ Data Fields</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Fetches the first value from the first row. </p>
+<p>Fetches the first value from the first row of the result of a query. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$query</td><td></td></tr>
@@ -488,7 +511,7 @@ Data Fields</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Fetches first row from the results of a query. Returns numeric array, associative array or both depending on second parameter:1,2,3 </p>
+<p>Fetches first row from the results of a query. Returns numeric array, associative array or both depending on second parameter. </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$query</td><td></td></tr>
@@ -575,7 +598,7 @@ Data Fields</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Returns the number of rows from a query </p>
+<p>Returns the number of rows a query returned </p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>int </dd></dl>
 
 <p>Reimplemented from <a class="el" href="interfacedatabase_adapter.html#af37433a300db1f607ee789d22828a0a0">databaseAdapter</a>.</p>
@@ -596,7 +619,7 @@ Data Fields</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Executes query </p>
+<p>Executes a query </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$query</td><td></td></tr>
@@ -605,6 +628,25 @@ Data Fields</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>mixed </dd></dl>
 <dl class="todo"><dt><b><a class="el" href="todo.html#_todo000003">Todo:</a></b></dt><dd>change return values for insert, update, delete, select </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="afa549adf79e3f8c09fe8f903dd5fbfa7"></a><!-- doxytag: member="MySQLiDatabase::rollback" ref="afa549adf79e3f8c09fe8f903dd5fbfa7" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">rollback </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Rolls back last transaction </p>
+
+<p>Reimplemented from <a class="el" href="interfacedatabase_adapter.html#afa549adf79e3f8c09fe8f903dd5fbfa7">databaseAdapter</a>.</p>
 
 </div>
 </div>
@@ -641,6 +683,25 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a09aabfaecf95a335063d4e237a2c2126"></a><!-- doxytag: member="MySQLiDatabase::startTransaction" ref="a09aabfaecf95a335063d4e237a2c2126" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">startTransaction </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Starts a new transaction </p>
+
+<p>Reimplemented from <a class="el" href="interfacedatabase_adapter.html#a09aabfaecf95a335063d4e237a2c2126">databaseAdapter</a>.</p>
+
+</div>
+</div>
 <a class="anchor" id="ae7cdaa744d52a1eb0103e377023ca528"></a><!-- doxytag: member="MySQLiDatabase::tableExists" ref="ae7cdaa744d52a1eb0103e377023ca528" args="($table)" -->
 <div class="memitem">
 <div class="memproto">
@@ -655,7 +716,7 @@ Data Fields</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>Checks if a table exists </p>
+<p>Checks if a table exists in the current database </p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$table</td><td></td></tr>
@@ -675,12 +736,12 @@ Data Fields</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Field Documentation</h2>
-<a class="anchor" id="a0d9c79b9b86b3f5891c6d3892f12c6a0"></a><!-- doxytag: member="MySQLiDatabase::$connection" ref="a0d9c79b9b86b3f5891c6d3892f12c6a0" args="" -->
+<a class="anchor" id="a09a7c6d64b653047fc6178f4b2a8d6f2"></a><!-- doxytag: member="MySQLiDatabase::$connection" ref="a09a7c6d64b653047fc6178f4b2a8d6f2" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">$connection</td>
+          <td class="memname">MySQLi object $connection</td>
         </tr>
       </table>
 </div>
@@ -689,12 +750,12 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a7691c0162d89de0b6ba47edcd8ba8878"></a><!-- doxytag: member="MySQLiDatabase::$database" ref="a7691c0162d89de0b6ba47edcd8ba8878" args="" -->
+<a class="anchor" id="ae9e9bfe9472fbb797496dd93640cde9a"></a><!-- doxytag: member="MySQLiDatabase::$database" ref="ae9e9bfe9472fbb797496dd93640cde9a" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">$database</td>
+          <td class="memname">string $database</td>
         </tr>
       </table>
 </div>
@@ -703,12 +764,12 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a576b05de2f452e4cce4e3de12667ba0f"></a><!-- doxytag: member="MySQLiDatabase::$queries" ref="a576b05de2f452e4cce4e3de12667ba0f" args="" -->
+<a class="anchor" id="abab5d9249e157026eb5f89e00f1dbca6"></a><!-- doxytag: member="MySQLiDatabase::$queries" ref="abab5d9249e157026eb5f89e00f1dbca6" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">$queries</td>
+          <td class="memname">array $queries</td>
         </tr>
       </table>
 </div>
@@ -717,12 +778,12 @@ Data Fields</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a112ef069ddc0454086e3d1e6d8d55d07"></a><!-- doxytag: member="MySQLiDatabase::$result" ref="a112ef069ddc0454086e3d1e6d8d55d07" args="" -->
+<a class="anchor" id="a32ada4a86bdb61a5949a40964987c213"></a><!-- doxytag: member="MySQLiDatabase::$result" ref="a32ada4a86bdb61a5949a40964987c213" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">$result</td>
+          <td class="memname">array $result</td>
         </tr>
       </table>
 </div>
@@ -739,7 +800,7 @@ Data Fields</h2></td></tr>
   <div id="nav-path" class="navpath">
     <ul>
       <li class="navelem"><a class="el" href="class_my_s_q_li_database.html">MySQLiDatabase</a>      </li>
-      <li class="footer">Generated on Wed Apr 20 2011 21:46:59 for rolisz by&#160;
+      <li class="footer">Generated on Wed May 4 2011 12:18:38 for rolisz by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.3 </li>
     </ul>

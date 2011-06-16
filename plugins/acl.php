@@ -17,25 +17,24 @@ class acl extends plugin {
 	private $denyFunction;
 	
 	/**
-	 *  Constructor for ACL lists. Initializes internal list. First parameter gives the requester that will be used for ACL. 
-	 * The second parameter indicates a function that will be called instead of those that the requester can't acces.
-	 * 	The third parameter is either the prefix for the tables, if database based ACL's are used or tt can be an array, passed like
-	 * 	this: <code>array(
-	 *		'requesterss'=>array('users'=>array('test','rolisz'),'mods'=>array('bad_mod'),'admins'),
-	 *		'resources'=>array('posts','stats','comments','users'),
-	 *		'actions'=>array('view','edit','delete','ban'),
-	 *		'permissions'=>array(array('users','posts','view'),
-						   array('users','comments','view'),
-						   array('users','comments','add')
-						   ))
+	 *  Constructor for ACL lists. Initializes internal list. 
+	 * 	The third parameter  Fourth parameter is 
+	 * 		@param string $requester the requester that will be used for ACL. 
+	 * 		@param function $deny indicates a function that will be called instead of those that the requester can't acces.
+	 * 		@param array|string $prefix is either the prefix for the tables, if database based ACL's are used or it can be an array, passed like
+	 * 	this:
+	 * <code>array(
+	 *		'requesters' => array( 'users' => array( 'test' , 'rolisz' ), 'mods' => array( 'bad_mod' ), 'admins' ), 
+	 *		'resources' => array( 'posts' , 'stats' , 'comments' , 'users' ), 
+	 *		'actions' => array( 'view' , 'edit' , 'delete' , 'ban' ), 
+	 *		'permissions' => array( array( 'users' , 'posts' , 'view' ),
+	 *					  	 array( 'users' , 'comments' , 'view' ), 
+	 *					 	 array( 'users' , 'comments' , 'add' ) 
+	 *					   ))
 	 * </code>. It can be a database table, in which case
-	 * 	the plugin will use the default database connection through the table class. Or it can be an XML file. Fourth parameter is optional,
-	 *  defaults to 'db'. It must be 'xml' if you use an XML file, or a databaseAdapter object if you want to get the ACL table 
-	 * 	from a different database. 
-	 * 		@param string $requester 
-	 * 		@param function $deny
-	 * 		@param array|string $prefix  
-	 * 		@param $sourceType
+	 * 	the plugin will use the default database connection through the table class. Or it can be an XML file.
+	 * 		@param $sourceType optional,  defaults to 'db'. It must be 'xml' if you use an XML file, or a databaseAdapter
+	 *  object if you want to get the ACL table from a different database. 
 	 */
 	public function __construct($requester, $prefix = '', $deny = 'default',$sourceType = 'db') {
 		$this->requester = $requester;	
@@ -111,12 +110,13 @@ class acl extends plugin {
 	}
 	
 	/**
-	 *  Get name
+	 *  Get name. 
 	 * 		@return string 
 	 */
 	public function getName() {
 		return 'ACL';
 	}
+	
 	/**
 	 *  This checks for the consistency of the ACL list. 
 	 * 		@retval true
@@ -152,9 +152,7 @@ class acl extends plugin {
 	 }
 	 
 	 /**
-	  *  Executes the plugin at an execution point.
-	  * 	@param string $url - here because of compatibility with other plugins that might be executed at afterMatch
-	  * 	@param mixed $funcs
+	  *  Executes the plugin at an execution point. It takes the current Route from the router class. 
 	  */
 	public function run() {
 		$funcs = &self::$global['currentRoute'];
@@ -397,7 +395,7 @@ class acl extends plugin {
 
 
 	/**
-	 *  Delete something from the ACL. Parameters the same as for addNew(), except missing the last parameter
+	 *  Delete something from the ACL. Parameters the same as for addNew(), except the last parameter is not used again
 	 * 		@param string $type It can be 'resource', 'action', 'requester' or 'permission'
 	 * 		@param mixed $what For 'resource', 'action' and 'requester' it should be a string containing the name of the new 
 	 * 	element. For 'permission' it should be an associative array containing key-value pairs for each of the types. If no action

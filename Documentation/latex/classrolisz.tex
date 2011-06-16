@@ -1,7 +1,5 @@
-\hypertarget{classrolisz}{
 \section{rolisz Class Reference}
 \label{classrolisz}\index{rolisz@{rolisz}}
-}
 Inheritance diagram for rolisz:\begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -11,53 +9,50 @@ Inheritance diagram for rolisz:\begin{figure}[H]
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{classrolisz_af732c33c326c863efe6dd2cccb21a9a5}{call} (\$funcs, \$args)
+static {\bf call} (\$funcs, \$args)
 \item 
-static \hyperlink{classrolisz_a7cee6d5c562bcb595bc9d826910d248d}{connect} (\$dbtype, \$host, \$username, \$password, \$db)
+static {\bf connect} (\$dbtype, \$host, \$username, \$password, \$db)
 \item 
-static \hyperlink{classrolisz_ab4c022bf9d3474583030f31894865182}{autoload} (\$class)
+static {\bf autoload} (\$class)
 \item 
-static \hyperlink{classrolisz_a6fdc4c9fc517c619d860c7e91d17b02d}{http404} ()
+static {\bf http404} ()
 \item 
-static \hyperlink{classrolisz_a13d0c0500b75a5bdd849a4a55ba8e2b1}{fixSlashes} (\$str)
+static {\bf fixSlashes} (\$str)
 \item 
-static \hyperlink{classrolisz_ab8e0e9e5ffd59108f38efefe79511c5b}{fixBraces} (\$str)
+static {\bf fixBraces} (\$str)
 \item 
-static \hyperlink{classrolisz_a03afea9d9791d58f53a20d8f2dba4916}{plugin} ()
+static {\bf plugin} ()
 \item 
-static \hyperlink{classrolisz_a8dd32bd8570aaba99ee7b4e34e5f17f9}{runPlugins} (\$name)
+static {\bf runPlugins} (\$name)
 \item 
-static \hyperlink{classrolisz_aafd29366ef6399da1dd079fc131d8858}{route} (\$pattern, \$funcs, \$http= 'GET', \$name=FALSE)
+static {\bf route} (\$pattern, \$funcs, \$http= 'GET', \$name=FALSE)
 \item 
-static \hyperlink{classrolisz_ad3a572002fd350672b531756f7306e8f}{run} ()
+static {\bf run} ()
 \item 
-static \hyperlink{classrolisz_a2c24b81993e81c6401edd6c4caff0336}{urlFor} (\$name, \$params=array())
+static {\bf urlFor} (\$name, \$params=array())
 \item 
-static \hyperlink{classrolisz_ac871964dd21bf398baa7f61ecea0b895}{table} (\$\hyperlink{classtable}{table}, \$id=FALSE, \$columns=FALSE, \$connection=FALSE)
+static {\bf table} (\${\bf table}, \$id=FALSE, \$columns=FALSE, \$connection=FALSE)
 \item 
-static \hyperlink{classrolisz_a146085d0f3a9d17bdcd7f3d4081d8c0d}{start} ()
+static {\bf start} ()
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Central class, contains only general useful functions or wrappers for the other classes 
+Central class, contains only the most common functions or wrappers for the other classes 
 
 \subsection{Member Function Documentation}
-\hypertarget{classrolisz_ab4c022bf9d3474583030f31894865182}{
 \index{rolisz@{rolisz}!autoload@{autoload}}
 \index{autoload@{autoload}!rolisz@{rolisz}}
 \subsubsection[{autoload}]{\setlength{\rightskip}{0pt plus 5cm}static autoload (
 \begin{DoxyParamCaption}
 \item[{\$}]{class}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrolisz_ab4c022bf9d3474583030f31894865182}
-Autoloader function. Lazy-\/loads classes from files in the same directory as current one. Files must be named the same the classes 
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrolisz_ab4c022bf9d3474583030f31894865182}
+Autoloader function. Lazy-\/loads classes from files first from the framework directory, then the framework plugin directory, then the current one and finally a plugins folder situated in the current folder. Files must be named the same the classes 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$class} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{classrolisz_af732c33c326c863efe6dd2cccb21a9a5}{
 \index{rolisz@{rolisz}!call@{call}}
 \index{call@{call}!rolisz@{rolisz}}
 \subsubsection[{call}]{\setlength{\rightskip}{0pt plus 5cm}static call (
@@ -65,16 +60,14 @@ string & {\em \$class} & \\
 \item[{\$}]{funcs, }
 \item[{\$}]{args}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrolisz_af732c33c326c863efe6dd2cccb21a9a5}
-Provide sandbox for functions and import files to prevent direct access to framework internals and other scripts 
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrolisz_af732c33c326c863efe6dd2cccb21a9a5}
+Calls functions and includes files and passes them \$args as argument 
 \begin{DoxyParams}[1]{Parameters}
 mixed & {\em \$funcs} & \\
 \hline
 array & {\em \$args} & \\
 \hline
 \end{DoxyParams}
-\hypertarget{classrolisz_a7cee6d5c562bcb595bc9d826910d248d}{
 \index{rolisz@{rolisz}!connect@{connect}}
 \index{connect@{connect}!rolisz@{rolisz}}
 \subsubsection[{connect}]{\setlength{\rightskip}{0pt plus 5cm}static connect (
@@ -85,9 +78,8 @@ array & {\em \$args} & \\
 \item[{\$}]{password, }
 \item[{\$}]{db}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrolisz_a7cee6d5c562bcb595bc9d826910d248d}
-Connects to a database adapter that implements the interface defined in \hyperlink{database_adapter_8php}{databaseAdapter.php} Checks for the existence of the class in \hyperlink{database_adapter_8php}{databaseAdapter.php} and a file called \$dbtype.DatabaseAdapter.php 
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrolisz_a7cee6d5c562bcb595bc9d826910d248d}
+Connects to a database adapter that implements the interface defined in \doxyref{databaseAdapter.php}{p.}{database_adapter_8php} Checks for the existence of the class in \doxyref{databaseAdapter.php}{p.}{database_adapter_8php} and then in a file called \$dbtype.DatabaseAdapter.php 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$dbtype} & Database type. For now there is support for MySQL \\
 \hline
@@ -101,17 +93,15 @@ string & {\em \$db} & \\
 \hline
 \end{DoxyParams}
 \begin{DoxyReturn}{Returns}
-\hyperlink{interfacedatabase_adapter}{databaseAdapter} 
+\doxyref{databaseAdapter}{p.}{interfacedatabase_adapter} 
 \end{DoxyReturn}
-\hypertarget{classrolisz_ab8e0e9e5ffd59108f38efefe79511c5b}{
 \index{rolisz@{rolisz}!fixBraces@{fixBraces}}
 \index{fixBraces@{fixBraces}!rolisz@{rolisz}}
 \subsubsection[{fixBraces}]{\setlength{\rightskip}{0pt plus 5cm}static fixBraces (
 \begin{DoxyParamCaption}
 \item[{\$}]{str}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrolisz_ab8e0e9e5ffd59108f38efefe79511c5b}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrolisz_ab8e0e9e5ffd59108f38efefe79511c5b}
 Fix mangled braces 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$str} & \\
@@ -120,15 +110,13 @@ string & {\em \$str} & \\
 \begin{DoxyReturn}{Returns}
 string 
 \end{DoxyReturn}
-\hypertarget{classrolisz_a13d0c0500b75a5bdd849a4a55ba8e2b1}{
 \index{rolisz@{rolisz}!fixSlashes@{fixSlashes}}
 \index{fixSlashes@{fixSlashes}!rolisz@{rolisz}}
 \subsubsection[{fixSlashes}]{\setlength{\rightskip}{0pt plus 5cm}static fixSlashes (
 \begin{DoxyParamCaption}
 \item[{\$}]{str}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrolisz_a13d0c0500b75a5bdd849a4a55ba8e2b1}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrolisz_a13d0c0500b75a5bdd849a4a55ba8e2b1}
 Convert Windows double-\/backslashes to slashes 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$str} & \\
@@ -137,25 +125,23 @@ string & {\em \$str} & \\
 \begin{DoxyReturn}{Returns}
 string 
 \end{DoxyReturn}
-\hypertarget{classrolisz_a6fdc4c9fc517c619d860c7e91d17b02d}{
 \index{rolisz@{rolisz}!http404@{http404}}
 \index{http404@{http404}!rolisz@{rolisz}}
 \subsubsection[{http404}]{\setlength{\rightskip}{0pt plus 5cm}static http404 (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrolisz_a6fdc4c9fc517c619d860c7e91d17b02d}
-Trigger an HTTP 404 error. If the 404 framework variable has been set to a function, it will get called. Else, it just triggers an error saying the page was not found. \hypertarget{classrolisz_a03afea9d9791d58f53a20d8f2dba4916}{
-\index{rolisz@{rolisz}!plugin@{plugin}}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrolisz_a6fdc4c9fc517c619d860c7e91d17b02d}
+Trigger an HTTP 404 error. If the 404 framework variable has been set to a function, it will get called. Else, it just triggers an error saying the page was not found. \index{rolisz@{rolisz}!plugin@{plugin}}
 \index{plugin@{plugin}!rolisz@{rolisz}}
 \subsubsection[{plugin}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf plugin} (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrolisz_a03afea9d9791d58f53a20d8f2dba4916}
-Plugin functions \hypertarget{classrolisz_aafd29366ef6399da1dd079fc131d8858}{
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrolisz_a03afea9d9791d58f53a20d8f2dba4916}
+Plugin functions Return an instance of \doxyref{pluginStructure}{p.}{classplugin_structure} \begin{DoxyReturn}{Returns}
+\doxyref{pluginStructure}{p.}{classplugin_structure} 
+\end{DoxyReturn}
 \index{rolisz@{rolisz}!route@{route}}
 \index{route@{route}!rolisz@{rolisz}}
 \subsubsection[{route}]{\setlength{\rightskip}{0pt plus 5cm}static route (
@@ -165,43 +151,40 @@ Plugin functions \hypertarget{classrolisz_aafd29366ef6399da1dd079fc131d8858}{
 \item[{\$}]{http = {\ttfamily 'GET'}, }
 \item[{\$}]{name = {\ttfamily FALSE}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrolisz_aafd29366ef6399da1dd079fc131d8858}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrolisz_aafd29366ef6399da1dd079fc131d8858}
 Wrappers for the router class \begin{DoxySeeAlso}{See also}
-\hyperlink{classrouter_aafd29366ef6399da1dd079fc131d8858}{router::route} 
+\doxyref{router::route}{p.}{classrouter_aafd29366ef6399da1dd079fc131d8858} 
 \end{DoxySeeAlso}
-\hypertarget{classrolisz_ad3a572002fd350672b531756f7306e8f}{
 \index{rolisz@{rolisz}!run@{run}}
 \index{run@{run}!rolisz@{rolisz}}
 \subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}static run (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrolisz_ad3a572002fd350672b531756f7306e8f}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrolisz_ad3a572002fd350672b531756f7306e8f}
 \begin{DoxySeeAlso}{See also}
-\hyperlink{classrouter_ad3a572002fd350672b531756f7306e8f}{router::run} 
+\doxyref{router::run}{p.}{classrouter_ad3a572002fd350672b531756f7306e8f} 
 \end{DoxySeeAlso}
-\hypertarget{classrolisz_a8dd32bd8570aaba99ee7b4e34e5f17f9}{
 \index{rolisz@{rolisz}!runPlugins@{runPlugins}}
 \index{runPlugins@{runPlugins}!rolisz@{rolisz}}
 \subsubsection[{runPlugins}]{\setlength{\rightskip}{0pt plus 5cm}static runPlugins (
 \begin{DoxyParamCaption}
 \item[{\$}]{name}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrolisz_a8dd32bd8570aaba99ee7b4e34e5f17f9}
-\hypertarget{classrolisz_a146085d0f3a9d17bdcd7f3d4081d8c0d}{
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrolisz_a8dd32bd8570aaba99ee7b4e34e5f17f9}
+Runs plugins associated with \$name execution point. Additional parameters will be passed to plugin as parameters 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$name} & \\
+\hline
+\end{DoxyParams}
 \index{rolisz@{rolisz}!start@{start}}
 \index{start@{start}!rolisz@{rolisz}}
 \subsubsection[{start}]{\setlength{\rightskip}{0pt plus 5cm}static start (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrolisz_a146085d0f3a9d17bdcd7f3d4081d8c0d}
-Sets up autoload, initializes some constants. \hypertarget{classrolisz_ac871964dd21bf398baa7f61ecea0b895}{
-\index{rolisz@{rolisz}!table@{table}}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrolisz_a146085d0f3a9d17bdcd7f3d4081d8c0d}
+Sets up autoload, initializes some constants and starts session. \index{rolisz@{rolisz}!table@{table}}
 \index{table@{table}!rolisz@{rolisz}}
 \subsubsection[{table}]{\setlength{\rightskip}{0pt plus 5cm}static {\bf table} (
 \begin{DoxyParamCaption}
@@ -210,12 +193,13 @@ Sets up autoload, initializes some constants. \hypertarget{classrolisz_ac871964d
 \item[{\$}]{columns = {\ttfamily FALSE}, }
 \item[{\$}]{connection = {\ttfamily FALSE}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrolisz_ac871964dd21bf398baa7f61ecea0b895}
-Wrappers for tables \begin{DoxySeeAlso}{See also}
-\hyperlink{classtable}{table} 
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrolisz_ac871964dd21bf398baa7f61ecea0b895}
+Wrappers for tables Returns a new instance of table class. For parameters \begin{DoxySeeAlso}{See also}
+\doxyref{table}{p.}{classtable} 
 \end{DoxySeeAlso}
-\hypertarget{classrolisz_a2c24b81993e81c6401edd6c4caff0336}{
+\begin{DoxyReturn}{Returns}
+table 
+\end{DoxyReturn}
 \index{rolisz@{rolisz}!urlFor@{urlFor}}
 \index{urlFor@{urlFor}!rolisz@{rolisz}}
 \subsubsection[{urlFor}]{\setlength{\rightskip}{0pt plus 5cm}static urlFor (
@@ -223,13 +207,12 @@ Wrappers for tables \begin{DoxySeeAlso}{See also}
 \item[{\$}]{name, }
 \item[{\$}]{params = {\ttfamily array()}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classrolisz_a2c24b81993e81c6401edd6c4caff0336}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classrolisz_a2c24b81993e81c6401edd6c4caff0336}
 \begin{DoxySeeAlso}{See also}
-\hyperlink{classrouter_a2c24b81993e81c6401edd6c4caff0336}{router::urlFor} 
+\doxyref{router::urlFor}{p.}{classrouter_a2c24b81993e81c6401edd6c4caff0336} 
 \end{DoxySeeAlso}
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-C:/wamp/www/framework/\hyperlink{rolisz_8php}{rolisz.php}\end{DoxyCompactItemize}
+C:/wamp/www/framework/{\bf rolisz.php}\end{DoxyCompactItemize}

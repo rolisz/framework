@@ -1,0 +1,251 @@
+\contentsline {chapter}{\numberline {1}Todo List}{1}
+\contentsline {chapter}{\numberline {2}Namespace Index}{3}
+\contentsline {section}{\numberline {2.1}Namespace List}{3}
+\contentsline {chapter}{\numberline {3}Data Structure Index}{5}
+\contentsline {section}{\numberline {3.1}Class Hierarchy}{5}
+\contentsline {chapter}{\numberline {4}Data Structure Index}{7}
+\contentsline {section}{\numberline {4.1}Data Structures}{7}
+\contentsline {chapter}{\numberline {5}File Index}{9}
+\contentsline {section}{\numberline {5.1}File List}{9}
+\contentsline {chapter}{\numberline {6}Namespace Documentation}{11}
+\contentsline {section}{\numberline {6.1}Roland Namespace Reference}{11}
+\contentsline {subsection}{\numberline {6.1.1}Detailed Description}{11}
+\contentsline {section}{\numberline {6.2}rolisz Namespace Reference}{11}
+\contentsline {subsection}{\numberline {6.2.1}Detailed Description}{11}
+\contentsline {chapter}{\numberline {7}Data Structure Documentation}{13}
+\contentsline {section}{\numberline {7.1}acl Class Reference}{13}
+\contentsline {subsection}{\numberline {7.1.1}Detailed Description}{14}
+\contentsline {subsection}{\numberline {7.1.2}Constructor \& Destructor Documentation}{14}
+\contentsline {subsubsection}{\numberline {7.1.2.1}\_\discretionary {-}{}{}\_\discretionary {-}{}{}construct}{14}
+\contentsline {subsection}{\numberline {7.1.3}Member Function Documentation}{15}
+\contentsline {subsubsection}{\numberline {7.1.3.1}addNew}{15}
+\contentsline {subsubsection}{\numberline {7.1.3.2}checkConsistency}{15}
+\contentsline {subsubsection}{\numberline {7.1.3.3}deleteACL}{15}
+\contentsline {subsubsection}{\numberline {7.1.3.4}editACL}{16}
+\contentsline {subsubsection}{\numberline {7.1.3.5}getACL}{16}
+\contentsline {subsubsection}{\numberline {7.1.3.6}getName}{16}
+\contentsline {subsubsection}{\numberline {7.1.3.7}getPath}{17}
+\contentsline {subsubsection}{\numberline {7.1.3.8}init}{17}
+\contentsline {subsubsection}{\numberline {7.1.3.9}isAllowed}{17}
+\contentsline {subsubsection}{\numberline {7.1.3.10}run}{17}
+\contentsline {subsection}{\numberline {7.1.4}Field Documentation}{18}
+\contentsline {subsubsection}{\numberline {7.1.4.1}\$acl}{18}
+\contentsline {subsubsection}{\numberline {7.1.4.2}\$denyFunction}{18}
+\contentsline {subsubsection}{\numberline {7.1.4.3}\$prefix}{18}
+\contentsline {subsubsection}{\numberline {7.1.4.4}\$requester}{18}
+\contentsline {subsubsection}{\numberline {7.1.4.5}\$source}{18}
+\contentsline {subsubsection}{\numberline {7.1.4.6}\$sourceType}{18}
+\contentsline {section}{\numberline {7.2}base Class Reference}{18}
+\contentsline {subsection}{\numberline {7.2.1}Detailed Description}{19}
+\contentsline {subsection}{\numberline {7.2.2}Constructor \& Destructor Documentation}{19}
+\contentsline {subsubsection}{\numberline {7.2.2.1}\_\discretionary {-}{}{}\_\discretionary {-}{}{}construct}{19}
+\contentsline {subsection}{\numberline {7.2.3}Member Function Documentation}{19}
+\contentsline {subsubsection}{\numberline {7.2.3.1}check}{19}
+\contentsline {subsubsection}{\numberline {7.2.3.2}get}{19}
+\contentsline {subsubsection}{\numberline {7.2.3.3}set}{20}
+\contentsline {subsection}{\numberline {7.2.4}Field Documentation}{20}
+\contentsline {subsubsection}{\numberline {7.2.4.1}\$executionPoints}{20}
+\contentsline {subsubsection}{\numberline {7.2.4.2}\$global}{20}
+\contentsline {subsubsection}{\numberline {7.2.4.3}\$plugins}{20}
+\contentsline {subsubsection}{\numberline {7.2.4.4}AppName}{20}
+\contentsline {subsubsection}{\numberline {7.2.4.5}Module}{20}
+\contentsline {subsubsection}{\numberline {7.2.4.6}Version}{20}
+\contentsline {section}{\numberline {7.3}databaseAdapter Class Reference}{20}
+\contentsline {subsection}{\numberline {7.3.1}Detailed Description}{21}
+\contentsline {subsection}{\numberline {7.3.2}Constructor \& Destructor Documentation}{21}
+\contentsline {subsubsection}{\numberline {7.3.2.1}\_\discretionary {-}{}{}\_\discretionary {-}{}{}construct}{21}
+\contentsline {subsection}{\numberline {7.3.3}Member Function Documentation}{21}
+\contentsline {subsubsection}{\numberline {7.3.3.1}alterTable}{21}
+\contentsline {subsubsection}{\numberline {7.3.3.2}commit}{21}
+\contentsline {subsubsection}{\numberline {7.3.3.3}createTable}{21}
+\contentsline {subsubsection}{\numberline {7.3.3.4}disconnect}{21}
+\contentsline {subsubsection}{\numberline {7.3.3.5}dropTable}{22}
+\contentsline {subsubsection}{\numberline {7.3.3.6}escapeValue}{22}
+\contentsline {subsubsection}{\numberline {7.3.3.7}fetchAll}{22}
+\contentsline {subsubsection}{\numberline {7.3.3.8}fetchRow}{22}
+\contentsline {subsubsection}{\numberline {7.3.3.9}getError}{22}
+\contentsline {subsubsection}{\numberline {7.3.3.10}getInsertID}{22}
+\contentsline {subsubsection}{\numberline {7.3.3.11}numAffected}{22}
+\contentsline {subsubsection}{\numberline {7.3.3.12}numRows}{22}
+\contentsline {subsubsection}{\numberline {7.3.3.13}query}{22}
+\contentsline {subsubsection}{\numberline {7.3.3.14}rollback}{22}
+\contentsline {subsubsection}{\numberline {7.3.3.15}selectDatabase}{22}
+\contentsline {subsubsection}{\numberline {7.3.3.16}startTransaction}{23}
+\contentsline {subsubsection}{\numberline {7.3.3.17}tableExists}{23}
+\contentsline {section}{\numberline {7.4}form Class Reference}{23}
+\contentsline {subsection}{\numberline {7.4.1}Detailed Description}{24}
+\contentsline {subsection}{\numberline {7.4.2}Constructor \& Destructor Documentation}{24}
+\contentsline {subsubsection}{\numberline {7.4.2.1}\_\discretionary {-}{}{}\_\discretionary {-}{}{}construct}{24}
+\contentsline {subsection}{\numberline {7.4.3}Member Function Documentation}{24}
+\contentsline {subsubsection}{\numberline {7.4.3.1}\_\discretionary {-}{}{}\_\discretionary {-}{}{}call}{24}
+\contentsline {subsubsection}{\numberline {7.4.3.2}buildString}{24}
+\contentsline {subsubsection}{\numberline {7.4.3.3}getDefaultMethod}{24}
+\contentsline {subsubsection}{\numberline {7.4.3.4}getName}{25}
+\contentsline {subsubsection}{\numberline {7.4.3.5}getString}{25}
+\contentsline {subsubsection}{\numberline {7.4.3.6}input}{25}
+\contentsline {subsubsection}{\numberline {7.4.3.7}removeInput}{25}
+\contentsline {subsubsection}{\numberline {7.4.3.8}show}{25}
+\contentsline {subsubsection}{\numberline {7.4.3.9}validate}{25}
+\contentsline {subsection}{\numberline {7.4.4}Field Documentation}{26}
+\contentsline {subsubsection}{\numberline {7.4.4.1}\$form}{26}
+\contentsline {subsubsection}{\numberline {7.4.4.2}\$inputs}{26}
+\contentsline {subsubsection}{\numberline {7.4.4.3}\$model}{26}
+\contentsline {subsubsection}{\numberline {7.4.4.4}\$string}{26}
+\contentsline {section}{\numberline {7.5}MySQLiDatabase Class Reference}{26}
+\contentsline {subsection}{\numberline {7.5.1}Detailed Description}{27}
+\contentsline {subsection}{\numberline {7.5.2}Constructor \& Destructor Documentation}{27}
+\contentsline {subsubsection}{\numberline {7.5.2.1}\_\discretionary {-}{}{}\_\discretionary {-}{}{}construct}{27}
+\contentsline {subsubsection}{\numberline {7.5.2.2}\_\discretionary {-}{}{}\_\discretionary {-}{}{}destruct}{27}
+\contentsline {subsection}{\numberline {7.5.3}Member Function Documentation}{28}
+\contentsline {subsubsection}{\numberline {7.5.3.1}alterTable}{28}
+\contentsline {subsubsection}{\numberline {7.5.3.2}commit}{28}
+\contentsline {subsubsection}{\numberline {7.5.3.3}connect}{28}
+\contentsline {subsubsection}{\numberline {7.5.3.4}createTable}{28}
+\contentsline {subsubsection}{\numberline {7.5.3.5}disconnect}{29}
+\contentsline {subsubsection}{\numberline {7.5.3.6}dropTable}{29}
+\contentsline {subsubsection}{\numberline {7.5.3.7}escapeValue}{29}
+\contentsline {subsubsection}{\numberline {7.5.3.8}fetchAll}{29}
+\contentsline {subsubsection}{\numberline {7.5.3.9}fetchFirst}{30}
+\contentsline {subsubsection}{\numberline {7.5.3.10}fetchRow}{30}
+\contentsline {subsubsection}{\numberline {7.5.3.11}getError}{30}
+\contentsline {subsubsection}{\numberline {7.5.3.12}getInsertID}{30}
+\contentsline {subsubsection}{\numberline {7.5.3.13}numAffected}{31}
+\contentsline {subsubsection}{\numberline {7.5.3.14}numRows}{31}
+\contentsline {subsubsection}{\numberline {7.5.3.15}Query}{31}
+\contentsline {subsubsection}{\numberline {7.5.3.16}rollback}{31}
+\contentsline {subsubsection}{\numberline {7.5.3.17}selectDatabase}{31}
+\contentsline {subsubsection}{\numberline {7.5.3.18}startTransaction}{32}
+\contentsline {subsubsection}{\numberline {7.5.3.19}tableExists}{32}
+\contentsline {subsection}{\numberline {7.5.4}Field Documentation}{32}
+\contentsline {subsubsection}{\numberline {7.5.4.1}\$connection}{32}
+\contentsline {subsubsection}{\numberline {7.5.4.2}\$database}{32}
+\contentsline {subsubsection}{\numberline {7.5.4.3}\$queries}{32}
+\contentsline {subsubsection}{\numberline {7.5.4.4}\$result}{33}
+\contentsline {section}{\numberline {7.6}plugin Class Reference}{33}
+\contentsline {subsection}{\numberline {7.6.1}Detailed Description}{33}
+\contentsline {subsection}{\numberline {7.6.2}Constructor \& Destructor Documentation}{33}
+\contentsline {subsubsection}{\numberline {7.6.2.1}\_\discretionary {-}{}{}\_\discretionary {-}{}{}construct}{33}
+\contentsline {subsection}{\numberline {7.6.3}Member Function Documentation}{34}
+\contentsline {subsubsection}{\numberline {7.6.3.1}getDefaultExecutionPoints}{34}
+\contentsline {subsubsection}{\numberline {7.6.3.2}getDefaultMethod}{34}
+\contentsline {subsubsection}{\numberline {7.6.3.3}getName}{34}
+\contentsline {subsubsection}{\numberline {7.6.3.4}run}{35}
+\contentsline {section}{\numberline {7.7}pluginStructure Class Reference}{35}
+\contentsline {subsection}{\numberline {7.7.1}Detailed Description}{35}
+\contentsline {subsection}{\numberline {7.7.2}Constructor \& Destructor Documentation}{35}
+\contentsline {subsubsection}{\numberline {7.7.2.1}\_\discretionary {-}{}{}\_\discretionary {-}{}{}construct}{35}
+\contentsline {subsection}{\numberline {7.7.3}Member Function Documentation}{36}
+\contentsline {subsubsection}{\numberline {7.7.3.1}checkExecutionPoint}{36}
+\contentsline {subsubsection}{\numberline {7.7.3.2}checkPlugin}{36}
+\contentsline {subsubsection}{\numberline {7.7.3.3}registerExecutionPoint}{36}
+\contentsline {subsubsection}{\numberline {7.7.3.4}registerPlugin}{36}
+\contentsline {subsubsection}{\numberline {7.7.3.5}runPlugins}{37}
+\contentsline {subsubsection}{\numberline {7.7.3.6}unregisterExecutionPoint}{37}
+\contentsline {subsubsection}{\numberline {7.7.3.7}unregisterPlugin}{37}
+\contentsline {section}{\numberline {7.8}Query Class Reference}{37}
+\contentsline {subsection}{\numberline {7.8.1}Detailed Description}{38}
+\contentsline {subsection}{\numberline {7.8.2}Constructor \& Destructor Documentation}{38}
+\contentsline {subsubsection}{\numberline {7.8.2.1}\_\discretionary {-}{}{}\_\discretionary {-}{}{}construct}{38}
+\contentsline {subsection}{\numberline {7.8.3}Member Function Documentation}{38}
+\contentsline {subsubsection}{\numberline {7.8.3.1}buildFilters}{38}
+\contentsline {subsubsection}{\numberline {7.8.3.2}buildJoins}{39}
+\contentsline {subsubsection}{\numberline {7.8.3.3}buildOrderBy}{39}
+\contentsline {subsubsection}{\numberline {7.8.3.4}buildQuery}{39}
+\contentsline {subsubsection}{\numberline {7.8.3.5}getCount}{39}
+\contentsline {section}{\numberline {7.9}rolisz Class Reference}{39}
+\contentsline {subsection}{\numberline {7.9.1}Detailed Description}{40}
+\contentsline {subsection}{\numberline {7.9.2}Member Function Documentation}{40}
+\contentsline {subsubsection}{\numberline {7.9.2.1}autoload}{40}
+\contentsline {subsubsection}{\numberline {7.9.2.2}call}{40}
+\contentsline {subsubsection}{\numberline {7.9.2.3}connect}{41}
+\contentsline {subsubsection}{\numberline {7.9.2.4}fixBraces}{41}
+\contentsline {subsubsection}{\numberline {7.9.2.5}fixSlashes}{41}
+\contentsline {subsubsection}{\numberline {7.9.2.6}http404}{42}
+\contentsline {subsubsection}{\numberline {7.9.2.7}plugin}{42}
+\contentsline {subsubsection}{\numberline {7.9.2.8}route}{42}
+\contentsline {subsubsection}{\numberline {7.9.2.9}run}{42}
+\contentsline {subsubsection}{\numberline {7.9.2.10}runPlugins}{42}
+\contentsline {subsubsection}{\numberline {7.9.2.11}start}{42}
+\contentsline {subsubsection}{\numberline {7.9.2.12}table}{42}
+\contentsline {subsubsection}{\numberline {7.9.2.13}urlFor}{43}
+\contentsline {section}{\numberline {7.10}router Class Reference}{43}
+\contentsline {subsection}{\numberline {7.10.1}Detailed Description}{43}
+\contentsline {subsection}{\numberline {7.10.2}Member Function Documentation}{44}
+\contentsline {subsubsection}{\numberline {7.10.2.1}matches}{44}
+\contentsline {subsubsection}{\numberline {7.10.2.2}route}{44}
+\contentsline {subsubsection}{\numberline {7.10.2.3}run}{44}
+\contentsline {subsubsection}{\numberline {7.10.2.4}urlFor}{44}
+\contentsline {section}{\numberline {7.11}table Class Reference}{45}
+\contentsline {subsection}{\numberline {7.11.1}Detailed Description}{46}
+\contentsline {subsection}{\numberline {7.11.2}Constructor \& Destructor Documentation}{47}
+\contentsline {subsubsection}{\numberline {7.11.2.1}\_\discretionary {-}{}{}\_\discretionary {-}{}{}construct}{47}
+\contentsline {subsection}{\numberline {7.11.3}Member Function Documentation}{47}
+\contentsline {subsubsection}{\numberline {7.11.3.1}\_\discretionary {-}{}{}\_\discretionary {-}{}{}call}{47}
+\contentsline {subsubsection}{\numberline {7.11.3.2}\_\discretionary {-}{}{}\_\discretionary {-}{}{}get}{47}
+\contentsline {subsubsection}{\numberline {7.11.3.3}\_\discretionary {-}{}{}\_\discretionary {-}{}{}isset}{47}
+\contentsline {subsubsection}{\numberline {7.11.3.4}\_\discretionary {-}{}{}\_\discretionary {-}{}{}set}{48}
+\contentsline {subsubsection}{\numberline {7.11.3.5}\_\discretionary {-}{}{}\_\discretionary {-}{}{}sleep}{48}
+\contentsline {subsubsection}{\numberline {7.11.3.6}addRelation}{48}
+\contentsline {subsubsection}{\numberline {7.11.3.7}addRelationM2M}{48}
+\contentsline {subsubsection}{\numberline {7.11.3.8}addRelationM2MS}{49}
+\contentsline {subsubsection}{\numberline {7.11.3.9}addRelationS}{49}
+\contentsline {subsubsection}{\numberline {7.11.3.10}analyzeRelations}{49}
+\contentsline {subsubsection}{\numberline {7.11.3.11}countRows}{50}
+\contentsline {subsubsection}{\numberline {7.11.3.12}countRowsS}{50}
+\contentsline {subsubsection}{\numberline {7.11.3.13}delete}{50}
+\contentsline {subsubsection}{\numberline {7.11.3.14}find}{50}
+\contentsline {subsubsection}{\numberline {7.11.3.15}findS}{51}
+\contentsline {subsubsection}{\numberline {7.11.3.16}getColumns}{51}
+\contentsline {subsubsection}{\numberline {7.11.3.17}getData}{51}
+\contentsline {subsubsection}{\numberline {7.11.3.18}getPrimaryKey}{52}
+\contentsline {subsubsection}{\numberline {7.11.3.19}hydrate}{52}
+\contentsline {subsubsection}{\numberline {7.11.3.20}importRows}{52}
+\contentsline {subsubsection}{\numberline {7.11.3.21}isHydrated}{52}
+\contentsline {subsubsection}{\numberline {7.11.3.22}save}{53}
+\contentsline {subsubsection}{\numberline {7.11.3.23}set}{53}
+\contentsline {subsubsection}{\numberline {7.11.3.24}setAll}{53}
+\contentsline {subsection}{\numberline {7.11.4}Field Documentation}{53}
+\contentsline {subsubsection}{\numberline {7.11.4.1}\$connection}{53}
+\contentsline {subsubsection}{\numberline {7.11.4.2}\$modifiedData}{53}
+\contentsline {subsubsection}{\numberline {7.11.4.3}\$originalData}{53}
+\contentsline {subsubsection}{\numberline {7.11.4.4}\$primaryKey}{53}
+\contentsline {subsubsection}{\numberline {7.11.4.5}\$relations}{53}
+\contentsline {subsubsection}{\numberline {7.11.4.6}\$table}{54}
+\contentsline {subsubsection}{\numberline {7.11.4.7}\$tables}{54}
+\contentsline {section}{\numberline {7.12}template Class Reference}{54}
+\contentsline {subsection}{\numberline {7.12.1}Detailed Description}{55}
+\contentsline {subsection}{\numberline {7.12.2}Constructor \& Destructor Documentation}{55}
+\contentsline {subsubsection}{\numberline {7.12.2.1}\_\discretionary {-}{}{}\_\discretionary {-}{}{}construct}{55}
+\contentsline {subsection}{\numberline {7.12.3}Member Function Documentation}{55}
+\contentsline {subsubsection}{\numberline {7.12.3.1}\_\discretionary {-}{}{}\_\discretionary {-}{}{}get}{55}
+\contentsline {subsubsection}{\numberline {7.12.3.2}\_\discretionary {-}{}{}\_\discretionary {-}{}{}set}{55}
+\contentsline {subsubsection}{\numberline {7.12.3.3}\_\discretionary {-}{}{}\_\discretionary {-}{}{}toString}{55}
+\contentsline {subsubsection}{\numberline {7.12.3.4}assign}{56}
+\contentsline {subsubsection}{\numberline {7.12.3.5}checkCompile}{56}
+\contentsline {subsubsection}{\numberline {7.12.3.6}compile}{56}
+\contentsline {subsubsection}{\numberline {7.12.3.7}getOutput}{56}
+\contentsline {subsubsection}{\numberline {7.12.3.8}includeSub}{57}
+\contentsline {subsubsection}{\numberline {7.12.3.9}view}{57}
+\contentsline {subsection}{\numberline {7.12.4}Field Documentation}{57}
+\contentsline {subsubsection}{\numberline {7.12.4.1}\$values}{57}
+\contentsline {chapter}{\numberline {8}File Documentation}{59}
+\contentsline {section}{\numberline {8.1}C:/wamp/www/framework/base.php File Reference}{59}
+\contentsline {section}{\numberline {8.2}C:/wamp/www/framework/databaseAdapter.php File Reference}{59}
+\contentsline {section}{\numberline {8.3}C:/wamp/www/framework/misc\_\discretionary {-}{}{}functions.php File Reference}{59}
+\contentsline {subsection}{\numberline {8.3.1}Function Documentation}{60}
+\contentsline {subsubsection}{\numberline {8.3.1.1}array\_\discretionary {-}{}{}filter\_\discretionary {-}{}{}key}{60}
+\contentsline {subsubsection}{\numberline {8.3.1.2}recursify}{60}
+\contentsline {section}{\numberline {8.4}C:/wamp/www/framework/plugin.php File Reference}{60}
+\contentsline {section}{\numberline {8.5}C:/wamp/www/framework/plugins/acl.php File Reference}{60}
+\contentsline {section}{\numberline {8.6}C:/wamp/www/framework/plugins/form.php File Reference}{61}
+\contentsline {section}{\numberline {8.7}C:/wamp/www/framework/pluginStructure.php File Reference}{61}
+\contentsline {section}{\numberline {8.8}C:/wamp/www/framework/rolisz.php File Reference}{61}
+\contentsline {section}{\numberline {8.9}C:/wamp/www/framework/router.php File Reference}{61}
+\contentsline {section}{\numberline {8.10}C:/wamp/www/framework/table.php File Reference}{62}
+\contentsline {subsection}{\numberline {8.10.1}Enumeration Type Documentation}{62}
+\contentsline {subsubsection}{\numberline {8.10.1.1}MANY}{62}
+\contentsline {subsubsection}{\numberline {8.10.1.2}NOT\_\discretionary {-}{}{}ANALYZED}{62}
+\contentsline {subsubsection}{\numberline {8.10.1.3}NOT\_\discretionary {-}{}{}RECOGNIZED}{62}
+\contentsline {subsubsection}{\numberline {8.10.1.4}ONE\_\discretionary {-}{}{}TO\_\discretionary {-}{}{}MANY}{62}
+\contentsline {subsubsection}{\numberline {8.10.1.5}SINGLE}{62}
+\contentsline {section}{\numberline {8.11}C:/wamp/www/framework/template.php File Reference}{62}

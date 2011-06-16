@@ -1,112 +1,71 @@
-\hypertarget{classbase}{
 \section{base Class Reference}
 \label{classbase}\index{base@{base}}
-}
 Inheritance diagram for base:\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=1.509434cm]{classbase}
+\includegraphics[height=1.981132cm]{classbase}
 \end{center}
 \end{figure}
 \subsection*{Static Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{classbase_a9fa8e32de2139fd5e55c102dcdf9120f}{\_\-\_\-callStatic} (\$func, array \$args)
+static {\bf get} (\$var)
 \item 
-static \hyperlink{classbase_a0e8f3e2708d9f0c6ee7b54599f57ea34}{get} (\$var)
+static {\bf check} (\$var)
 \item 
-static \hyperlink{classbase_ae09ec448121b7c739ecd283675056e1f}{check} (\$var)
-\item 
-static \hyperlink{classbase_adc76e59111cb34cf88726e6f3bd0be8b}{set} (\$var, \$value=FALSE)
+static {\bf set} (\$var, \$value=FALSE)
 \end{DoxyCompactItemize}
 \subsection*{Data Fields}
 \begin{DoxyCompactItemize}
 \item 
-const \hyperlink{classbase_aab75444b144ffc4e972a9170e0a76ec0}{AppName} = '\hyperlink{classrolisz}{rolisz} PHP framework'
+const {\bf AppName} = '{\bf rolisz} PHP framework'
 \item 
-const \hyperlink{classbase_a62e44de9100d83ee01f5b4875b49a02b}{Version} = '0.0.1'
+const {\bf Version} = '0.0.3'
 \item 
-const \hyperlink{classbase_a2c348358c1db4bb5136855f7f31e1157}{Module} = 'Base class'
+const {\bf Module} = 'Base class'
 \item 
-static \hyperlink{classbase_a4ab51386acb82cd0a0066eac2567b2bd}{\$plugins}
+static {\bf \$plugins}
 \item 
-static \hyperlink{classbase_a878a31351411a5b5d68c12c87c154084}{\$executionPoints}
+static {\bf \$executionPoints}
 \end{DoxyCompactItemize}
 \subsection*{Static Protected Attributes}
 \begin{DoxyCompactItemize}
 \item 
-static \hyperlink{classbase_aad844777d9d6beb4ca7c92d97afe7d27}{\$global}
+static {\bf \$global}
 \end{DoxyCompactItemize}
 \subsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\hyperlink{classbase_a095c5d389db211932136b53f25f39685}{\_\-\_\-construct} ()
+{\bf \_\-\_\-construct} ()
 \end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-Base class. Defines some framework details, global variables and intercept functions 
+Base class for all the others in the framwork. Defines some framework details, global variables and setters and getters for framework variables. 
 
 \subsection{Constructor \& Destructor Documentation}
-\hypertarget{classbase_a095c5d389db211932136b53f25f39685}{
 \index{base@{base}!\_\-\_\-construct@{\_\-\_\-construct}}
 \index{\_\-\_\-construct@{\_\-\_\-construct}!base@{base}}
 \subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-construct (
 \begin{DoxyParamCaption}
 {}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}private\mbox{]}}}}
-\label{classbase_a095c5d389db211932136b53f25f39685}
-Base constructor is private to disable creation of objects and to reinforce the usage of singleton pattern 
+)\hspace{0.3cm}{\ttfamily  [private]}}\label{classbase_a095c5d389db211932136b53f25f39685}
+Base constructor is private to disable creation of objects and to reinforce the usage of the singleton pattern. 
 
-Reimplemented in \hyperlink{classplugin_a095c5d389db211932136b53f25f39685}{plugin}, \hyperlink{classplugin_structure_a095c5d389db211932136b53f25f39685}{pluginStructure}, and \hyperlink{classtemplate_a095c5d389db211932136b53f25f39685}{template}.
+Reimplemented in {\bf plugin} \doxyref{}{p.}{classplugin_a095c5d389db211932136b53f25f39685}, {\bf pluginStructure} \doxyref{}{p.}{classplugin_structure_a095c5d389db211932136b53f25f39685}, and {\bf template} \doxyref{}{p.}{classtemplate_a095c5d389db211932136b53f25f39685}.
 
 
 
 \subsection{Member Function Documentation}
-\hypertarget{classbase_a9fa8e32de2139fd5e55c102dcdf9120f}{
-\index{base@{base}!\_\-\_\-callStatic@{\_\-\_\-callStatic}}
-\index{\_\-\_\-callStatic@{\_\-\_\-callStatic}!base@{base}}
-\subsubsection[{\_\-\_\-callStatic}]{\setlength{\rightskip}{0pt plus 5cm}static \_\-\_\-callStatic (
-\begin{DoxyParamCaption}
-\item[{\$}]{func, }
-\item[{array \$}]{args}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classbase_a9fa8e32de2139fd5e55c102dcdf9120f}
-Intercept calls to undefined static methods 
-\begin{DoxyParams}{Parameters}
-{\em \$func} & string \\
-\hline
-{\em \$args} & array \\
-\hline
-\end{DoxyParams}
-\hypertarget{classbase_ae09ec448121b7c739ecd283675056e1f}{
 \index{base@{base}!check@{check}}
 \index{check@{check}!base@{base}}
 \subsubsection[{check}]{\setlength{\rightskip}{0pt plus 5cm}static check (
 \begin{DoxyParamCaption}
 \item[{\$}]{var}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classbase_ae09ec448121b7c739ecd283675056e1f}
-Checks if \$var has been set in the framework 
-\begin{DoxyRetVals}{Return values}
-{\em true} & \\
-\hline
-{\em false} & \\
-\hline
-\end{DoxyRetVals}
-\hypertarget{classbase_a0e8f3e2708d9f0c6ee7b54599f57ea34}{
-\index{base@{base}!get@{get}}
-\index{get@{get}!base@{base}}
-\subsubsection[{get}]{\setlength{\rightskip}{0pt plus 5cm}static get (
-\begin{DoxyParamCaption}
-\item[{\$}]{var}
-\end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classbase_a0e8f3e2708d9f0c6ee7b54599f57ea34}
-Return value of a framework variable, false if not found 
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classbase_ae09ec448121b7c739ecd283675056e1f}
+Checks if \$var variable has been set in the framework. 
 \begin{DoxyParams}[1]{Parameters}
 string & {\em \$var} & \\
 \hline
@@ -118,7 +77,25 @@ string & {\em \$var} & \\
 {\em false} & \\
 \hline
 \end{DoxyRetVals}
-\hypertarget{classbase_adc76e59111cb34cf88726e6f3bd0be8b}{
+\index{base@{base}!get@{get}}
+\index{get@{get}!base@{base}}
+\subsubsection[{get}]{\setlength{\rightskip}{0pt plus 5cm}static get (
+\begin{DoxyParamCaption}
+\item[{\$}]{var}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classbase_a0e8f3e2708d9f0c6ee7b54599f57ea34}
+Return the value of a framework variable or false if it was not found. 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$var} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyRetVals}{Return values}
+{\em true} & \\
+\hline
+{\em false} & \\
+\hline
+\end{DoxyRetVals}
 \index{base@{base}!set@{set}}
 \index{set@{set}!base@{base}}
 \subsubsection[{set}]{\setlength{\rightskip}{0pt plus 5cm}static set (
@@ -126,14 +103,10 @@ string & {\em \$var} & \\
 \item[{\$}]{var, }
 \item[{\$}]{value = {\ttfamily FALSE}}
 \end{DoxyParamCaption}
-)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
-\label{classbase_adc76e59111cb34cf88726e6f3bd0be8b}
-Set the value of a framework variable. If \$var param is string, then a variable called \$var will have the value of \$value. If \$var is array, it should be a key-\/pair value like this array('var\_\-name'=$>$'132','2ndvar'=$>$123). 
+)\hspace{0.3cm}{\ttfamily  [static]}}\label{classbase_adc76e59111cb34cf88726e6f3bd0be8b}
+Set the value of a framework variable. If \$var param is a string, then a variable called \$var will have the value of \$value. If \$var is an array, it should be a key-\/pair value like this {\ttfamily  array('var\_\-name'=$>$'132','2ndvar'=$>$123) } 
 \begin{DoxyParams}[1]{Parameters}
- & {\em \$var} & -\/ string
-\begin{DoxyItemize}
-\item array 
-\end{DoxyItemize}\\
+string | array & {\em \$var} & \\
 \hline
 mixed & {\em \$value} & \\
 \hline
@@ -141,38 +114,26 @@ mixed & {\em \$value} & \\
 
 
 \subsection{Field Documentation}
-\hypertarget{classbase_a878a31351411a5b5d68c12c87c154084}{
 \index{base@{base}!\$executionPoints@{\$executionPoints}}
 \index{\$executionPoints@{\$executionPoints}!base@{base}}
-\subsubsection[{\$executionPoints}]{\setlength{\rightskip}{0pt plus 5cm}\$executionPoints}}
-\label{classbase_a878a31351411a5b5d68c12c87c154084}
-\hypertarget{classbase_aad844777d9d6beb4ca7c92d97afe7d27}{
+\subsubsection[{\$executionPoints}]{\setlength{\rightskip}{0pt plus 5cm}\$executionPoints}\label{classbase_a878a31351411a5b5d68c12c87c154084}
 \index{base@{base}!\$global@{\$global}}
 \index{\$global@{\$global}!base@{base}}
-\subsubsection[{\$global}]{\setlength{\rightskip}{0pt plus 5cm}\$global\hspace{0.3cm}{\ttfamily  \mbox{[}static, protected\mbox{]}}}}
-\label{classbase_aad844777d9d6beb4ca7c92d97afe7d27}
-\hypertarget{classbase_a4ab51386acb82cd0a0066eac2567b2bd}{
+\subsubsection[{\$global}]{\setlength{\rightskip}{0pt plus 5cm}\$global\hspace{0.3cm}{\ttfamily  [static, protected]}}\label{classbase_aad844777d9d6beb4ca7c92d97afe7d27}
 \index{base@{base}!\$plugins@{\$plugins}}
 \index{\$plugins@{\$plugins}!base@{base}}
-\subsubsection[{\$plugins}]{\setlength{\rightskip}{0pt plus 5cm}\$plugins}}
-\label{classbase_a4ab51386acb82cd0a0066eac2567b2bd}
-\hypertarget{classbase_aab75444b144ffc4e972a9170e0a76ec0}{
+\subsubsection[{\$plugins}]{\setlength{\rightskip}{0pt plus 5cm}\$plugins}\label{classbase_a4ab51386acb82cd0a0066eac2567b2bd}
 \index{base@{base}!AppName@{AppName}}
 \index{AppName@{AppName}!base@{base}}
-\subsubsection[{AppName}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf AppName} = '{\bf rolisz} PHP framework'}}
-\label{classbase_aab75444b144ffc4e972a9170e0a76ec0}
-\hypertarget{classbase_a2c348358c1db4bb5136855f7f31e1157}{
+\subsubsection[{AppName}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf AppName} = '{\bf rolisz} PHP framework'}\label{classbase_aab75444b144ffc4e972a9170e0a76ec0}
 \index{base@{base}!Module@{Module}}
 \index{Module@{Module}!base@{base}}
-\subsubsection[{Module}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Module} = 'Base class'}}
-\label{classbase_a2c348358c1db4bb5136855f7f31e1157}
-\hypertarget{classbase_a62e44de9100d83ee01f5b4875b49a02b}{
+\subsubsection[{Module}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Module} = 'Base class'}\label{classbase_a2c348358c1db4bb5136855f7f31e1157}
 \index{base@{base}!Version@{Version}}
 \index{Version@{Version}!base@{base}}
-\subsubsection[{Version}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Version} = '0.0.1'}}
-\label{classbase_a62e44de9100d83ee01f5b4875b49a02b}
+\subsubsection[{Version}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf Version} = '0.0.3'}\label{classbase_a62e44de9100d83ee01f5b4875b49a02b}
 
 
 The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
 \item 
-C:/wamp/www/framework/\hyperlink{base_8php}{base.php}\end{DoxyCompactItemize}
+C:/wamp/www/framework/{\bf base.php}\end{DoxyCompactItemize}

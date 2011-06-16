@@ -1,6 +1,5 @@
 <?php
 include_once('rolisz.php');
-include_once('base.php');
 
 	/**
 	 *  Constants defined for describing the different kinds of relations between tables
@@ -11,11 +10,11 @@ include_once('base.php');
 	define('NOT_RECOGNIZED', 'RELATION_NOT_RECOGNIZED');
 	define('NOT_ANALYZED', 'RELATION_NOT_ANALYZED');
 /**
-	\class table
-	Provides CRUD and ORM functionality. Detects automatically all the columns of a table.
-		@package rolisz
-		@author Roland Szabo
-
+ *	\class table
+ *	Provides CRUD and ORM functionality. Detects automatically all the columns of a table. If you have a table that gets called a lot
+ * you should extend this table and set the tables columns in your code, to save a database query that gets the columns of this table.
+ *		@package rolisz
+ *		@author Roland Szabo
 **/
 class table extends base{
 	
@@ -40,9 +39,9 @@ class table extends base{
 	/**
 	 *	Initializes the table.
 	 * 		@param string $table
-	 * 		@param int $id
-	 * 		@param array $columns - primary key is defined like this: 'PRI'=>array('id'=>'int')
-	 * 		@param databaseAdapter $connection
+	 * 		@param int $id optional
+	 * 		@param array $columns - primary key is defined like this: 'PRI'=>array('id'=>'int'). Optional. Defaults to all columns
+	 * 		@param databaseAdapter $connection. Optional. Defaults to global connection in rolisz. 
 	**/
 	public function __construct($table, $id=FALSE, $columns = FALSE, $connection = FALSE) {
 		if ($connection) {
@@ -125,8 +124,7 @@ class table extends base{
 	
 	/**
 	 * 	Magic method for setting or getting related tables. If function is called without argument, it will find the related
-	 *  tables. It will automatically save the connectin!
-	 * 		@todo If function is called with a related table as an argument, it will be connected to it.
+	 *  tables. It will automatically save the connection!
 	 * 		@param string $name
 	 * 		@param array $args
 	 * 		@todo $args could be a table of $name
@@ -201,11 +199,14 @@ class table extends base{
 	 }
 
 	/**
-		Populate the object with data from the table, selected according to primary key value
-			@param number $id
-			@return array 
+	 *	Populate the object with data from the table, selected according to primary key value
+	 *		@param int $id
+	 *		@return array 
 	**/
 	private function hydrate($id) {
+		if (!is_numeric($id)) {
+			throw New Exception('Id\'s must be numbers to hydrate tables');
+		}
 		$results = $this->connection->fetchRow("SELECT * FROM {$this->table} WHERE ".self::$primaryKey[$this->table]."='$id'");
 		if ($results) {
 			foreach ($results as $key=>$value) {
@@ -251,7 +252,8 @@ class table extends base{
 	}
 	
 	/**
-	 *  Returns whether or not this object has been hydrated (did it load data from a table)
+	 *  Returns whether or not this object has been hydrated (did it load data from a table). It also returns true if it has already 
+	 * 	been saved to the database.
 	 * 		@retval true
 	 * 		@retval false
 	 */
@@ -298,7 +300,7 @@ class table extends base{
 	}
 	
 	/**
-	 *	Delete the corresponding record from the database		
+	 *	Delete the current record from the database		
 	**/
 	public function delete() {
 		if (!empty($this->originalData)) {
@@ -336,8 +338,8 @@ class table extends base{
 	 *		@param array $ordergroup How to order, group and limit the search
 	 *		@param array $columns What columns to return in search. You can pass key value pairs to retrieve values from other 
 	 * 	tables such as 'relatedTable'=>'column'
-	 * 		@param bool $import - whether to import the resulting stuff into tables or not. Default is true. Useful if you 
-	 *  	use the $columns parameter to retrieve values from other tables.
+	 * 		@param bool $import - whether to import the resulting stuff into tables or not. Default is true. Set to false if you 
+	 *  use the $columns parameter to retrieve values from other tables.
 	 *		@return array
 	**/
 	public function find($table, $filters = array(), $ordergroup = array(), $columns = array(), $import = TRUE) {
@@ -356,9 +358,8 @@ class table extends base{
 	}
 	
 	/**
-	 *  Returns the number of rows that result from a SELECT query. Parameters are the
-	 *  same as for find(), except that you can't return only some columns. Also, ordering is not included
-	 *  in the query.
+	 *  Returns the number of rows that result from a SELECT query. Parameters are the same as for find(), except that 
+	 * 	you can't return only some columns. Also, ordering is not included in the query.
 	 * 		@param string $table Table in which to search
 	 *		@param array $filters Filters to apply. Can be name=>value pair, SQL statement, or recursive array relating to conditions on other tables
 	 *		@param array $ordergroup How to order, group and limit the search
@@ -375,9 +376,8 @@ class table extends base{
 	}
 
 	/** 
-	 *	Adds a relation to another table. This is not for many to many tables. Use addRelationM2M for that. 
-	 * 	If third argument isn't passed, it defaults to the table primary key. Returns the table we are working on, to allow 
-	 * 	chaining of methods.
+	 *	Adds a relation to another table. This is for many-to-one or one-to-one relations.	If third argument isn't passed, 
+	 * 	it defaults to the table primary key. Returns the table we are working on, to allow chaining of methods.
 	 *		@param string $tablename
 	 * 		@param string $arg1 
 	 *		@param string $arg2
@@ -415,8 +415,7 @@ class table extends base{
 	}
 	
 	/**
-	 *	Adds a many-to-many relation between tables. Takes a crapload of arguments.	 Returns the table we are working on, to allow 
-	 * 	chaining of methods.
+	 *	Adds a many-to-many relation between tables. Returns the table we are working on, to allow chaining of methods.
 	 *		@param string $connectortable
 	 * 		@param string $thisid
 	 * 		@param string $mappedid
@@ -448,7 +447,7 @@ class table extends base{
 	}
 
 	/**
-	 *	Analyzes the relation between tables and marks them accordingly. So far only ONE TO MANY and MANY TO MANY ones. Haven't seen a case of single
+	 *	Analyzes the relation between tables and marks them accordingly. So far only ONE TO MANY and MANY TO MANY ones.
 	**/
 	private function analyzeRelations() {
 		foreach(self::$relations as $key1 => $table) {
@@ -492,7 +491,7 @@ class table extends base{
 	 *  one row in $values, it returns it as an object instead of as an array.
 	 *		@param string $table
 	 *		@param array $values
-	 *		@return array
+	 *		@return array|object
 	**/
 	public static function importRows($table,$values) {
 		$output = array();
@@ -579,7 +578,7 @@ class table extends base{
 
 /**
 	/class Query
-	Helper class for making the more complicated queries.
+	Helper class for making the more complicated join queries. Should not be called directly, only throught the find() function
 	
 **/
 
@@ -672,7 +671,7 @@ class Query extends base{
 	}
 	
 	/** 
-	 * 	Build the order, group, limit SQL strings for the query
+	 * 	Build the order, group, limit SQL strings for the query. They are put in variables inside the class.
 	**/
 	private function buildOrderBy() {
 		$hasorderby = false;
